@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -12,9 +14,31 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(245, 245, 245);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+/* 
+p {
+  color: #1A2238;
+  color: #1f2535;
+
+  color: #9DAAF2;
+  color: #525881;
+
+  color: #FF6A3D;
+  color: #b3644c;
+
+  color: #F4DB7D;
+  color: #bbb18b;
+
+  color: #434343;
+  color: #434343;
+
+  color: #BFBFBF;
+  color: #BFBFBF;
+
+} */
