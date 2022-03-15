@@ -43,7 +43,7 @@ const MyComponentt = styled(Button)({
 export default function Btn() {
     return (
         <>
-            <Button variant="contained">Hello World</Button>
+            <Button color="error" variant="contained">Hello World</Button>
             <Buttonn>Boton</Buttonn>
             <MyComponent>Styled div</MyComponent>
             <MyComponentt>hds</MyComponentt>

@@ -6,58 +6,58 @@ import NavBar from './components/nav-bar/nav-bar';
 import Home from './pages/home/home';
 import LogIn from './pages/log-in/log-in';
 import SignUp from './pages/sign-up/sign-up';
-import { createTheme, ThemeProvider } from '@mui/system';
 
-// const theme = createTheme({
-//   palette: {
-//     primary: {
-//       main: '#1A2238',
-//     },
-//     secondary: {
-//       main: '#9DAAF2',
-//     },
-//     error: {
-//       main: '#FF6A3D',
-//     },
-//     warning: {
-//       main: '#F4DB7D',
-//     },
-//     info: {
-//       main: '#434343',
-//     },
-//     success: {
-//       main: '#BFBFBF',
-//     }
-//   },
-// })
+import { createTheme, ThemeProvider } from '@mui/material';
 
-const theme = createTheme({
+const themes = createTheme({
   palette: {
     primary: {
-      // Purple and green play nicely together.
-      main: '1A2238',
+      main: '#1A2238',
+      dark: '#1f2535'
     },
     secondary: {
-      // This is green.A700 as hex.
-      main: '#11cb5f',
+      main: '#9DAAF2',
+      dark: '#525881'
     },
+    error: {
+      main: '#FF6A3D',
+      dark: '#b3644c'
+    },
+    warning: {
+      main: '#F4DB7D',
+      dark: '#bbb18b'
+    },
+    info: {
+      main: '#434343',
+      dark: '#434343'
+    },
+    success: {
+      main: '#BFBFBF',
+      dark: '#BFBFBF'
+    }
   },
+  typography: {
+    fontFamily: 'Quicksand',
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+  }
 })
 
 
 function App() {
   return (
     <BrowserRouter>
+      <ThemeProvider theme={themes}>
+        <NavBar></NavBar>
+        <Routes>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<LogIn />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
 
-      <NavBar></NavBar>
-      <Btn></Btn>
-      <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/login" element={<LogIn />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-
-      </Routes>
-
+        </Routes>
+      </ThemeProvider>
     </BrowserRouter>
 
   );
