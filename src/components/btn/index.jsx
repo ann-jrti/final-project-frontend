@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { css } from '@emotion/react';
 import { Switch } from '@mui/material';
 
+
 const Buttonn = styled.button`
   background: transparent;
   border-radius: 3px;
@@ -19,6 +20,9 @@ const Buttonn = styled.button`
       background: palevioletred;
       color: white;
     `};
+`
+const Text = styled.div`
+    text-decoration: ${props => props.done && 'line-through'}
 `
 
 const SwitchStyled = styled(Switch)({
@@ -44,6 +48,7 @@ export default function Btn() {
             <MyComponent>Styled div</MyComponent>
             <MyComponentt>hds</MyComponentt>
             <SwitchStyled></SwitchStyled>
+            <Text>Hola</Text>
         </>
 
     )
