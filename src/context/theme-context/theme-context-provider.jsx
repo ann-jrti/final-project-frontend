@@ -5,7 +5,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${props => (props.isDark ? '#2b2b2b' : '#rgb(241, 241, 241)')};
+    background-color: ${props => (props.isDark ? '#383a4d' : '#rgb(241, 241, 241)')};
   },
 `
 

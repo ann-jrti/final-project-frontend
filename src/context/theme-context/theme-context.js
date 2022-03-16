@@ -77,6 +77,9 @@ export const darkTheme = createTheme({
         h4: {
             color: 'rgb(233, 233, 233)'
         },
+        p: {
+            color: 'rgb(233, 233, 233)'
+        },
         fontFamily: 'Quicksand',
         fontWeightLight: 400,
         fontWeightRegular: 500,
