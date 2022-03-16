@@ -1,14 +1,14 @@
-import { Box } from "@mui/system"
+import { Typography, Grid } from "@mui/material"
 import SearchPlayer from "./search-player/search-player"
 
 export default function Home() {
 
     return (
         <>
-            <Box sx={{ display: 'grid' }}>
-                <p>Home</p>
+            <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
+                <Typography variant='h2'>Cool slogan</Typography>
                 <SearchPlayer></SearchPlayer>
-            </Box>
+            </Grid>
         </>
 
 
