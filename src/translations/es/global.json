@@ -13,6 +13,21 @@
             "search-player": "Busca un jugador"
         },
         "slogan": "Eslogan guay"
-        
+    },
+    "login": {
+        "welcome-message": "¡Hola de nuevo!",
+        "insert-info": "Escribe tu email y contraseña para iniciar sesión:",
+        "email": "Email",
+        "password": "Contraseña",
+        "login-button": "Iniciar sesión",
+        "login-error-msg": "El email o contraseña no es correcto. Por favor, inténtalo de nuevo."
+    },
+    "signup": {
+        "signup": "Regístrate",
+        "email": "Dirección email",
+        "name": "Nombre",
+        "password": "Contraseña",
+        "password-instructions": "La contraseña debe contener al menos una mayúscula, un número y un caracter especial.",
+        "register": "¡Regístrame!"
     }
 }
