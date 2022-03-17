@@ -1,0 +1,18 @@
+{
+    "header": {
+        "hello-world": "Hello world",
+        "search-player": "Busca un jugador",
+        "compare-players": "Compara dos jugadores",
+        "log-in": "Inicia sesión",
+        "sign-up": "Regístrate",
+        "dark-mode": "Modo oscuro",
+        "lang": "Idioma"
+    },
+    "home": {
+        "search-bar": {
+            "search-player": "Busca un jugador"
+        },
+        "slogan": "Eslogan guay"
+        
+    }
+}

@@ -1,17 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { Switch, FormGroup, FormControlLabel, AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, Button, Tooltip, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
 import { StyledLink } from '../styled-link/styled-link';
 import { DarkThemeContext } from '../../context/theme-context/theme-context';
+import { useTranslation } from 'react-i18next';
+import ChangeLang from '../../pages/home/components/lang-options/ChangeLang';
 
-const pages = ['Search a player', 'Compare Players'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 export default function NavBar() {
+    const [t, i18n] = useTranslation("global");
+    const darkM = t('header.dark-mode');
+
+    const pages = [t('header.search-player'), t('header.compare-players')];
+    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const [darkMode, setDarkMode] = useContext(DarkThemeContext)
+    const [darkMode, setDarkMode] = useContext(DarkThemeContext);
 
     const handleOpenNavMenu = (event) => setAnchorElNav(event.currentTarget);
     const handleOpenUserMenu = (event) => setAnchorElUser(event.currentTarget);
@@ -21,7 +26,6 @@ export default function NavBar() {
 
     const handleThemeChange = () => {
         setDarkMode(!darkMode)
-        darkMode === false ? console.log('yes') : console.log('no');
     }
 
     return (
@@ -120,12 +124,13 @@ export default function NavBar() {
                                 </MenuItem>
                             ))}
                         </Menu>
-                        <StyledLink to={'login'}><Typography textAlign="center">Log in</Typography></StyledLink>
+                        <StyledLink to={'login'}><Typography textAlign="center">{t('header.log-in')}</Typography></StyledLink>
 
-                        <StyledLink to={'signup'}><Typography textAlign="center">Sign up</Typography></StyledLink>
+                        <StyledLink to={'signup'}><Typography textAlign="center">{t('header.sign-up')}</Typography></StyledLink>
                         <FormGroup >
-                            <FormControlLabel onChange={handleThemeChange} control={<Switch color="warning" defaultChecked />} label="Dark mode" />
+                            <FormControlLabel onChange={handleThemeChange} control={<Switch color="warning" />} label={darkM} />
                         </FormGroup>
+                        <ChangeLang></ChangeLang>
                     </Box>
                 </Toolbar>
             </Container>

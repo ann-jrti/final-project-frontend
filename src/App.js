@@ -14,6 +14,9 @@ function App() {
   return (
     <BrowserRouter>
       <ThemeApp>
+        <div>
+
+        </div>
         <NavBar></NavBar>
         <Routes>
           <Route path="/" element={<Home />}></Route>
