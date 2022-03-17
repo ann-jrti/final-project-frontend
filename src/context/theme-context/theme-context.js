@@ -16,7 +16,7 @@ export const defaultTheme = createTheme({
             main: '#a8dadc',
         },
         warning: {
-            main: '#e07a5f',
+            main: '#e07a5f', //e07a5f
         },
         info: {
             main: '#cfcdbe',
@@ -47,7 +47,7 @@ export const darkTheme = createTheme({
             main: '#3d405b'
         },
         warning: {
-            main: '#779184'
+            main: '#e07a5f' // 779184
         },
         info: {
             main: '#3d405b'

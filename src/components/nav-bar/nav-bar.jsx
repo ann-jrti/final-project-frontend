@@ -5,11 +5,15 @@ import { StyledLink } from '../styled-link/styled-link';
 import { DarkThemeContext } from '../../context/theme-context/theme-context';
 import { useTranslation } from 'react-i18next';
 import ChangeLang from '../../pages/home/components/lang-options/ChangeLang';
+import { TokenContext } from '../../context/token-context/token-context';
 
 
 export default function NavBar() {
     const [t, i18n] = useTranslation("global");
     const darkM = t('header.dark-mode');
+    // const [token] = useContext(TokenContext)
+    const [userToken, setToken, token2] = useContext(TokenContext)
+    const tokenOk = localStorage.getItem('login-token');
 
     const pages = [t('header.search-player'), t('header.compare-players')];
     const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -97,11 +101,12 @@ export default function NavBar() {
                         ))}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
+                        {tokenOk === null ? '' : <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                             </IconButton>
-                        </Tooltip>
+                        </Tooltip>}
+
                         <Menu
                             sx={{ mt: '45px' }}
                             id="menu-appbar"
@@ -124,9 +129,9 @@ export default function NavBar() {
                                 </MenuItem>
                             ))}
                         </Menu>
-                        <StyledLink to={'login'}><Typography textAlign="center">{t('header.log-in')}</Typography></StyledLink>
+                        {tokenOk === !null ? '' : <><StyledLink to={'login'}><Typography textAlign="center">{t('header.log-in')}</Typography></StyledLink>
+                            <StyledLink to={'signup'}><Typography textAlign="center">{t('header.sign-up')}</Typography></StyledLink></>}
 
-                        <StyledLink to={'signup'}><Typography textAlign="center">{t('header.sign-up')}</Typography></StyledLink>
                         <FormGroup >
                             <FormControlLabel onChange={handleThemeChange} control={<Switch color="warning" />} label={darkM} />
                         </FormGroup>

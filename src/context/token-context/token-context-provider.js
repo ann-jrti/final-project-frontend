@@ -3,10 +3,10 @@ import { useState } from "react";
 
 
 export default function TokenContextProvider({ children }) {
-    const [token, setToken] = useState(null);
+    const [userToken, setUserToken] = useState(null);
 
     return (
-        <TokenContext.Provider value={[token, setToken]}>
+        <TokenContext.Provider value={[userToken, setUserToken]}>
             {children}
         </TokenContext.Provider>
     )
