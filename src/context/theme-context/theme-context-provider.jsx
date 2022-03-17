@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
 `
 
 export default function ThemeApp({ children }) {
-  const [darkMode, setDarkMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(false);
 
   return (
     <DarkThemeContext.Provider value={[darkMode, setDarkMode]}>

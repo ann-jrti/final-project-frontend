@@ -1,0 +1,18 @@
+{
+    "header": {
+        "hello-world": "Hello world",
+        "search-player": "Search player",
+        "compare-players": "Compare players",
+        "log-in": "Log in",
+        "sign-up": "Sign up",
+        "dark-mode": "Dark mode",
+        "lang": "Language"
+    },
+    "home": {
+        "search-bar": {
+            "search-player": "Search player"
+        },
+        "slogan": "Cool slogan"
+        
+    }
+}
