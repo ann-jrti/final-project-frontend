@@ -13,6 +13,21 @@
             "search-player": "Search player"
         },
         "slogan": "Cool slogan"
-        
+    },
+    "login": {
+        "welcome-message": "Welcome!",
+        "insert-info": "Please log in with your email and password",
+        "email": "Email",
+        "password": "Password",
+        "login-button": "Log in",
+        "login-error-msg": "Email or password are not valid. Please try again."
+    },
+    "signup": {
+        "signup": "Sign up",
+        "email": "Email address",
+        "name": "Name",
+        "password": "Password",
+        "password-instructions": "Password must contain one capital letter, one number and one special character.",
+        "register": "Register!"
     }
 }
