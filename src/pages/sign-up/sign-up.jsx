@@ -1,8 +1,10 @@
 import { Grid, Box, Typography, Button, FormGroup, FormControl, InputLabel, Input, FormHelperText } from "@mui/material"
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function SignUp() {
     const navigate = useNavigate();
+    let [error, setError] = useState('');
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -19,10 +21,15 @@ export default function SignUp() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(user)
-        }).then(res => res.json())
-            .then(data => {
-                console.log(data);
+        })
+            .catch(err => {
+                console.log(err);
+                setError(err);
+                window.alert('error')
+                console.log(error);
             })
+            .then(res => res.json())
+            .then(data => console.log(data))
 
     }
     return (
@@ -51,7 +58,6 @@ export default function SignUp() {
                                 <Input type="password" id="password" aria-describedby="my-helper-text" />
                                 <FormHelperText id="my-helper-text">Password must contain one capital letter, one number and one special character</FormHelperText>
                             </FormControl>
-
                             <FormControl >
                                 <Button variant="outlined" color="primary" type="submit" id="submit'">Register</Button>
                             </FormControl>
