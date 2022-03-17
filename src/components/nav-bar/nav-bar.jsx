@@ -28,7 +28,7 @@ export default function NavBar() {
         <AppBar color="primary" position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
+                    <StyledLink to={'/'}> <Typography
                         variant="h6"
                         noWrap
                         component="div"
@@ -36,7 +36,7 @@ export default function NavBar() {
                     >
                         FINAL-PROJECT
                     </Typography>
-
+                    </StyledLink>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
                             size="large"
