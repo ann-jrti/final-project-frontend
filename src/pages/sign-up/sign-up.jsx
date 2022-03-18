@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 export default function SignUp() {
     const [t, i18n] = useTranslation('global');
-    let [error, setError] = useState('');
+    const [error, setError] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,7 +14,6 @@ export default function SignUp() {
             email: e.target.email.value,
             password: e.target.password.value,
         }
-        console.log(user);
 
         fetch('http://localhost:4000/auth/register', {
             method: 'POST',
@@ -23,15 +22,17 @@ export default function SignUp() {
             },
             body: JSON.stringify(user)
         })
-            .catch(err => {
-                console.log(err);
-                setError(err);
-                window.alert('error')
-                console.log(error);
+            .then(res => {
+                if (!res.ok) {
+                    throw Error(t('signup.signup-error-msg'));
+                }
+                return res.json();
             })
-            .then(res => res.json())
             .then(data => {
-                console.log(data)
+                setError(null);
+            })
+            .catch(err => {
+                setError(err.message);
             })
     }
     return (
@@ -63,7 +64,7 @@ export default function SignUp() {
                         <FormControl >
                             <Button variant="outlined" color="primary" type="submit" id="submit'">{t('signup.register')}</Button>
                         </FormControl>
-
+                        {error && <Typography color={'#e07a5f'} variant={'p'}>{error}</Typography>}
                     </Box>
                 </form>
             </Grid>

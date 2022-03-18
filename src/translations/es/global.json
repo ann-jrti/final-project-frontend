@@ -28,6 +28,7 @@
         "name": "Nombre",
         "password": "Contraseña",
         "password-instructions": "La contraseña debe contener al menos una mayúscula, un número y un caracter especial.",
-        "register": "¡Regístrame!"
+        "register": "¡Regístrame!",
+        "signup-error-msg": "Email o contraseña no válido. Por favor asegúrate de que la contraseña cumple los requisitos."
     }
 }

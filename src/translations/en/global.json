@@ -28,6 +28,7 @@
         "name": "Name",
         "password": "Password",
         "password-instructions": "Password must contain one capital letter, one number and one special character.",
-        "register": "Register!"
+        "register": "Register!",
+        "signup-error-msg": "Email or password not valid. Please make sure password meet the requirements."
     }
 }

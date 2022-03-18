@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DarkThemeContext, darkTheme, defaultTheme } from "./theme-context";
 import { ThemeProvider } from '@mui/material';
-import { createGlobalStyle } from 'styled-components'
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   body {

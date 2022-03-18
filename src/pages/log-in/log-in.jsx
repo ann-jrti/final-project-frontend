@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LogIn() {
     const [t, i18n] = useTranslation('global');
-    const [userToken, setToken] = useContext(TokenContext);
+    const [userToken, setUserToken] = useContext(TokenContext);
     const [error, setError] = useState(null);
-    const [isPending, setIsPending] = useState(true);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -26,24 +25,17 @@ export default function LogIn() {
             },
             body: JSON.stringify(user)
         })
-            .catch(err => {
-                console.log(err);
-            })
             .then(res => {
-                if (!res.ok) {
-                    throw Error(t('login.login-error-msg'));
-                }
+                if (!res.ok) throw Error(t('login.login-error-msg'));
                 return res.json();
             })
             .then(data => {
-                setToken(data.access_token)
-                localStorage.setItem('token', data.access_token);
-                setIsPending(false);
+                setUserToken(data.access_token)
+                localStorage.setItem('login-token', data.access_token);
                 setError(null);
-                navigate('/');
+                navigate('/user');
             })
             .catch(err => {
-                setIsPending(false);
                 setError(err.message);
             })
     }
