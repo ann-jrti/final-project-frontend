@@ -3,8 +3,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { fetchOther } from "../../../../riot-data-management/fetches/riot-fetches.js";
-import { fetchOther2 } from "../../../../riot-data-management/fetches/riot-fetches.js";
 
 export default function SearchPlayer() {
     const [playerResults, setPlayerResults] = useState({});
