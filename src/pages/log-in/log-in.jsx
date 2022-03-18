@@ -3,12 +3,15 @@ import { useTranslation } from "react-i18next";
 import { TokenContext } from "../../context/token-context/token-context";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../../context/user-context/user-context";
 
 export default function LogIn() {
     const [t, i18n] = useTranslation('global');
     const [userToken, setUserToken] = useContext(TokenContext);
+    let [isLogged, setIsLogged] = useContext(UserContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,6 +35,12 @@ export default function LogIn() {
             .then(data => {
                 setUserToken(data.access_token)
                 localStorage.setItem('login-token', data.access_token);
+                localStorage.setItem('email', data.email);
+                localStorage.setItem('username', data.username);
+                localStorage.setItem('logged', true);
+                // let logged = localStorage.getItem('logged')
+                setIsLogged(localStorage.getItem('logged'));
+                console.log('islogged?', isLogged);
                 setError(null);
                 navigate('/user');
             })
