@@ -1,13 +1,11 @@
 import { FormControl, InputLabel, Input, Box, Grid, Typography, Button, FormHelperText } from "@mui/material"
 import { useTranslation } from "react-i18next";
-import { TokenContext } from "../../context/token-context/token-context";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/user-context/user-context";
 
 export default function LogIn() {
     const [t, i18n] = useTranslation('global');
-    const [userToken, setUserToken] = useContext(TokenContext);
     let [isLogged, setIsLogged] = useContext(UserContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -33,7 +31,6 @@ export default function LogIn() {
                 return res.json();
             })
             .then(data => {
-                setUserToken(data.access_token)
                 localStorage.setItem('login-token', data.access_token);
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('username', data.username);

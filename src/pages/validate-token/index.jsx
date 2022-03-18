@@ -1,10 +1,8 @@
 import { Typography } from "@mui/material"
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useEffect, useContext } from "react";
-import { TokenContext } from "../../context/token-context/token-context";
 
 export default function ValidateToken() {
-    const [token, setToken] = useContext(TokenContext);
     let [searchParams] = useSearchParams();
     const navigate = useNavigate();
 
