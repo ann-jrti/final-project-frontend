@@ -6,7 +6,10 @@
         "log-in": "Log in",
         "sign-up": "Sign up",
         "dark-mode": "Dark mode",
-        "lang": "Language"
+        "lang": "Language",
+        "avatar-profile": "My profile",
+        "avatar-account": "My account",
+        "avatar-logout": "Log out"
     },
     "home": {
         "search-bar": {
@@ -30,5 +33,12 @@
         "password-instructions": "Password must contain one capital letter, one number and one special character.",
         "register": "Register!",
         "signup-error-msg": "Email or password not valid. Please make sure password meet the requirements."
+    },
+    "user-page": {
+        "greetings": "Hi ",
+        "generate-profile": "Generate my player profile",
+        "challenge-friend": "Challenge a friend",
+        "get-advice": "Get advice",
+        "upload-artwork": "Upload artwork"
     }
 }

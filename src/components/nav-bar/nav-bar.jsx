@@ -7,19 +7,17 @@ import { useTranslation } from 'react-i18next';
 import ChangeLang from '../../pages/home/components/lang-options/ChangeLang';
 import { TokenContext } from '../../context/token-context/token-context';
 import { UserContext } from '../../context/user-context/user-context';
+import { useNavigate } from 'react-router-dom';
+import { CleaningServices } from '@mui/icons-material';
 
 export default function NavBar() {
     const [t, i18n] = useTranslation("global");
     const darkM = t('header.dark-mode');
-    const [userToken, setToken] = useContext(TokenContext);
-    const loginToken = localStorage.getItem('login-token');
     let [isLogged, setIsLogged] = useContext(UserContext);
-    // console.log(isLogged);
-    // const [isLogged, setIsLogged] = useState(false);
-
+    const navigate = useNavigate();
 
     const pages = [t('header.search-player'), t('header.compare-players')];
-    const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+    const settings = [t('header.avatar-profile'), t('header.avatar-account'), t('header.avatar-logout')];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -30,9 +28,23 @@ export default function NavBar() {
     const handleCloseNavMenu = () => setAnchorElNav(null);
     const handleCloseUserMenu = () => setAnchorElUser(null);
 
+    const handleThemeChange = () => setDarkMode(!darkMode);
 
-    const handleThemeChange = () => {
-        setDarkMode(!darkMode)
+    const handleClicksInAvatarMenu = (e) => {
+        e.preventDefault();
+        switch (e.target.textContent) {
+            case (t('header.avatar-profile')):
+                navigate('/user')
+                break;
+            case (t('header.avatar-account')):
+                navigate('/')
+                break;
+            case (t('header.avatar-logout')):
+                localStorage.clear();
+                setIsLogged(false);
+                navigate('/')
+                break;
+        }
     }
 
     return (
@@ -107,7 +119,9 @@ export default function NavBar() {
                         {isLogged ? <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Typography>Hi {localStorage.getItem('username')}</Typography>
                             </IconButton>
+
                         </Tooltip> : ''}
 
                         <Menu
@@ -128,7 +142,7 @@ export default function NavBar() {
                         >
                             {settings.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
+                                    <Typography onClick={handleClicksInAvatarMenu} textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
