@@ -9,5 +9,5 @@ export const getSummonerInfoEndpoint = (playerName) => {
 
 // get data from LEAGUE V4 - 2 endpoint 
 export const getCurrentSesionEndpoint = (encryptedSummonerId) => {
-    return `${mainPath}/lol/league/v4/entries/by-summoner/${encryptedSummonerId}=${riotKey}`
+    return `${mainPath}/lol/league/v4/entries/by-summoner/${encryptedSummonerId}?api_key=${riotKey}`
 }

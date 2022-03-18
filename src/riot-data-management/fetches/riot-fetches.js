@@ -1,4 +1,21 @@
 import { useState, useEffect } from "react";
+import { getCurrentSesionEndpoint } from "../endpoints/riot-endpoints";
+
+export const fetchOther = async (results) => {
+    console.log(results.encryptedId);
+    const seasonInfoEnpoint = getCurrentSesionEndpoint(results.encryptedId);
+    console.log(seasonInfoEnpoint);
+    const secondFetch = await fetch(seasonInfoEnpoint);
+    const secondData = await secondFetch.json();
+    console.log(secondData);
+}
+
+export const fetchOther2 = (results) => {
+    const seasonInfoEnpoint = getCurrentSesionEndpoint(results.encryptedId);
+    fetch(seasonInfoEnpoint)
+        .then(res => res.json())
+        .then(data => console.log(data))
+}
 
 export const useFetchSummonerBasic = (url) => {
     // const summonerEndpoint = getSummonerInfoEndpoint(e.target.searchPlayer.value);
