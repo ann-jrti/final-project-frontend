@@ -10,6 +10,7 @@ import ValidateToken from './pages/validate-token';
 import UserProfile from './pages/user-profile/UserProfile';
 import PrivateUserRoute from './routes/private-user-route/PrivateUserRoute';
 import UserContextProvider from './context/user-context/user-context-provider';
+import env from "react-dotenv";
 
 function App() {
 
