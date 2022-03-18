@@ -9,7 +9,8 @@ import SignUp from './pages/sign-up/sign-up';
 import ThemeApp from './context/theme-context/theme-context-provider';
 import ValidateToken from './pages/validate-token';
 import TokenContextProvider from './context/token-context/token-context-provider';
-
+import UserProfile from './pages/user-profile/UserProfile';
+import PrivateUserRoute from './routes/private-user-route/PrivateUserRoute';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<LogIn />}></Route>
             <Route path="/validate" element={<ValidateToken />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
           </Routes>
         </TokenContextProvider>
       </ThemeApp>

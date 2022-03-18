@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 export default function SignUp() {
     const [t, i18n] = useTranslation('global');
     const [error, setError] = useState(null);
-    const [isPending, setIsPending] = useState(true);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -30,11 +29,9 @@ export default function SignUp() {
                 return res.json();
             })
             .then(data => {
-                setIsPending(false);
                 setError(null);
             })
             .catch(err => {
-                setIsPending(false);
                 setError(err.message);
             })
     }

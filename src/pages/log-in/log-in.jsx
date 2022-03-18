@@ -8,7 +8,6 @@ export default function LogIn() {
     const [t, i18n] = useTranslation('global');
     const [userToken, setUserToken] = useContext(TokenContext);
     const [error, setError] = useState(null);
-    const [isPending, setIsPending] = useState(true);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -33,12 +32,10 @@ export default function LogIn() {
             .then(data => {
                 setUserToken(data.access_token)
                 localStorage.setItem('login-token', data.access_token);
-                setIsPending(false);
                 setError(null);
-                navigate('/');
+                navigate('/user');
             })
             .catch(err => {
-                setIsPending(false);
                 setError(err.message);
             })
     }
