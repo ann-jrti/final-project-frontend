@@ -1,20 +1,57 @@
-import { Grid, Paper, TextField, Box, Typography, responsiveFontSizes } from "@mui/material"
+import { Grid, Paper, TextField, Box, Button, Typography, responsiveFontSizes } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
 import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { getChampNameByChampId } from "../../../../riot-data-management/fetches/riot-fetches.js";
+import { getChampNameByChampId, getChampByName } from "../../../../riot-data-management/fetches/riot-fetches.js";
+import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
+import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
+
+
+function importAll(r) {
+    let champs = {};
+    r.keys().map((item, index) => {
+        champs[item.replace("./", "")] = r(item);
+    });
+    return champs;
+}
+
+const champs = importAll(
+    require.context('../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
+);
 
 export default function SearchPlayer() {
+    const champsKeys = Object.keys(champs);
     const [playerResults, setPlayerResults] = useState({});
     const [seasonResults, setSeasonResults] = useState({});
     let [isPlaying, setIsPlaying] = useState(false);
-    const [currentGame, setCurrentGame] = useState({})
-
-
+    const [currentGame, setCurrentGame] = useState({});
     const [t, i18n] = useTranslation("global");
     const searchPlayer = t('home.search-bar.search-player');
+    getChampByName()
+
+    const printNowPlayingButton = () => {
+        const champImagesInAssets = champsKeys.filter(champ => {
+            const champName = champ.split('_')
+            return champName[0] === currentGame.champ
+        })
+        const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)]
+        return (
+
+            <Box display={'flex'} alignItems={'center'} gap={1}>
+                <Typography> Playing now!</Typography>
+                <CurrentGameDetails
+                    image={champs[randomChampImageToPrint]}
+                    playername={playerResults.name}
+                    champ={currentGame.champ}
+                    gameMode={currentGame.gameMode}
+                    gameTime={currentGame.gameLength}
+                ></CurrentGameDetails>
+                {/* <Button variant={'contained'} size='small' color='warning' >Click here see champ playing {playerResults.name}</Button> */}
+            </Box>
+        )
+    }
 
     useEffect(async () => {
         if (playerResults.encryptedId) {
@@ -42,12 +79,13 @@ export default function SearchPlayer() {
             if (response.status === 404) setIsPlaying(false);
             if (response.status === 200) setIsPlaying(true);;
             const data = await response.json();
+            console.log(data);
             const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
-            console.log(champId);
-            const champPlaying = getChampNameByChampId(champId);
+            const champPlaying = await getChampNameByChampId(champId);
             const game = {
                 gameMode: data.gameMode,
-                champ: champPlaying
+                champ: champPlaying,
+                gameLength: Math.round(data.gameLength / 60)
             }
             setCurrentGame(game)
         }
@@ -86,19 +124,18 @@ export default function SearchPlayer() {
             <>
                 {(playerResults && seasonResults) &&
                     <>
-                        <Typography variant={'p'}>{playerResults.name}</Typography>
-                        <Typography variant={'p'}>level: {playerResults.level}</Typography>
-                        <Typography variant={'p'}>rank: {seasonResults.tier}</Typography>
-                        <Typography variant={'p'}>wins: {seasonResults.wins}</Typography>
-                        <Typography variant={'p'}>losses: {seasonResults.losses}</Typography>
-                        <Typography variant={'p'}>hot streak: {seasonResults.hotStreak}</Typography>
-                        <Typography variant={'p'}>is playing: {isPlaying ? 'Playing a game now!' : 'Not playing'}</Typography>
+                        <InfoPlayerCard
+                            image={isPlaying ? champs[champsKeys[0]] : "https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt9202e1cf0f60853c/5f7f79f9ee00c80ec595b0b8/lux_skin01.jpg"}
+                            name={playerResults.name}
+                            level={playerResults.level}
+                            rank={seasonResults.tier + ' ' + seasonResults.rank}
+                            losses={seasonResults.losses} wins={seasonResults.wins}
+                            hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
+                            playing={<Typography variant={'p'}>{isPlaying ? printNowPlayingButton() : 'Not playing right now'}</Typography>}
+                        ></InfoPlayerCard>
+
                     </>}
             </>
-            {/* <>
-                <Typography variant={'p'}>{currentGame ? currentGame.champ : ''}</Typography>
-            </> */}
-
 
         </>
     )

@@ -40,5 +40,11 @@
         "challenge-friend": "Challenge a friend",
         "get-advice": "Get advice",
         "upload-artwork": "Upload artwork"
+    },
+    "game-details": {
+        "is-playing": "is playing",
+        "game-mode": "Game mode",
+        "game-duration": "Playing this game for",
+        "minutes": "minutes now"
     }
 }
