@@ -1,18 +1,23 @@
 import * as React from 'react';
 import { Box, Button, Typography, Modal, Image } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-
+import styled from '@emotion/styled';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
+  width: 'auto',
   bgcolor: 'background.paper',
+  borderRadius: '.5rem',
   boxShadow: 24,
   p: 4,
 };
+
+const StyledModal = styled(Modal)`
+max-width: 400px;
+`
 
 export default function CurrentGameDetails(props) {
   const [t, i18n] = useTranslation('global');
@@ -34,7 +39,6 @@ export default function CurrentGameDetails(props) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             '{props.playername}' {t('game-details.is-playing')} {props.champ}
           </Typography>
-
           <Typography variant="h6" component="h2">
             {t('game-details.game-mode')}: {props.gameMode}
           </Typography>
@@ -46,7 +50,7 @@ export default function CurrentGameDetails(props) {
           <Typography variant="h6" component="h2">
             {t('game-details.game-duration')} {props.gameTime} {t('game-details.minutes')}
           </Typography>
-          <img width={'500'} src={props.image}></img>
+          <img width={'600'} src={props.image} alt={'champ image'}></img>
         </Box>
       </Modal>
     </div>
