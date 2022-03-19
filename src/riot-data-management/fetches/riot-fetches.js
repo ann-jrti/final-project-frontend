@@ -55,19 +55,6 @@ export const useFetchSummonerBasic = (url) => {
                 setIsPending(false);
                 setError(err.message)
             })
-
-        // const data = await response.json();
-        // const results = {
-        //     name: data.name,
-        //     level: data.summonerLevel,
-        //     accountId: data.accountId,
-        //     encryptedId: data.id,
-        //     puuid: data.puuid
-        // }
-        // setPlayerResults(results);
-        // console.log(requestSeasonInfo);
-        // console.log(playerResults);
-        // console.log(data);
     }, [])
     return { playerResults, isPending, error }
 }
@@ -97,5 +84,4 @@ export const getChampNameByChampId = async (champId) => {
 export const getChampByName = async (champId) => {
     const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion/Aatrox.json')
     const data = await response.json()
-    console.log(data.data.Aatrox.image.full);
 }

@@ -1,12 +1,8 @@
-import { Grid, Paper, TextField, Box, Button, Typography, responsiveFontSizes } from "@mui/material"
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState, useEffect } from "react"
+import { getChampByName, getChampNameByChampId } from "../../../../../riot-data-management/fetches/riot-fetches";
+import InfoPlayerCard from "../../info-player-card/InfoPlayerCard"
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { getChampNameByChampId, getChampByName } from "../../../../riot-data-management/fetches/riot-fetches.js";
-import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
-import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
+import { getSummonerInfoEndpoint, getCurrentSesionEndpoint, getCurrentPlayerGameEndpoint } from "../../../../../riot-data-management/endpoints/riot-endpoints";
 
 
 function importAll(r) {
@@ -18,18 +14,32 @@ function importAll(r) {
 }
 
 const champs = importAll(
-    require.context('../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
+    require.context('../../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
 );
 
-export default function SearchPlayer() {
+export default function PlayerResults() {
     const champsKeys = Object.keys(champs);
     const [playerResults, setPlayerResults] = useState({});
-    const [seasonResults, setSeasonResults] = useState(null);
+    const [seasonResults, setSeasonResults] = useState({});
     let [isPlaying, setIsPlaying] = useState(false);
     const [currentGame, setCurrentGame] = useState({});
     const [t, i18n] = useTranslation("global");
     const searchPlayer = t('home.search-bar.search-player');
-    getChampByName()
+    getChampByName();
+
+    const summonerEndpoint = getSummonerInfoEndpoint(e.target.searchPlayer.value);
+
+    const response = await fetch(summonerEndpoint);
+    const data = await response.json();
+    const results = {
+        name: data.name,
+        level: data.summonerLevel,
+        accountId: data.accountId,
+        encryptedId: data.id,
+        puuid: data.puuid
+    }
+    console.log(results);
+    setPlayerResults(results);
 
     const printNowPlayingButton = () => {
         const champImagesInAssets = champsKeys.filter(champ => {
@@ -48,7 +58,6 @@ export default function SearchPlayer() {
                     gameMode={currentGame.gameMode}
                     gameTime={currentGame.gameLength}
                 ></CurrentGameDetails>
-                {/* <Button variant={'contained'} size='small' color='warning' >Click here see champ playing {playerResults.name}</Button> */}
             </Box>
         )
     }
@@ -92,51 +101,21 @@ export default function SearchPlayer() {
 
     }, [seasonResults])
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const summonerEndpoint = getSummonerInfoEndpoint(e.target.searchPlayer.value);
-
-        const response = await fetch(summonerEndpoint);
-        const data = await response.json();
-        const results = {
-            name: data.name,
-            level: data.summonerLevel,
-            accountId: data.accountId,
-            encryptedId: data.id,
-            puuid: data.puuid
-        }
-        console.log(results);
-        setPlayerResults(results);
-    }
-
     return (
         <>
+            {(playerResults && seasonResults) &&
+                <>
+                    <InfoPlayerCard
+                        image={champs[champsKeys[Math.floor(Math.random() * champsKeys.length)]]}
+                        name={playerResults.name}
+                        level={playerResults.level}
+                        rank={seasonResults.tier + ' ' + seasonResults.rank}
+                        losses={seasonResults.losses} wins={seasonResults.wins}
+                        hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
+                        playing={<Typography variant={'p'}>{isPlaying ? printNowPlayingButton() : 'Not playing right now'}</Typography>}
+                    ></InfoPlayerCard>
 
-            <Grid sm={12} md={6} item>
-                <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={2} >
-                    <SearchIcon></SearchIcon>
-                    <form onSubmit={handleSubmit}>
-                        <TextField fullWidth id="searchPlayer" label={searchPlayer} variant="outlined" />
-                    </form>
-                </Box>
-            </Grid>
-            <>
-                {(playerResults && seasonResults) &&
-                    <>
-                        <InfoPlayerCard
-                            image={champs[champsKeys[Math.floor(Math.random() * champsKeys.length)]]}
-                            name={playerResults.name}
-                            level={playerResults.level}
-                            rank={seasonResults.tier + ' ' + seasonResults.rank}
-                            losses={seasonResults.losses} wins={seasonResults.wins}
-                            hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
-                            playing={<Typography variant={'p'}>{isPlaying ? printNowPlayingButton() : 'Not playing right now'}</Typography>}
-                        ></InfoPlayerCard>
-
-                    </>}
-            </>
-
+                </>}
         </>
     )
 }

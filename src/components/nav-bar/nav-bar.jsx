@@ -29,6 +29,19 @@ export default function NavBar() {
 
     const handleThemeChange = () => setDarkMode(!darkMode);
 
+    const handle = (e) => {
+        e.preventDefault();
+        console.log('hi');
+        switch (e.target.textContent) {
+            case (t('header.search-player')):
+                navigate('/')
+                break;
+            case (t('header.compare-players')):
+                navigate('/')
+                break;
+        }
+    }
+
     const handleClicksInAvatarMenu = (e) => {
         e.preventDefault();
         switch (e.target.textContent) {
@@ -90,7 +103,7 @@ export default function NavBar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Typography onClick={handle} textAlign="center">{page}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -110,7 +123,7 @@ export default function NavBar() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                <Typography onClick={handle}>{page}</Typography>
                             </Button>
                         ))}
                     </Box>
