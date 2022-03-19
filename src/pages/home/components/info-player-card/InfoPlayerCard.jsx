@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { Card, CardContent, Box, CardMedia, Divider, Typography, CardActionArea } from '@mui/material';
-import SeasonTable from './season-table/SeasonTable';
 import StarIcon from '@mui/icons-material/Star';
-import { BadgeOutlined, StayPrimaryLandscape, Whatshot, StarBorder } from '@mui/icons-material';
-import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
+import { BadgeOutlined, Whatshot, StarBorder } from '@mui/icons-material';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import styled from '@emotion/styled';
-import { fetchRandomImage } from '../../../../riot-data-management/fetches/riot-fetches';
+
 
 
 const StyleCard = styled(Card)`
@@ -66,7 +64,6 @@ export default function InfoPlayerCard(props) {
                     </CardContent>
                 </CardActionArea>
             </StyleCard>
-            <SeasonTable></SeasonTable>
         </>
 
 

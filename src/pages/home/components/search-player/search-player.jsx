@@ -125,7 +125,7 @@ export default function SearchPlayer() {
                 {(playerResults && seasonResults) &&
                     <>
                         <InfoPlayerCard
-                            image={isPlaying ? champs[champsKeys[0]] : "https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt9202e1cf0f60853c/5f7f79f9ee00c80ec595b0b8/lux_skin01.jpg"}
+                            image={champs[champsKeys[Math.floor(Math.random() * champsKeys.length)]]}
                             name={playerResults.name}
                             level={playerResults.level}
                             rank={seasonResults.tier + ' ' + seasonResults.rank}
