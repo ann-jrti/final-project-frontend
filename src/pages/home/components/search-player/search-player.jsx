@@ -3,22 +3,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
+import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
+import { getChampNameByChampId } from "../../../../riot-data-management/fetches/riot-fetches.js";
 
 export default function SearchPlayer() {
     const [playerResults, setPlayerResults] = useState({});
     const [seasonResults, setSeasonResults] = useState({});
-    console.log(seasonResults);
+    let [isPlaying, setIsPlaying] = useState(false);
+    const [currentGame, setCurrentGame] = useState({})
+
+
     const [t, i18n] = useTranslation("global");
     const searchPlayer = t('home.search-bar.search-player');
-
-    // const fetchOther = async () => {
-    //     console.log(playerResults.encryptedId);
-    //     const seasonInfoEnpoint = getCurrentSesionEndpoint(playerResults.encryptedId);
-    //     console.log(seasonInfoEnpoint);
-    //     const secondFetch = await fetch(seasonInfoEnpoint);
-    //     const secondData = await secondFetch.json();
-    //     console.log(secondData);
-    // }
 
     useEffect(async () => {
         if (playerResults.encryptedId) {
@@ -32,12 +28,32 @@ export default function SearchPlayer() {
                 wins: data[0].wins,
                 losses: data[0].losses,
                 queue: data[0].queueType,
-                'hot streak': data[0].hot,
+                hotStreak: data[0].hotStreak,
                 inactive: data[0].inactive
             }
             setSeasonResults(seasonData)
         }
     }, [playerResults.encryptedId])
+
+    useEffect(async () => {
+        if (seasonResults) {
+            const spectatorEndpoint = getCurrentPlayerGameEndpoint(playerResults.encryptedId);
+            const response = await fetch(spectatorEndpoint);
+            if (response.status === 404) setIsPlaying(false);
+            if (response.status === 200) setIsPlaying(true);;
+            const data = await response.json();
+            const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
+            console.log(champId);
+            const champPlaying = getChampNameByChampId(champId);
+            const game = {
+                gameMode: data.gameMode,
+                champ: champPlaying
+            }
+            setCurrentGame(game)
+        }
+
+    }, [seasonResults])
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -71,11 +87,17 @@ export default function SearchPlayer() {
                 {(playerResults && seasonResults) &&
                     <>
                         <Typography variant={'p'}>{playerResults.name}</Typography>
-                        <Typography variant={'p'}>{playerResults.level}</Typography>
-                        <Typography variant={'p'}>{seasonResults.tier}</Typography>
+                        <Typography variant={'p'}>level: {playerResults.level}</Typography>
+                        <Typography variant={'p'}>rank: {seasonResults.tier}</Typography>
+                        <Typography variant={'p'}>wins: {seasonResults.wins}</Typography>
+                        <Typography variant={'p'}>losses: {seasonResults.losses}</Typography>
+                        <Typography variant={'p'}>hot streak: {seasonResults.hotStreak}</Typography>
+                        <Typography variant={'p'}>is playing: {isPlaying ? 'Playing a game now!' : 'Not playing'}</Typography>
                     </>}
-
             </>
+            {/* <>
+                <Typography variant={'p'}>{currentGame ? currentGame.champ : ''}</Typography>
+            </> */}
 
 
         </>
