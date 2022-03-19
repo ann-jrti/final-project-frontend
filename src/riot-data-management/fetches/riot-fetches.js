@@ -1,4 +1,22 @@
+import { VpnLock } from "@mui/icons-material";
 import { useState, useEffect } from "react";
+import { getCurrentSesionEndpoint } from "../endpoints/riot-endpoints";
+
+export const fetchOther = async (results) => {
+    console.log(results.encryptedId);
+    const seasonInfoEnpoint = getCurrentSesionEndpoint(results.encryptedId);
+    console.log(seasonInfoEnpoint);
+    const secondFetch = await fetch(seasonInfoEnpoint);
+    const secondData = await secondFetch.json();
+    console.log(secondData);
+}
+
+export const fetchOther2 = (results) => {
+    const seasonInfoEnpoint = getCurrentSesionEndpoint(results.encryptedId);
+    fetch(seasonInfoEnpoint)
+        .then(res => res.json())
+        .then(data => console.log(data))
+}
 
 export const useFetchSummonerBasic = (url) => {
     // const summonerEndpoint = getSummonerInfoEndpoint(e.target.searchPlayer.value);
@@ -52,4 +70,26 @@ export const useFetchSummonerBasic = (url) => {
         // console.log(data);
     }, [])
     return { playerResults, isPending, error }
+}
+
+
+export const fetchRandomImage = async () => {
+    const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json')
+    const data = await response.json()
+    const randomChampImage = data.data[3].image.sprite;
+    return randomChampImage;
+}
+
+export const getAllChamps = async () => {
+    const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json')
+    const data = await response.json()
+    return data.data;
+}
+
+export const getChampNameByChampId = async (champId) => {
+    const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json')
+    const data = await response.json()
+    const dataEntries = Object.entries(data.data)
+    const champ = dataEntries.find(c => c[1].key === champId.toString())[0];
+    return champ
 }
