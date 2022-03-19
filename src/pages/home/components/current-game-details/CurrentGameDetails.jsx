@@ -1,0 +1,54 @@
+import * as React from 'react';
+import { Box, Button, Typography, Modal, Image } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 700,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function CurrentGameDetails(props) {
+  const [t, i18n] = useTranslation('global');
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+
+  return (
+    <div >
+      <Button onClick={handleOpen} variant={'contained'} size='small' color='warning'>Open to see game details</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style} display={'flex'} flexDirection={'column'}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            '{props.playername}' {t('game-details.is-playing')} {props.champ}
+          </Typography>
+
+          <Typography variant="h6" component="h2">
+            {t('game-details.game-mode')}: {props.gameMode}
+          </Typography>
+
+          {/* <Typography variant="h6" component="h2">
+            Game started at: {props.gameStartTime}
+          </Typography> */}
+
+          <Typography variant="h6" component="h2">
+            {t('game-details.game-duration')} {props.gameTime} {t('game-details.minutes')}
+          </Typography>
+          <img width={'500'} src={props.image}></img>
+        </Box>
+      </Modal>
+    </div>
+  );
+}

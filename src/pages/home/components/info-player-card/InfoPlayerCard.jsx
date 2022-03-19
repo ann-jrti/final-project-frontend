@@ -14,9 +14,9 @@ const StyleCard = styled(Card)`
 width: 500px;
 `
 
-
 export default function InfoPlayerCard(props) {
-    // fetchRandomImage();
+
+
     return (
         <>
             <StyleCard  >
@@ -24,7 +24,7 @@ export default function InfoPlayerCard(props) {
                     <CardMedia
                         component="img"
                         height="250"
-                        image="https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt9202e1cf0f60853c/5f7f79f9ee00c80ec595b0b8/lux_skin01.jpg"
+                        image={props.image}
                         alt="green iguana"
                     />
 
@@ -61,7 +61,7 @@ export default function InfoPlayerCard(props) {
                                 <StarBorder></StarBorder>
                                 <Typography variant="body2" color="text.secondary">{props.playing}</Typography>
                             </Box>
-
+                            {/* <img src={champs['Aatrox_0']}></img> */}
                         </Box>
                     </CardContent>
                 </CardActionArea>

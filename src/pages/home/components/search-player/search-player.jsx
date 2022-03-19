@@ -6,9 +6,23 @@ import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../r
 import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
 import { getChampNameByChampId, getChampByName } from "../../../../riot-data-management/fetches/riot-fetches.js";
 import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
-import styled from "@emotion/styled";
+import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
+
+
+function importAll(r) {
+    let champs = {};
+    r.keys().map((item, index) => {
+        champs[item.replace("./", "")] = r(item);
+    });
+    return champs;
+}
+
+const champs = importAll(
+    require.context('../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
+);
 
 export default function SearchPlayer() {
+    const champsKeys = Object.keys(champs);
     const [playerResults, setPlayerResults] = useState({});
     const [seasonResults, setSeasonResults] = useState({});
     let [isPlaying, setIsPlaying] = useState(false);
@@ -18,14 +32,23 @@ export default function SearchPlayer() {
     getChampByName()
 
     const printNowPlayingButton = () => {
-        const customButton = styled(Button)`
-            `
+        const champImagesInAssets = champsKeys.filter(champ => {
+            const champName = champ.split('_')
+            return champName[0] === currentGame.champ
+        })
+        const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)]
         return (
-
 
             <Box display={'flex'} alignItems={'center'} gap={1}>
                 <Typography> Playing now!</Typography>
-                <Button variant={'contained'} size='small' color='warning' >Click here see champ playing</Button>
+                <CurrentGameDetails
+                    image={champs[randomChampImageToPrint]}
+                    playername={playerResults.name}
+                    champ={currentGame.champ}
+                    gameMode={currentGame.gameMode}
+                    gameTime={currentGame.gameLength}
+                ></CurrentGameDetails>
+                {/* <Button variant={'contained'} size='small' color='warning' >Click here see champ playing {playerResults.name}</Button> */}
             </Box>
         )
     }
@@ -56,13 +79,13 @@ export default function SearchPlayer() {
             if (response.status === 404) setIsPlaying(false);
             if (response.status === 200) setIsPlaying(true);;
             const data = await response.json();
+            console.log(data);
             const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
-            console.log(champId);
             const champPlaying = await getChampNameByChampId(champId);
-            console.log(champPlaying);
             const game = {
                 gameMode: data.gameMode,
-                champ: champPlaying
+                champ: champPlaying,
+                gameLength: Math.round(data.gameLength / 60)
             }
             setCurrentGame(game)
         }
@@ -102,6 +125,7 @@ export default function SearchPlayer() {
                 {(playerResults && seasonResults) &&
                     <>
                         <InfoPlayerCard
+                            image={isPlaying ? champs[champsKeys[0]] : "https://images.contentstack.io/v3/assets/blt370612131b6e0756/blt9202e1cf0f60853c/5f7f79f9ee00c80ec595b0b8/lux_skin01.jpg"}
                             name={playerResults.name}
                             level={playerResults.level}
                             rank={seasonResults.tier + ' ' + seasonResults.rank}
@@ -112,10 +136,6 @@ export default function SearchPlayer() {
 
                     </>}
             </>
-            {/* <>
-                <Typography variant={'p'}>{currentGame ? currentGame.champ : ''}</Typography>
-            </> */}
-
 
         </>
     )
