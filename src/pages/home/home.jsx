@@ -11,7 +11,6 @@ export default function Home() {
             <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
                 <Typography variant='h2'>{t('home.slogan')}</Typography>
                 <SearchPlayer></SearchPlayer>
-                <InfoPlayerCard></InfoPlayerCard>
             </Grid>
         </>
 

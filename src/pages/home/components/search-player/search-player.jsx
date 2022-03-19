@@ -1,20 +1,34 @@
-import { Grid, Paper, TextField, Box, Typography, responsiveFontSizes } from "@mui/material"
+import { Grid, Paper, TextField, Box, Button, Typography, responsiveFontSizes } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
 import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { getChampNameByChampId } from "../../../../riot-data-management/fetches/riot-fetches.js";
+import { getChampNameByChampId, getChampByName } from "../../../../riot-data-management/fetches/riot-fetches.js";
+import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
+import styled from "@emotion/styled";
 
 export default function SearchPlayer() {
     const [playerResults, setPlayerResults] = useState({});
     const [seasonResults, setSeasonResults] = useState({});
     let [isPlaying, setIsPlaying] = useState(false);
-    const [currentGame, setCurrentGame] = useState({})
-
-
+    const [currentGame, setCurrentGame] = useState({});
     const [t, i18n] = useTranslation("global");
     const searchPlayer = t('home.search-bar.search-player');
+    getChampByName()
+
+    const printNowPlayingButton = () => {
+        const customButton = styled(Button)`
+            `
+        return (
+
+
+            <Box display={'flex'} alignItems={'center'} gap={1}>
+                <Typography> Playing now!</Typography>
+                <Button variant={'contained'} size='small' color='warning' >Click here see champ playing</Button>
+            </Box>
+        )
+    }
 
     useEffect(async () => {
         if (playerResults.encryptedId) {
@@ -44,7 +58,8 @@ export default function SearchPlayer() {
             const data = await response.json();
             const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
             console.log(champId);
-            const champPlaying = getChampNameByChampId(champId);
+            const champPlaying = await getChampNameByChampId(champId);
+            console.log(champPlaying);
             const game = {
                 gameMode: data.gameMode,
                 champ: champPlaying
@@ -86,13 +101,15 @@ export default function SearchPlayer() {
             <>
                 {(playerResults && seasonResults) &&
                     <>
-                        <Typography variant={'p'}>{playerResults.name}</Typography>
-                        <Typography variant={'p'}>level: {playerResults.level}</Typography>
-                        <Typography variant={'p'}>rank: {seasonResults.tier}</Typography>
-                        <Typography variant={'p'}>wins: {seasonResults.wins}</Typography>
-                        <Typography variant={'p'}>losses: {seasonResults.losses}</Typography>
-                        <Typography variant={'p'}>hot streak: {seasonResults.hotStreak}</Typography>
-                        <Typography variant={'p'}>is playing: {isPlaying ? 'Playing a game now!' : 'Not playing'}</Typography>
+                        <InfoPlayerCard
+                            name={playerResults.name}
+                            level={playerResults.level}
+                            rank={seasonResults.tier + ' ' + seasonResults.rank}
+                            losses={seasonResults.losses} wins={seasonResults.wins}
+                            hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
+                            playing={<Typography variant={'p'}>{isPlaying ? printNowPlayingButton() : 'Not playing right now'}</Typography>}
+                        ></InfoPlayerCard>
+
                     </>}
             </>
             {/* <>

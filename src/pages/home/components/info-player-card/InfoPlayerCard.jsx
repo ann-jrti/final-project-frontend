@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Card, CardContent, Box, CardMedia, Divider, Typography, CardActionArea } from '@mui/material';
 import SeasonTable from './season-table/SeasonTable';
 import StarIcon from '@mui/icons-material/Star';
-import { BadgeOutlined, StayPrimaryLandscape } from '@mui/icons-material';
+import { BadgeOutlined, StayPrimaryLandscape, Whatshot, StarBorder } from '@mui/icons-material';
 import EmojiEventsOutlinedIcon from '@mui/icons-material/EmojiEventsOutlined';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
@@ -15,7 +15,7 @@ width: 500px;
 `
 
 
-export default function InfoPlayerCard() {
+export default function InfoPlayerCard(props) {
     // fetchRandomImage();
     return (
         <>
@@ -31,33 +31,35 @@ export default function InfoPlayerCard() {
                     <CardContent >
                         <Box display={'flex'} flexDirection={'column'} gap={2}>
                             <Box display={'flex'} justifyContent={'center'}>
-                                <Typography gutterBottom variant="h3" component="div">
-                                    Player:
-                                </Typography>
+                                <Typography gutterBottom variant="h3" component="div">{props.name}</Typography>
                             </Box>
 
                             <Box display={'flex'} gap={2} alignItems={'center'}>
                                 <BadgeOutlined></BadgeOutlined>
-                                <Typography variant="body2" color="text.secondary">Summoner level: <span color={'warning.main'}>level</span></Typography>
+                                <Typography variant="body2" color="text.secondary">Summoner level: {props.level}</Typography>
                             </Box>
                             <Box display={'flex'} gap={2} alignItems={'center'}>
                                 <StarIcon></StarIcon>
-                                <Typography variant="body2" color="text.secondary">Current rank</Typography>
+                                <Typography variant="body2" color="text.secondary">Current rank: {props.rank}</Typography>
                             </Box>
                             <Divider />
                             <Typography variant={'h5'}>This season</Typography>
 
                             <Box display={'flex'} gap={2} alignItems={'center'}>
                                 <ThumbDownOutlinedIcon></ThumbDownOutlinedIcon>
-                                <Typography variant="body2" color="text.secondary">Losses</Typography>
+                                <Typography variant="body2" color="text.secondary">Losses: {props.losses} </Typography>
                             </Box>
                             <Box display={'flex'} gap={2} alignItems={'center'}>
                                 <ThumbUpOutlinedIcon></ThumbUpOutlinedIcon>
-                                <Typography variant="body2" color="text.secondary">Wins</Typography>
+                                <Typography variant="body2" color="text.secondary">Wins: {props.wins}</Typography>
                             </Box>
                             <Box display={'flex'} gap={2} alignItems={'center'}>
-                                <StarIcon></StarIcon>
-                                <Typography variant="body2" color="text.secondary">Gold</Typography>
+                                <Whatshot></Whatshot>
+                                <Typography variant="body2" color="text.secondary">{props.hotstreak}</Typography>
+                            </Box>
+                            <Box display={'flex'} gap={2} alignItems={'center'}>
+                                <StarBorder></StarBorder>
+                                <Typography variant="body2" color="text.secondary">{props.playing}</Typography>
                             </Box>
 
                         </Box>

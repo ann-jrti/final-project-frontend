@@ -93,3 +93,9 @@ export const getChampNameByChampId = async (champId) => {
     const champ = dataEntries.find(c => c[1].key === champId.toString())[0];
     return champ
 }
+
+export const getChampByName = async (champId) => {
+    const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion/Aatrox.json')
+    const data = await response.json()
+    console.log(data.data.Aatrox.image.full);
+}
