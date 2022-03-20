@@ -24,11 +24,10 @@ export default function CustomLolProfile() {
         }
         console.log(results.basicInfo.encryptedId);
         setRegisteredUserInfoAccount(results);
-        console.log(registeredUserInfoAccount.basicInfo.encryptedId);
     }
 
     useEffect(async () => {
-        if (registeredUserInfoAccount) {
+        if (registeredUserInfoAccount.basicInfo) {
             const championMasteryEndpoint = getChampionMasteryEndpoint(registeredUserInfoAccount.basicInfo.encryptedId)
             const response = await fetch(championMasteryEndpoint);
             const data = await response.json();
@@ -52,9 +51,8 @@ export default function CustomLolProfile() {
             }
             console.log(firstThreeChampsMostPlayed);
             setMostPlayedChamps(mostPlayedChamps)
-
         }
-    }, [registeredUserInfoAccount])
+    }, [registeredUserInfoAccount.basicInfo])
 
 
     return (
@@ -79,8 +77,8 @@ export default function CustomLolProfile() {
 
                     </Box>
                 </Grid>
-            </Box >
+            </Box>
+        </Grid>
 
-        </Grid >
     )
 }

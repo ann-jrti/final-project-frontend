@@ -16,3 +16,7 @@ export const getCurrentSesionEndpoint = (encryptedSummonerId) => {
 export const getCurrentPlayerGameEndpoint = (encryptedSummonerId) => {
     return `${mainPath}/lol/spectator/v4/active-games/by-summoner/${encryptedSummonerId}?api_key=${riotKey}`
 }
+
+export const getChampionMasteryEndpoint = (encryptedSummonerId) => {
+    return `${mainPath}/lol/champion-mastery/v4/champion-masteries/by-summoner/${encryptedSummonerId}?api_key=${riotKey}`
+}

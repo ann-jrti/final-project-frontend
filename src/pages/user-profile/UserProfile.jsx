@@ -3,12 +3,16 @@ import PersonIcon from '@mui/icons-material/Person';
 import { UserContext } from "../../context/user-context/user-context";
 import { useContext } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+import { ContactlessOutlined } from "@mui/icons-material";
 
 export default function UserProfile() {
     const [t, i18n] = useTranslation('global');
     const [isLogged, setIsLogged] = useContext(UserContext);
     const userEmail = localStorage.getItem('email');
     const userName = localStorage.getItem('username');
+    const navigate = useNavigate();
+
     return (
         <Grid container display={'flex'} justifyContent={'center'} flexDirection={'column'} >
             <Grid m={2} item display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
@@ -18,7 +22,11 @@ export default function UserProfile() {
 
             <Grid item gap={1} display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
                 <Box bgcolor={'warning.main'}>
-                    <Button variant="outlined">{t('user-page.generate-profile')}</Button>
+                    <Button variant="outlined" onClick={(e) => {
+                        console.log('clicked');
+                        e.preventDefault();
+                        navigate('/user/my-lol-profile')
+                    }}>{t('user-page.generate-profile')}</Button>
                 </Box>
 
                 <Button variant="outlined">{t('user-page.challenge-friend')}</Button>

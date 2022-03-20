@@ -10,7 +10,7 @@ import ValidateToken from './pages/validate-token';
 import UserProfile from './pages/user-profile/UserProfile';
 import PrivateUserRoute from './routes/private-user-route/PrivateUserRoute';
 import UserContextProvider from './context/user-context/user-context-provider';
-import env from "react-dotenv";
+import CustomLolProfile from './pages/custom-lol-profile/CustomLolProfile';
 
 function App() {
 
@@ -25,6 +25,7 @@ function App() {
             <Route path="/validate" element={<ValidateToken />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
+            <Route path="/user/my-lol-profile" element={<PrivateUserRoute><CustomLolProfile /></PrivateUserRoute>}></Route>
           </Routes>
         </UserContextProvider>
       </ThemeApp>
