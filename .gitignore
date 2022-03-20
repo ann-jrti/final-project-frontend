@@ -24,3 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 src/riot-key/key.js
+
+src/assets/champs-splashes
