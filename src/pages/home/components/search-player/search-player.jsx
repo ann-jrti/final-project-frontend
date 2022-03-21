@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
 import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { getChampNameByChampId, getChampByName } from "../../../../riot-data-management/fetches/riot-fetches.js";
+import { getChampNameByChampId, getChampByName, getBasicInfo } from "../../../../riot-data-management/fetches/riot-fetches.js";
 import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
 import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
 
@@ -77,7 +77,7 @@ export default function SearchPlayer() {
             const spectatorEndpoint = getCurrentPlayerGameEndpoint(playerResults.encryptedId);
             const response = await fetch(spectatorEndpoint);
             if (response.status === 404) setIsPlaying(false);
-            if (response.status === 200) setIsPlaying(true);;
+            if (response.status === 200) setIsPlaying(true);
             const data = await response.json();
             console.log(data);
             const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
@@ -95,18 +95,7 @@ export default function SearchPlayer() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const summonerEndpoint = getSummonerInfoEndpoint(e.target.searchPlayer.value);
-
-        const response = await fetch(summonerEndpoint);
-        const data = await response.json();
-        const results = {
-            name: data.name,
-            level: data.summonerLevel,
-            accountId: data.accountId,
-            encryptedId: data.id,
-            puuid: data.puuid
-        }
-        console.log(results);
+        const results = await getBasicInfo(e.target.searchPlayer.value)
         setPlayerResults(results);
     }
 

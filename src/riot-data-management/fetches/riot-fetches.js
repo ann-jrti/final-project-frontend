@@ -1,6 +1,6 @@
 import { VpnLock } from "@mui/icons-material";
 import { useState, useEffect } from "react";
-import { getCurrentSesionEndpoint } from "../endpoints/riot-endpoints";
+import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../endpoints/riot-endpoints";
 
 export const fetchOther = async (results) => {
     console.log(results.encryptedId);
@@ -84,4 +84,23 @@ export const getChampNameByChampId = async (champId) => {
 export const getChampByName = async (champId) => {
     const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion/Aatrox.json')
     const data = await response.json()
+}
+//
+
+
+
+export const getBasicInfo = async (player) => {
+    const summonerEndpoint = getSummonerInfoEndpoint(player);
+
+    const response = await fetch(summonerEndpoint);
+    const data = await response.json();
+    const results = {
+        name: data.name,
+        level: data.summonerLevel,
+        accountId: data.accountId,
+        encryptedId: data.id,
+        puuid: data.puuid
+    }
+    console.log(results);
+    return results
 }
