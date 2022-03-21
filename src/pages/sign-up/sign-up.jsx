@@ -39,7 +39,7 @@ export default function SignUp() {
 
         <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
             <Grid item>
-                <Typography variant={"h3"}>Sign up</Typography>
+                <Typography variant={"h3"}>{t('signup.signup')}</Typography>
             </Grid>
 
             <Grid item >
