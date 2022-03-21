@@ -17,7 +17,7 @@ window.env = {
   "USER": "andreamaso",
   "COMMAND_MODE": "unix2003",
   "npm_config_globalconfig": "/opt/homebrew/etc/npmrc",
-  "SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.UFp9Q9gJg7/Listeners",
+  "SSH_AUTH_SOCK": "/private/tmp/com.apple.launchd.QW5FwaRAp6/Listeners",
   "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
   "npm_execpath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
   "PATH": "/Users/andreamaso/Desktop/final-project-frontend/node_modules/.bin:/Users/andreamaso/Desktop/node_modules/.bin:/Users/andreamaso/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/opt/homebrew/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Frameworks/Python.framework/Versions/3.9/bin:/opt/homebrew/bin:/opt/homebrew/sbin",
