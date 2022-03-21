@@ -130,8 +130,28 @@ export const getMatchDetails = async (matchId) => {
 }
 
 // get all matches details given an array of id matches
-export const getAllGameDetails = (lastMatches, encryptedId) => {
-    lastMatches.forEach(async (match) => {
+export const getAllGameDetails = async (lastMatches, encryptedId) => {
+    const numOfMatches = lastMatches.length
+    const totalStats = {
+        wins: 0,
+        kills: 0,
+        assists: 0,
+        deaths: 0,
+        damageDealt: 0,
+        goldEarned: 0,
+    }
+
+    const roles = {
+        support: 0,
+        top: 0,
+        middle: 0,
+        jungle: 0,
+        adc: 0
+    }
+
+    const allGamesDetails = [];
+
+    for (const match of lastMatches) {
         const data = await getMatchDetails(match)
         const playerGameDetails = data.info.participants.find(player => player.summonerId === encryptedId)
         const gameDetails = {
@@ -159,6 +179,34 @@ export const getAllGameDetails = (lastMatches, encryptedId) => {
                 pentaKills: playerGameDetails.pentaKills
             },
         }
-        console.log(gameDetails);
-    })
+        allGamesDetails.push(gameDetails)
+
+        gameDetails.win ? totalStats.wins++ : totalStats.wins += 0;
+        totalStats.kills += gameDetails.kills;
+        totalStats.assists += gameDetails.assists;
+        totalStats.deaths += gameDetails.deaths;
+        totalStats.damageDealt += gameDetails.damageDealt.total;
+        totalStats.goldEarned += gameDetails.goldEarned;
+
+        switch (gameDetails.rol) {
+            case 'TOP':
+                roles.top += 1
+                break;
+            case 'JUNGLE':
+                roles.jungle += 1
+                break;
+            case 'MIDDLE':
+                roles.middle += 1
+                break;
+            case 'BOTTOM':
+                roles.adc += 1
+                break;
+            case 'UTILITY':
+                roles.support += 1
+                break;
+        }
+
+    }
+    return { numOfMatches, allGamesDetails, totalStats, roles }
 }
+

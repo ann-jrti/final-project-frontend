@@ -6,10 +6,15 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import styled from '@emotion/styled';
 
 export default function ChangeLang() {
     let [lang, setLang] = React.useState('es');
     const [t, i18n] = useTranslation('global');
+    const Inpuut = styled(InputLabel)`
+    padding: 0;
+    margin: 0
+    `
 
     const handleChange = (event) => {
         setLang(event.target.value);
@@ -17,7 +22,7 @@ export default function ChangeLang() {
     };
 
     return (
-        <Box sx={{ minWidth: 120 }}>
+        <Box sx={{ minWidth: 80 }}>
             <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">{t('header.lang')}</InputLabel>
                 <Select

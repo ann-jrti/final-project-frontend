@@ -10,7 +10,7 @@ export default function Home() {
     return (
         <>
             <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-                <Typography variant='h2'>{t('home.slogan')}</Typography>
+                <Typography variant='h3'>{t('home.slogan')}</Typography>
                 <SearchPlayer></SearchPlayer>
             </Grid>
         </>

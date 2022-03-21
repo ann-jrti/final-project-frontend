@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ChangeLang from '../../pages/home/components/lang-options/ChangeLang';
 import { UserContext } from '../../context/user-context/user-context';
 import { useNavigate } from 'react-router-dom';
-import { CleaningServices } from '@mui/icons-material';
+import styled from '@emotion/styled';
 
 export default function NavBar() {
     const [t, i18n] = useTranslation("global");
@@ -17,6 +17,7 @@ export default function NavBar() {
 
     const pages = [t('header.search-player'), t('header.compare-players')];
     const settings = [t('header.avatar-profile'), t('header.avatar-account'), t('header.avatar-logout')];
+
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -127,11 +128,15 @@ export default function NavBar() {
                             </Button>
                         ))}
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
+
+
+
+
+                    <Box sx={{ flexGrow: 0, display: { xs: '', md: 'flex' }, flexDirection: 'row-reverse' }}>
                         {isLogged ? <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, gap: 1 }}>
                                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                <Typography>Hi {localStorage.getItem('username')}</Typography>
+                                <Typography color={'warning.main'}>Hi {localStorage.getItem('username')}</Typography>
                             </IconButton>
 
                         </Tooltip> : ''}
@@ -158,13 +163,20 @@ export default function NavBar() {
                                 </MenuItem>
                             ))}
                         </Menu>
-                        {isLogged ? '' : <><StyledLink to={'login'}><Typography textAlign="center">{t('header.log-in')}</Typography></StyledLink>
-                            <StyledLink to={'signup'}><Typography textAlign="center">{t('header.sign-up')}</Typography></StyledLink></>}
+                        {isLogged ? '' :
+                            <Box display={'flex'} gap={2} alignItems={'center'} ml={3}>
+                                <StyledLink to={'login'}><Typography border={`1px solid white`} p={.5} textAlign="center">{t('header.log-in')}</Typography></StyledLink>
+                                <StyledLink to={'signup'}><Typography textAlign="center">{t('header.sign-up')}</Typography></StyledLink>
+                            </Box>}
+                        <Box display={'flex'} alignItems={'center'}>
+                            <FormGroup >
+                                <FormControlLabel onChange={handleThemeChange} control={<Switch color="warning" />} label={darkM} />
+                            </FormGroup>
+                        </Box>
+                        <Box>
+                            <ChangeLang></ChangeLang>
 
-                        <FormGroup >
-                            <FormControlLabel onChange={handleThemeChange} control={<Switch color="warning" />} label={darkM} />
-                        </FormGroup>
-                        <ChangeLang></ChangeLang>
+                        </Box>
                     </Box>
                 </Toolbar>
             </Container>

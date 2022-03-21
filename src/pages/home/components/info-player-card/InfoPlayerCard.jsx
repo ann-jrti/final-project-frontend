@@ -23,7 +23,7 @@ export default function InfoPlayerCard(props) {
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        height="350"
+                        height="400"
                         image={props.image}
                         alt="green iguana"
                     />

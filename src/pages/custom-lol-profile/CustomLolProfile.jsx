@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Box, Typography, TextField } from "@mui/material";
 import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails } from "../../riot-data-management/fetches/riot-fetches";
+import poroAvatar from '../../assets/imgs/fat-poro.webp'
 
 export default function CustomLolProfile() {
     const [registeredUserInfoAccount, setRegisteredUserInfoAccount] = useState({})
     const [mostPlayedChamps, setMostPlayedChamps] = useState({})
-    const [lastMatches, setLastMatches] = useState([])
+    const [lastMatches, setLastMatchesId] = useState([])
 
     console.log('working custom lol profile');
 
@@ -26,13 +27,20 @@ export default function CustomLolProfile() {
     useEffect(async () => {
         if (mostPlayedChamps.first.champId) {
             const results = await getLast30Matches(registeredUserInfoAccount.puuid)
-            setLastMatches(results)
+            setLastMatchesId(results)
         }
     }, [mostPlayedChamps.first])
 
     useEffect(async () => {
         if (lastMatches[0]) {
-            getAllGameDetails(lastMatches, registeredUserInfoAccount.encryptedId)
+            const { numOfMatches, allGamesDetails, totalStats, roles } = await getAllGameDetails(lastMatches, registeredUserInfoAccount.encryptedId)
+            // console.log(getAllGameDetails(lastMatches, registeredUserInfoAccount.encryptedId));
+            console.log(allGamesDetails);
+            console.log(totalStats);
+            console.log(roles);
+            // const values = Object.values(totalStats)
+            // const entries = Object.entries(totalStats)
+
         }
     }, [lastMatches[0]])
 
@@ -46,10 +54,8 @@ export default function CustomLolProfile() {
             <Box display={'flex'} justifyContent={'center'} width={'100%'} m={3}>
                 <Grid item>
                     <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
-
-
                         <Box >
-                            <img width={200} src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'}></img>
+                            <img width={200} src={poroAvatar}></img>
                         </Box>
                         <Box >
                             <Typography variant={'h2'}>Player name</Typography>
