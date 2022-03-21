@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Avatar, CardHeader, Typography, TextField } from "@mui/material";
-import { getChampionMasteryEndpoint } from "../../riot-data-management/endpoints/riot-endpoints";
-import { getChampNameByChampId, getBasicInfo, getLast30Matches, getMatchDetails } from "../../riot-data-management/fetches/riot-fetches";
+import { Grid, Box, Typography, TextField } from "@mui/material";
+import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails } from "../../riot-data-management/fetches/riot-fetches";
 
 export default function CustomLolProfile() {
     const [registeredUserInfoAccount, setRegisteredUserInfoAccount] = useState({})
@@ -16,36 +15,9 @@ export default function CustomLolProfile() {
         setRegisteredUserInfoAccount(results);
     }
 
-
-
-
     useEffect(async () => {
         if (registeredUserInfoAccount.encryptedId) {
-            const championMasteryEndpoint = getChampionMasteryEndpoint(registeredUserInfoAccount.encryptedId)
-            const response = await fetch(championMasteryEndpoint);
-            const data = await response.json();
-            const firstThreeChampsMostPlayed = {
-                first: {
-                    champId: data[0].championId,
-                    champPoints: data[0].championPoints,
-                    mostPlayedChampName: await getChampNameByChampId(data[0].championId),
-                    lastTimePlayed: new Date(data[0].lastPlayTime)
-                },
-                second: {
-                    champId: data[1].championId,
-                    champPoints: data[1].championPoints,
-                    mostPlayedChampName: await getChampNameByChampId(data[1].championId),
-                    lastTimePlayed: new Date(data[1].lastPlayTime)
-                },
-                third: {
-                    champId: data[2].championId,
-                    champPoints: data[2].championPoints,
-                    mostPlayedChampName: await getChampNameByChampId(data[2].championId),
-                    lastTimePlayed: new Date(data[2].lastPlayTime)
-                },
-
-            }
-            console.log(firstThreeChampsMostPlayed);
+            const firstThreeChampsMostPlayed = await getThreeMostPlayedChamps(registeredUserInfoAccount.encryptedId)
             setMostPlayedChamps(firstThreeChampsMostPlayed)
             console.log(firstThreeChampsMostPlayed.first);
         }
@@ -60,36 +32,9 @@ export default function CustomLolProfile() {
 
     useEffect(async () => {
         if (lastMatches[0]) {
-            const data = await getMatchDetails(lastMatches[0])
-            const playerGameDetails = data.info.participants.find(player => player.summonerId === registeredUserInfoAccount.encryptedId)
-            console.log(playerGameDetails);
-            console.log(data);
-            const gameDetails = {
-                win: playerGameDetails.win,
-                assists: playerGameDetails.assists,
-                deaths: playerGameDetails.deaths,
-                lane: playerGameDetails.teamPosition,
-                goldEarned: playerGameDetails.goldEarned,
-                turretKills: playerGameDetails.turretKills,
-                turretTakedowns: playerGameDetails.turretTakedowns,
-                visionScore: playerGameDetails.visionScore,
-                wardsPlaced: playerGameDetails.wardsPlaced,
-                damageDealt: {
-                    physical: playerGameDetails.physicaldamageDealtToChampions,
-                    magical: playerGameDetails.magicalDamageDealt,
-                    total: playerGameDetails.totalDamageDealt
-                },
-                comboKills: {
-                    doubleKills: playerGameDetails.doubleKills,
-                    tripleKills: playerGameDetails.triplekills,
-                    quadraKills: playerGameDetails.quadraKills,
-                    pentaKills: playerGameDetails.pentaKills
-                },
-            }
-            console.log(gameDetails);
+            getAllGameDetails(lastMatches, registeredUserInfoAccount.encryptedId)
         }
     }, [lastMatches[0]])
-
 
     return (
         <Grid container>
