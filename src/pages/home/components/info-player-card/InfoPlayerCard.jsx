@@ -10,6 +10,7 @@ import styled from '@emotion/styled';
 
 const StyleCard = styled(Card)`
 max-width: 700px;
+margin: 2rem;
 `
 
 export default function InfoPlayerCard(props) {

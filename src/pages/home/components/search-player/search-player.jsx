@@ -7,48 +7,47 @@ import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/e
 import { getChampNameByChampId, getChampByName, getBasicInfo } from "../../../../riot-data-management/fetches/riot-fetches.js";
 import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
 import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
+import { champsImages } from "../../../../riot-data-management/img-urls/index.js";
 
+// function importAll(r) {
+//     let champs = {};
+//     r.keys().map((item, index) => {
+//         champs[item.replace("./", "")] = r(item);
+//     });
+//     return champs;
+// }
 
-function importAll(r) {
-    let champs = {};
-    r.keys().map((item, index) => {
-        champs[item.replace("./", "")] = r(item);
-    });
-    return champs;
-}
-
-const champs = importAll(
-    require.context('../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
-);
+// const champs = importAll(
+//     require.context('../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
+// );
 
 export default function SearchPlayer() {
-    const champsKeys = Object.keys(champs);
     const [playerResults, setPlayerResults] = useState({});
     const [seasonResults, setSeasonResults] = useState(null);
     let [isPlaying, setIsPlaying] = useState(false);
     const [currentGame, setCurrentGame] = useState({});
     const [t, i18n] = useTranslation("global");
     const searchPlayer = t('home.search-bar.search-player');
-    getChampByName()
 
     const printNowPlayingButton = () => {
-        const champImagesInAssets = champsKeys.filter(champ => {
+        const champImagesInAssets = champsImages.filter(champ => {
             const champName = champ.split('_')
             return champName[0] === currentGame.champ
         })
         const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)]
+        console.log(randomChampImageToPrint);
         return (
 
             <Box display={'flex'} alignItems={'center'} gap={1}>
                 <Typography> Playing now!</Typography>
                 <CurrentGameDetails
-                    image={champs[randomChampImageToPrint]}
+                    image={`https://ddragon.canisback.com/img/champion/splash/${randomChampImageToPrint}`
+                        || `https://ddragon.canisback.com/img/champion/splash/${currentGame.champ}_0`}
                     playername={playerResults.name}
                     champ={currentGame.champ}
                     gameMode={currentGame.gameMode}
                     gameTime={currentGame.gameLength}
                 ></CurrentGameDetails>
-                {/* <Button variant={'contained'} size='small' color='warning' >Click here see champ playing {playerResults.name}</Button> */}
             </Box>
         )
     }
@@ -114,7 +113,7 @@ export default function SearchPlayer() {
                 {(playerResults && seasonResults) &&
                     <>
                         <InfoPlayerCard
-                            image={champs[champsKeys[Math.floor(Math.random() * champsKeys.length)]]}
+                            image={`https://ddragon.canisback.com/img/champion/splash/${champsImages[Math.floor(Math.random() * champsImages.length)]}`}
                             name={playerResults.name}
                             level={playerResults.level}
                             rank={seasonResults.tier + ' ' + seasonResults.rank}
