@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Box, Avatar, Typography, TextField } from "@mui/material";
+import { Grid, Box, Avatar, CardHeader, Typography, TextField } from "@mui/material";
 import { getSummonerInfoEndpoint, getChampionMasteryEndpoint } from "../../riot-data-management/endpoints/riot-endpoints";
 import { getChampNameByChampId } from "../../riot-data-management/fetches/riot-fetches";
 
@@ -64,15 +64,16 @@ export default function CustomLolProfile() {
 
             <Box display={'flex'} justifyContent={'center'} width={'100%'} m={3}>
                 <Grid item>
-                    <Box display={'flex'} flexDirection={'row'} justifyContent={'center'}>
-
-                        <img width={200} src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'}></img>
+                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
 
 
-                        <Box>
+                        <Box >
+                            <img width={200} src={'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHw%3D&w=1000&q=80'}></img>
+                        </Box>
+                        <Box >
                             <Typography variant={'h2'}>Player name</Typography>
-                            <Typography variant={'h2'}>Player name</Typography>
-                            <Typography variant={'body1'}>Most played champ: </Typography>
+                            <Typography variant={'body2'}>Player name</Typography>
+                            <Typography variant={'body2'}>Most played champs: </Typography>
                         </Box>
 
                     </Box>
