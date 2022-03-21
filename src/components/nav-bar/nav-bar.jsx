@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import ChangeLang from '../../pages/home/components/lang-options/ChangeLang';
 import { UserContext } from '../../context/user-context/user-context';
 import { useNavigate } from 'react-router-dom';
-import styled from '@emotion/styled';
+import userAvatar from '../../assets/imgs/fat-poro.webp'
 
 export default function NavBar() {
     const [t, i18n] = useTranslation("global");
@@ -135,7 +135,7 @@ export default function NavBar() {
                     <Box sx={{ flexGrow: 0, display: { xs: '', md: 'flex' }, flexDirection: 'row-reverse' }}>
                         {isLogged ? <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, gap: 1 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar alt="Remy Sharp" src={userAvatar} />
                                 <Typography color={'warning.main'}>Hi {localStorage.getItem('username')}</Typography>
                             </IconButton>
 
