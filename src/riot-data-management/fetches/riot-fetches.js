@@ -151,62 +151,68 @@ export const getAllGameDetails = async (lastMatches, encryptedId) => {
 
     const allGamesDetails = [];
 
-    for (const match of lastMatches) {
-        const data = await getMatchDetails(match)
-        const playerGameDetails = data.info.participants.find(player => player.summonerId === encryptedId)
-        const gameDetails = {
-            win: playerGameDetails.win,
-            kills: playerGameDetails.kills,
-            assists: playerGameDetails.assists,
-            deaths: playerGameDetails.deaths,
-            chamPlayed: playerGameDetails.championName,
-            lane: playerGameDetails.lane,
-            rol: playerGameDetails.teamPosition,
-            goldEarned: playerGameDetails.goldEarned,
-            turretKills: playerGameDetails.turretKills,
-            turretTakedowns: playerGameDetails.turretTakedowns,
-            visionScore: playerGameDetails.visionScore,
-            wardsPlaced: playerGameDetails.wardsPlaced,
-            damageDealt: {
-                physical: playerGameDetails.physicalDamageDealtToChampions,
-                magical: playerGameDetails.totalDamageDealtToChampions,
-                total: playerGameDetails.totalDamageDealtToChampions
-            },
-            comboKills: {
-                doubleKills: playerGameDetails.doubleKills,
-                tripleKills: playerGameDetails.tripleKills,
-                quadraKills: playerGameDetails.quadraKills,
-                pentaKills: playerGameDetails.pentaKills
-            },
-        }
-        allGamesDetails.push(gameDetails)
+    // 
+    const allMatchesPromises = [];
+    lastMatches.forEach(match => {
+        const promise = new Promise(async (res, rej) => {
+            const data = await getMatchDetails(match)
+            const playerGameDetails = data.info.participants.find(player => player.summonerId === encryptedId)
+            const gameDetails = {
+                win: playerGameDetails.win,
+                kills: playerGameDetails.kills,
+                assists: playerGameDetails.assists,
+                deaths: playerGameDetails.deaths,
+                chamPlayed: playerGameDetails.championName,
+                lane: playerGameDetails.lane,
+                rol: playerGameDetails.teamPosition,
+                goldEarned: playerGameDetails.goldEarned,
+                turretKills: playerGameDetails.turretKills,
+                turretTakedowns: playerGameDetails.turretTakedowns,
+                visionScore: playerGameDetails.visionScore,
+                wardsPlaced: playerGameDetails.wardsPlaced,
+                damageDealt: {
+                    physical: playerGameDetails.physicalDamageDealtToChampions,
+                    magical: playerGameDetails.totalDamageDealtToChampions,
+                    total: playerGameDetails.totalDamageDealtToChampions
+                },
+                comboKills: {
+                    doubleKills: playerGameDetails.doubleKills,
+                    tripleKills: playerGameDetails.tripleKills,
+                    quadraKills: playerGameDetails.quadraKills,
+                    pentaKills: playerGameDetails.pentaKills
+                },
+            }
+            allGamesDetails.push(gameDetails);
 
-        gameDetails.win ? totalStats.wins++ : totalStats.wins += 0;
-        totalStats.kills += gameDetails.kills;
-        totalStats.assists += gameDetails.assists;
-        totalStats.deaths += gameDetails.deaths;
-        totalStats.damageDealt += gameDetails.damageDealt.total;
-        totalStats.goldEarned += gameDetails.goldEarned;
+            gameDetails.win ? totalStats.wins++ : totalStats.wins += 0;
+            totalStats.kills += gameDetails.kills;
+            totalStats.assists += gameDetails.assists;
+            totalStats.deaths += gameDetails.deaths;
+            totalStats.damageDealt += gameDetails.damageDealt.total;
+            totalStats.goldEarned += gameDetails.goldEarned;
 
-        switch (gameDetails.rol) {
-            case 'TOP':
-                roles.top += 1
-                break;
-            case 'JUNGLE':
-                roles.jungle += 1
-                break;
-            case 'MIDDLE':
-                roles.middle += 1
-                break;
-            case 'BOTTOM':
-                roles.adc += 1
-                break;
-            case 'UTILITY':
-                roles.support += 1
-                break;
-        }
-
-    }
+            switch (gameDetails.rol) {
+                case 'TOP':
+                    roles.top += 1
+                    break;
+                case 'JUNGLE':
+                    roles.jungle += 1
+                    break;
+                case 'MIDDLE':
+                    roles.middle += 1
+                    break;
+                case 'BOTTOM':
+                    roles.adc += 1
+                    break;
+                case 'UTILITY':
+                    roles.support += 1
+                    break;
+            }
+            res();
+        })
+        allMatchesPromises.push(promise);
+    })
+    await Promise.all(allMatchesPromises);
     return { numOfMatches, allGamesDetails, totalStats, roles }
 }
 
