@@ -1,6 +1,6 @@
 import { VpnLock } from "@mui/icons-material";
 import { useState, useEffect } from "react";
-import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../endpoints/riot-endpoints";
+import { getCurrentSesionEndpoint, getSummonerInfoEndpoint, getLast30matchesEndpoint, getMatchDetailsEndpoint } from "../endpoints/riot-endpoints";
 
 export const fetchOther = async (results) => {
     console.log(results.encryptedId);
@@ -87,8 +87,6 @@ export const getChampByName = async (champId) => {
 }
 //
 
-
-
 export const getBasicInfo = async (player) => {
     const summonerEndpoint = getSummonerInfoEndpoint(player);
 
@@ -103,4 +101,22 @@ export const getBasicInfo = async (player) => {
     }
     console.log(results);
     return results
+}
+
+// fetch last 30 matches list
+export const getLast30Matches = async (puuid) => {
+    const matchesEndpoint = getLast30matchesEndpoint(puuid)
+    const response = await fetch(matchesEndpoint)
+    const data = await response.json()
+    console.log(data);
+    return data
+}
+
+// fetch match details by match id 
+export const getMatchDetails = async (matchId) => {
+    const matchDetailsEndpoint = getMatchDetailsEndpoint(matchId)
+    const response = await fetch(matchDetailsEndpoint)
+    const data = await response.json()
+    console.log(data);
+    return data
 }
