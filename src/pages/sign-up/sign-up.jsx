@@ -13,6 +13,7 @@ export default function SignUp() {
             username: e.target.username.value,
             email: e.target.email.value,
             password: e.target.password.value,
+            customProfile: false
         }
 
         fetch('http://localhost:4000/auth/register', {
