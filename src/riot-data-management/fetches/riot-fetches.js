@@ -47,27 +47,33 @@ export const getThreeMostPlayedChamps = async (encryptedId) => {
     const championMasteryEndpoint = getChampionMasteryEndpoint(encryptedId)
     const response = await fetch(championMasteryEndpoint);
     const data = await response.json();
-    const firstThreeChampsMostPlayed = {
-        first: {
+    const firstThreeChampsMostPlayed =
+        [{
+
             champId: data[0].championId,
             champPoints: data[0].championPoints,
             mostPlayedChampName: await getChampNameByChampId(data[0].championId),
             lastTimePlayed: new Date(data[0].lastPlayTime)
+
         },
-        second: {
+        {
+
             champId: data[1].championId,
             champPoints: data[1].championPoints,
             mostPlayedChampName: await getChampNameByChampId(data[1].championId),
             lastTimePlayed: new Date(data[1].lastPlayTime)
+
         },
-        third: {
+        {
+
             champId: data[2].championId,
             champPoints: data[2].championPoints,
             mostPlayedChampName: await getChampNameByChampId(data[2].championId),
             lastTimePlayed: new Date(data[2].lastPlayTime)
-        },
 
-    }
+        }]
+
+
     return firstThreeChampsMostPlayed;
 }
 

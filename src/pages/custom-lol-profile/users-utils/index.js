@@ -1,4 +1,5 @@
 export const createsProfileUserInDB = async ({ stats, infoAccount, champs }) => {
+    console.log(stats);
     const body = {
         ...stats,
         ...infoAccount,

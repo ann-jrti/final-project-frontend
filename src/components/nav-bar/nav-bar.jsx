@@ -133,7 +133,7 @@ export default function NavBar() {
 
 
                     <Box sx={{ flexGrow: 0, display: { xs: '', md: 'flex' }, flexDirection: 'row-reverse' }}>
-                        {isLogged ? <Tooltip title="Open settings">
+                        {localStorage.getItem('login-token') ? <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, gap: 1 }}>
                                 <Avatar alt="Remy Sharp" src={userAvatar} />
                                 <Typography color={'warning.main'}>Hi {localStorage.getItem('username')}</Typography>
@@ -163,7 +163,7 @@ export default function NavBar() {
                                 </MenuItem>
                             ))}
                         </Menu>
-                        {isLogged ? '' :
+                        {localStorage.getItem('login-token') ? '' :
                             <Box display={'flex'} gap={2} alignItems={'center'} ml={3}>
                                 <StyledLink to={'login'}><Typography border={`1px solid white`} p={.5} textAlign="center">{t('header.log-in')}</Typography></StyledLink>
                                 <StyledLink to={'signup'}><Typography textAlign="center">{t('header.sign-up')}</Typography></StyledLink>

@@ -5,7 +5,7 @@ import poroAvatar from '../../assets/imgs/fat-poro.webp'
 import { changeCustomProfileStatusInDB, createsProfileUserInDB } from "./users-utils";
 import styled from "@emotion/styled";
 import { UserContext } from "../../context/user-context/user-context";
-
+import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
 
 export default function CustomLolProfile() {
     const [registeredUserInfoAccount, setRegisteredUserInfoAccount] = useState({});
@@ -32,7 +32,7 @@ export default function CustomLolProfile() {
 
     const handleGenerateLolProfile = async (e) => {
         e.preventDefault();
-        await createsProfileUserInDB({ stats: meanStats, infoAccount: { registeredUserInfoAccount }, champs: { mostPlayedChamps } });
+        await createsProfileUserInDB({ stats: { meanStats }, infoAccount: { registeredUserInfoAccount }, champs: { mostPlayedChamps } });
         await changeCustomProfileStatusInDB(localStorage.getItem('email'));
         // setCustomProfile(false)
         setIsCustomProfileCreated(true);
@@ -43,7 +43,6 @@ export default function CustomLolProfile() {
             if (registeredUserInfoAccount.encryptedId) {
                 const firstThreeChampsMostPlayed = await getThreeMostPlayedChamps(registeredUserInfoAccount.encryptedId)
                 setMostPlayedChamps(firstThreeChampsMostPlayed)
-                console.log(firstThreeChampsMostPlayed.first);
             }
         }
         saveMostPlayedChamps();
@@ -51,13 +50,13 @@ export default function CustomLolProfile() {
 
     useEffect(() => {
         const saveLastMathesId = async () => {
-            if (mostPlayedChamps.first) {
+            if (mostPlayedChamps[0]) {
                 const results = await getLast30Matches(registeredUserInfoAccount.puuid);
                 setLastMatchesId(results);
             }
         }
         saveLastMathesId();
-    }, [mostPlayedChamps.first])
+    }, [mostPlayedChamps[0]])
 
     useEffect(() => {
         const getMeanStatsOfLastGames = async () => {
@@ -88,23 +87,10 @@ export default function CustomLolProfile() {
             <form onSubmit={handleInsertPlayerForCustomProfile}>
                 <TextField id="generateMyProfile" >Search</TextField>
             </form>
-
-            <Box display={'flex'} justifyContent={'center'} width={'100%'} m={3}>
-                <Grid item>
-                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
-                        <Box >
-                            <img width={200} src={poroAvatar}></img>
-                        </Box>
-                        <Box >
-                            <Typography variant={'h2'}>Player name</Typography>
-                            <Typography variant={'body2'}>Player name</Typography>
-                            <Typography variant={'body2'}>Most played champs: </Typography>
-                        </Box>
-                        {isCustomProfileCreated ? '' : <GenerateProfileButton variant={'contained'} onClick={handleGenerateLolProfile} color='warning'> Generate my LoL profile!</GenerateProfileButton>}
-                        {/* <GenerateProfileButton disabled={isCustomProfileCreated} variant={'contained'} onClick={handleGenerateLolProfile} color='warning'> Generate my profile please!</GenerateProfileButton> */}
-                    </Box>
-                </Grid>
-            </Box>
+            {isCustomProfileCreated ? '' : <GenerateProfileButton variant={'contained'} onClick={handleGenerateLolProfile} color='warning'> Generate my LoL profile!</GenerateProfileButton>}
+            <>
+                {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''}
+            </>
         </Grid>
 
     )
