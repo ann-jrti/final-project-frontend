@@ -35,15 +35,15 @@ export default function LogIn() {
                 localStorage.setItem('email', data.email);
                 localStorage.setItem('username', data.username);
                 localStorage.setItem('logged', true);
-                // let logged = localStorage.getItem('logged')
+
                 setIsLogged(localStorage.getItem('logged'));
-                console.log('islogged?', isLogged);
                 setError(null);
                 navigate('/user');
             })
             .catch(err => {
                 setError(err.message);
             })
+
     }
     return (
         <Box>
