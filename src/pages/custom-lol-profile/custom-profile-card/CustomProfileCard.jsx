@@ -25,6 +25,7 @@ export default function CustomProfileCard() {
             const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)]
 
             return (
+
                 <div key={champ.lastTimePlayed} className="card">
                     <div className="bg" />
                     <div className="card-front-img">
@@ -68,31 +69,29 @@ export default function CustomProfileCard() {
 
         <>
             {playerData.email === undefined ? 'cargando' :
-                <><Box display={'flex'} justifyContent={'center'} width={'100%'} m={3}>
-                    <Grid item>
-                        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
-                            <Box >
-                                <img width={200} src={poroAvatar}></img>
+                <Grid container display={'flex'} justifyContent={'center'}>
+
+                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} m={3}>
+                        <Grid item display={'flex'} justifyContent={'center'}>
+                            <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
+                                <Box >
+                                    <img width={200} src={poroAvatar}></img>
+                                </Box>
+                                <Box >
+                                    <Typography variant={'h2'}>{playerData.registeredUserInfoAccount.name}</Typography>
+                                    <Typography variant={'body2'}>Player name</Typography>
+                                    <Typography variant={'body2'}>Most played champs: </Typography>
+                                </Box>
                             </Box>
-                            <Box >
-                                <Typography variant={'h2'}>{playerData.registeredUserInfoAccount.name}</Typography>
-                                <Typography variant={'body2'}>Player name</Typography>
-                                <Typography variant={'body2'}>Most played champs: </Typography>
-                            </Box>
+                        </Grid>
 
-                        </Box>
-                        <Box display={'flex'}>
-                            {playerData.email === undefined ? 'cargando2' : print()}
-                        </Box>
+                        <Grid item display={'flex'} flexDirection={'row'} gap={3}>
+                            {print()}
+                        </Grid>
 
+                    </Box>
 
-
-
-                    </Grid>
-
-                </Box>
-
-                </>
+                </Grid>
 
             }
         </>
