@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { StyledLink } from '../styled-link/styled-link';
 import { DarkThemeContext } from '../../context/theme-context/theme-context';
 import { useTranslation } from 'react-i18next';
-import ChangeLang from '../../pages/home/components/lang-options/ChangeLang';
+import ChangeLang from './lang-options/ChangeLang';
 import { UserContext } from '../../context/user-context/user-context';
 import { useNavigate } from 'react-router-dom';
 import userAvatar from '../../assets/imgs/fat-poro.webp'

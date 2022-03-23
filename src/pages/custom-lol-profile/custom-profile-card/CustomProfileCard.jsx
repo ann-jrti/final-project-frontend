@@ -1,6 +1,6 @@
 import './style.css'
 import React, { useEffect, useState } from 'react'
-import { Box, Grid, Typography } from "@mui/material"
+import { Box, Grid, Typography, Divider } from "@mui/material"
 import poroAvatar from '../../../assets/imgs/fat-poro.webp'
 import { getUserLolAccountData } from '../../../db-requests'
 import { champsImages } from '../../../riot-data-management/img-urls'
@@ -73,14 +73,15 @@ export default function CustomProfileCard() {
 
                     <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} m={3}>
                         <Grid item display={'flex'} justifyContent={'center'}>
-                            <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}>
+                            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                 <Box >
-                                    <img width={200} src={poroAvatar}></img>
+                                    <img className='avatar-profile' src={poroAvatar}></img>
                                 </Box>
-                                <Box >
-                                    <p className={'font-face-gm'}></p>
-                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem' }} className='font-face-gm' variant={'h1'}>{playerData.registeredUserInfoAccount.name}</Typography>
-                                    <Typography variant={'h3'}>Most played champs: </Typography>
+                                <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                                    {/* <Divider sx={{ color: 'red' }} /> */}
+                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerData.registeredUserInfoAccount.name}</Typography>
+
+                                    <Typography variant={'h4'}>Most played champs: </Typography>
                                 </Box>
                             </Box>
                         </Grid>

@@ -85,7 +85,7 @@ export default function CustomLolProfile() {
         <Grid container>
 
             <form onSubmit={handleInsertPlayerForCustomProfile}>
-                <TextField id="generateMyProfile" >Search</TextField>
+                {isCustomProfileCreated ? '' : <TextField id="generateMyProfile" >Search</TextField>}
             </form>
             {isCustomProfileCreated ? '' : <GenerateProfileButton variant={'contained'} onClick={handleGenerateLolProfile} color='warning'> Generate my LoL profile!</GenerateProfileButton>}
             <>

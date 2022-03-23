@@ -14,10 +14,16 @@ body {
     background-size: cover;
     will-change: filter;
   }
+
+  .avatar-profile {
+    border-radius: 50%;
+    max-width: 6rem;
+    border: .3rem solid #8d99ae;
+  }
   
   .card {
     margin-left: 3%;
-    margin-top: 50px;
+    margin-top: 2rem;
     margin-bottom: 10rem;
     height: 320px;
     width: 290px;
@@ -112,7 +118,7 @@ body {
   }
   
   .see-more {
-    color: #edf2f4;
+    color: #2b2d42;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -123,7 +129,7 @@ body {
     border-top: 1px solid transparent;
     transition: border-top 0.25s ease-in-out;
     vertical-align: baseline;
-    background-color: #2b2d42;
+    background-color: #8d99ae;
   }
   
   .arrow {
