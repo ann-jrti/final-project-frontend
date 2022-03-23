@@ -1,3 +1,10 @@
+body {
+  margin: 0;
+  margin-bottom: 50px;
+  padding: 0;
+  background-color: #e5e9eb;
+}
+  
   .bg {
     position: absolute;
     width: 100%;
@@ -62,6 +69,7 @@
     display: flex;
     height: 100%;
     width: 100%;
+    background-color: #df1638;
   }
   
   .card-info__faction {
@@ -78,30 +86,33 @@
   }
   
   .card-info__name {
-    color: #937341;
+    font-size: 1rem;
+    color: #2b2d42;
     vertical-align: baseline;
+    font-weight: bold;
   }
   
-  .card-info__region {
-    color: #c4b998;
+  .card-info__points {
+    color: #edf2f4;
     padding-top: 4px;
+   
   }
   
-  .card-info__crest {
+  .card-info__avatar {
     margin: 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  .card-info__crest img {
+  .card-info__avatar img {
     display: block;
-    max-height: 40px;
-    max-width: 40px;
+    max-height: 3rem;
+    max-width: 3rem;
   }
   
   .see-more {
-    color: #937341;
+    color: #edf2f4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,6 +123,7 @@
     border-top: 1px solid transparent;
     transition: border-top 0.25s ease-in-out;
     vertical-align: baseline;
+    background-color: #2b2d42;
   }
   
   .arrow {

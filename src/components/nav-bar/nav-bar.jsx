@@ -65,12 +65,12 @@ export default function NavBar() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <StyledLink to={'/'}> <Typography
-                        variant="h6"
+                        variant="h3"
                         noWrap
                         component="div"
-                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                        sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, fontFamily: 'FactionOutline' }}
                     >
-                        FINAL-PROJECT
+                        OH LOL
                     </Typography>
                     </StyledLink>
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -110,12 +110,12 @@ export default function NavBar() {
                         </Menu>
                     </Box>
                     <Typography
-                        variant="h6"
+                        variant="h4"
                         noWrap
                         component="div"
-                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+                        sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, fontFamily: 'FactionOutline' }}
                     >
-                        LOGO
+                        OH LOL
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (

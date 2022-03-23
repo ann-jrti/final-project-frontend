@@ -29,15 +29,15 @@ export default function CustomProfileCard() {
                 <div key={champ.lastTimePlayed} className="card">
                     <div className="bg" />
                     <div className="card-front-img">
-                        <img src={`https://ddragon.canisback.com/img/champion/splash/${randomChampImageToPrint}`} alt="Brand" />
+                        <img src={`https://ddragon.canisback.com/img/champion/centered/${randomChampImageToPrint}`} alt="Brand" />
                     </div>
                     <div className="card-info">
                         <div className="card-info-section">
                             <div className="card-info__faction">
                                 <div className="card-info__name">{champ.mostPlayedChampName}</div>
-                                <div className="card-info__region">Score points: {champ.champPoints} </div>
+                                <div className="card-info__points">Score points: {champ.champPoints} </div>
                             </div>
-                            <div className="card-info__crest">
+                            <div className="card-info__avatar">
                                 <img src={`https://ddragon.canisback.com/img/champion/tiles/${champ.mostPlayedChampName}_0.jpg`} />
                             </div>
                         </div>
@@ -78,9 +78,9 @@ export default function CustomProfileCard() {
                                     <img width={200} src={poroAvatar}></img>
                                 </Box>
                                 <Box >
-                                    <Typography variant={'h2'}>{playerData.registeredUserInfoAccount.name}</Typography>
-                                    <Typography variant={'body2'}>Player name</Typography>
-                                    <Typography variant={'body2'}>Most played champs: </Typography>
+                                    <p className={'font-face-gm'}></p>
+                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem' }} className='font-face-gm' variant={'h1'}>{playerData.registeredUserInfoAccount.name}</Typography>
+                                    <Typography variant={'h3'}>Most played champs: </Typography>
                                 </Box>
                             </Box>
                         </Grid>
