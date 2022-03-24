@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { ContactlessOutlined } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 export default function UserProfile() {
     const [t, i18n] = useTranslation('global');
@@ -33,7 +34,8 @@ export default function UserProfile() {
                 <Box>
                     <Grid item gap={1} display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
                         <Button variant="outlined">{t('user-page.get-advice')}</Button>
-                        <Button variant="outlined">{t('user-page.upload-artwork')}</Button>
+                        <Button onClick={() => navigate('/user/upload-artwork')} variant="outlined">{t('user-page.upload-artwork')}</Button>
+
                     </Grid>
                 </Box>
 

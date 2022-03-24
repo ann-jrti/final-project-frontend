@@ -1,4 +1,4 @@
-import { getSummonerInfoEndpoint, getChampionMasteryEndpoint, getLast30matchesEndpoint, getMatchDetailsEndpoint } from "../endpoints/riot-endpoints";
+import { getSummonerInfoEndpoint, getCurrentSesionEndpoint, getChampionMasteryEndpoint, getLast30matchesEndpoint, getMatchDetailsEndpoint } from "../endpoints/riot-endpoints";
 
 export const getRandomImage = async () => {
     const response = await fetch('http://ddragon.leagueoflegends.com/cdn/12.5.1/data/en_US/champion.json')
@@ -115,7 +115,6 @@ export const getAllGameDetails = async (lastMatches, encryptedId) => {
 
     const allGamesDetails = [];
 
-    // 
     const allMatchesPromises = [];
     lastMatches.forEach(match => {
         const promise = new Promise(async (res, rej) => {
@@ -180,3 +179,19 @@ export const getAllGameDetails = async (lastMatches, encryptedId) => {
     return { numOfMatches, allGamesDetails, totalStats, roles }
 }
 
+export const getCurrentSeasonInfo = async (encryptedId) => {
+    const seasonInfoEnpoint = getCurrentSesionEndpoint(encryptedId);
+    const response = await fetch(seasonInfoEnpoint);
+    const data = await response.json();
+    console.log('creating');
+    const seasonData = {
+        tier: data[0].tier,
+        rank: data[0].rank,
+        wins: data[0].wins,
+        losses: data[0].losses,
+        queue: data[0].queueType,
+        hotStreak: data[0].hotStreak,
+        inactive: data[0].inactive
+    }
+    return seasonData
+}

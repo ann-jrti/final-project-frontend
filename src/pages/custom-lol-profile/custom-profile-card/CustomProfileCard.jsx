@@ -1,9 +1,10 @@
 import './style.css'
 import React, { useEffect, useState } from 'react'
-import { Box, Grid, Typography, Divider } from "@mui/material"
+import { Box, Grid, Typography, List, ListItem } from "@mui/material"
 import poroAvatar from '../../../assets/imgs/fat-poro.webp'
 import { getUserLolAccountData } from '../../../db-requests'
 import { champsImages } from '../../../riot-data-management/img-urls'
+
 
 
 export default function CustomProfileCard() {
@@ -80,7 +81,14 @@ export default function CustomProfileCard() {
                                 <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                     {/* <Divider sx={{ color: 'red' }} /> */}
                                     <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerData.registeredUserInfoAccount.name}</Typography>
+                                    <Typography variant={'h4'}>Mean stats last 10 games: </Typography>
+                                    <List>
+                                        <ListItem>Wins: {playerData.meanStats.wins}</ListItem>
+                                        <ListItem>Average kills per game: {playerData.meanStats.kills}</ListItem>
+                                        <ListItem>Average assists per game: {playerData.meanStats.assists}</ListItem>
+                                        <ListItem>Average deaths per game: {playerData.meanStats.deaths}</ListItem>
 
+                                    </List>
                                     <Typography variant={'h4'}>Most played champs: </Typography>
                                 </Box>
                             </Box>
@@ -99,3 +107,5 @@ export default function CustomProfileCard() {
     )
 
 }
+
+

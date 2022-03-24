@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Grid, Box, Button, Typography, TextField } from "@mui/material";
-import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails } from "../../riot-data-management/fetches/riot-fetches";
+import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails, getCurrentSeasonInfo } from "../../riot-data-management/fetches/riot-fetches";
 import poroAvatar from '../../assets/imgs/fat-poro.webp'
 import { changeCustomProfileStatusInDB, createsProfileUserInDB } from "./users-utils";
 import styled from "@emotion/styled";
@@ -12,6 +12,7 @@ export default function CustomLolProfile() {
     const [mostPlayedChamps, setMostPlayedChamps] = useState({});
     const [lastMatches, setLastMatchesId] = useState([]);
     const [meanStats, setMeanStats] = useState({});
+    const [currentSeasonStats, setCurrentSeasonStats] = useState({});
     let [, , isCustomProfileCreated, setIsCustomProfileCreated] = useContext(UserContext)
 
     const hideButton = isCustomProfileCreated ? 'none' : 'flex'
@@ -24,18 +25,29 @@ export default function CustomLolProfile() {
     `
     console.log('working custom lol profile');
 
+
     const handleInsertPlayerForCustomProfile = async (e) => {
         e.preventDefault();
         const results = await getBasicInfo(e.target.generateMyProfile.value)
         setRegisteredUserInfoAccount(results);
+
     }
 
     const handleGenerateLolProfile = async (e) => {
         e.preventDefault();
-        await createsProfileUserInDB({ stats: { meanStats }, infoAccount: { registeredUserInfoAccount }, champs: { mostPlayedChamps } });
-        await changeCustomProfileStatusInDB(localStorage.getItem('email'));
-        // setCustomProfile(false)
-        setIsCustomProfileCreated(true);
+        const create = async () => {
+            await createsProfileUserInDB({ stats: { meanStats }, infoAccount: { registeredUserInfoAccount }, seasonInfo: { currentSeasonStats }, champs: { mostPlayedChamps } });
+            await changeCustomProfileStatusInDB(localStorage.getItem('email'));
+        }
+        const seasonInfo = await getCurrentSeasonInfo(registeredUserInfoAccount.encryptedId)
+        setCurrentSeasonStats(seasonInfo)
+
+        setTimeout(async () => {
+            await create()
+            setIsCustomProfileCreated(true);
+        }, 100)
+
+
     }
 
     useEffect(() => {

@@ -4,22 +4,10 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { getCurrentSesionEndpoint, getSummonerInfoEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
 import { getCurrentPlayerGameEndpoint } from "../../../../riot-data-management/endpoints/riot-endpoints.js";
-import { getChampNameByChampId, getChampByName, getBasicInfo } from "../../../../riot-data-management/fetches/riot-fetches.js";
+import { getChampNameByChampId, getChampByName, getBasicInfo, getCurrentSeasonInfo } from "../../../../riot-data-management/fetches/riot-fetches.js";
 import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
 import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
 import { champsImages } from "../../../../riot-data-management/img-urls/index.js";
-
-// function importAll(r) {
-//     let champs = {};
-//     r.keys().map((item, index) => {
-//         champs[item.replace("./", "")] = r(item);
-//     });
-//     return champs;
-// }
-
-// const champs = importAll(
-//     require.context('../../../../assets/champs-splashes', false, /\.(png|jpe?g|svg)$/)
-// );
 
 export default function SearchPlayer() {
     const [playerResults, setPlayerResults] = useState({});
@@ -54,19 +42,7 @@ export default function SearchPlayer() {
 
     useEffect(async () => {
         if (playerResults.encryptedId) {
-            const seasonInfoEnpoint = getCurrentSesionEndpoint(playerResults.encryptedId);
-            const response = await fetch(seasonInfoEnpoint);
-            const data = await response.json();
-            console.log(data);
-            const seasonData = {
-                tier: data[0].tier,
-                rank: data[0].rank,
-                wins: data[0].wins,
-                losses: data[0].losses,
-                queue: data[0].queueType,
-                hotStreak: data[0].hotStreak,
-                inactive: data[0].inactive
-            }
+            const seasonData = getCurrentSeasonInfo(playerResults.encryptedId)
             setSeasonResults(seasonData)
         }
     }, [playerResults.encryptedId])

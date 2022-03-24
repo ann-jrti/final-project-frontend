@@ -11,6 +11,7 @@ import UserProfile from './pages/user-profile/UserProfile';
 import PrivateUserRoute from './routes/private-user-route/PrivateUserRoute';
 import UserContextProvider from './context/user-context/user-context-provider';
 import CustomLolProfile from './pages/custom-lol-profile/CustomLolProfile';
+import UploadArtwork from './pages/upload-artwork/UploadArtwork';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/my-lol-profile" element={<PrivateUserRoute><CustomLolProfile /></PrivateUserRoute>}></Route>
+            <Route path="/user/upload-artwork" element={<PrivateUserRoute><UploadArtwork /></PrivateUserRoute>}></Route>
           </Routes>
         </UserContextProvider>
       </ThemeApp>

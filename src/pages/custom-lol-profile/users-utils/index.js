@@ -1,8 +1,9 @@
-export const createsProfileUserInDB = async ({ stats, infoAccount, champs }) => {
+export const createsProfileUserInDB = async ({ stats, infoAccount, seasonInfo, champs }) => {
     console.log(stats);
     const body = {
         ...stats,
         ...infoAccount,
+        ...seasonInfo,
         ...champs,
         email: localStorage.getItem('email')
     }
