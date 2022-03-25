@@ -1,13 +1,22 @@
 import './index.css'
-import { Button, ImageList, Box, Grid, Typography, ImageListItem } from "@mui/material";
+import { Button, ImageList, Menu, MenuItem, Box, Grid, Typography, ImageListItem } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
+import ImagesMenu from './components/images-menu/ImagesMenu';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Gallery() {
     let [buffers, setBuffer] = useState(null)
     const { token } = useParams();
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
     // let [searchParams] = useSearchParams();
     // const filename = searchParams.get('artworkname');
     // console.log(filename);
@@ -26,6 +35,11 @@ export default function Gallery() {
     const addNewArtwork = (e) => {
         e.preventDefault();
         navigate('/user/upload-artwork')
+    }
+
+    const handleOpenImgMenu = (e) => {
+        e.preventDefault()
+
     }
 
     return (
@@ -51,7 +65,23 @@ export default function Gallery() {
                                         // srcSet={`data:image/png;base64,${b.buffer}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                                         alt='gallery image'
                                         loading="lazy"
+                                        id="basic-button"
+                                        aria-controls={open ? 'basic-menu' : undefined}
+                                        aria-haspopup="true"
+                                        aria-expanded={open ? 'true' : undefined}
+                                        onClick={handleClick}
                                     />
+                                    <Menu
+                                        id="basic-menu"
+                                        anchorEl={anchorEl}
+                                        open={open}
+                                        onClose={handleClose}
+                                        MenuListProps={{
+                                            'aria-labelledby': 'basic-button',
+                                        }}
+                                    >
+                                        <MenuItem onClick={handleClose}> <DeleteIcon></DeleteIcon>Delete from my gallery</MenuItem>
+                                    </Menu>
                                 </ImageListItem>
                             </Grid>
                         ))}
