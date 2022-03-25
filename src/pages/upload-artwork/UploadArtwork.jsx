@@ -18,6 +18,7 @@ export default function UploadArtwork() {
         const formData = new FormData(form);
 
         formData.append('email', userEmail);
+        formData.append('token', localStorage.getItem('login-token'));
 
         for (const pair of formData.entries()) {
             console.log(pair[0] + ', ' + JSON.stringify(pair[1]));
@@ -36,14 +37,7 @@ export default function UploadArtwork() {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:4000/artwork/jingzhiyong_144734506_978530326009943_3700448638933136413_n.jpg')
-        console.log(response);
-        const data = await response.json()
-        console.log(data);
-        console.log(data.originalname);
-        const filename = data.originalname;
-        navigate(`/user/my-gallery/artworks/${filename}`);
-
+        navigate(`/user/my-gallery/artworks/${localStorage.getItem('login-token')}`);
     }
 
     return (

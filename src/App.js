@@ -30,7 +30,7 @@ function App() {
             <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/my-lol-profile" element={<PrivateUserRoute><CustomLolProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/upload-artwork" element={<PrivateUserRoute><UploadArtwork /></PrivateUserRoute>}></Route>
-            <Route path="/user/my-gallery/artworks/:artworkFile" element={<PrivateUserRoute><Gallery /></PrivateUserRoute>}></Route>
+            <Route path="/user/my-gallery/artworks/:token" element={<PrivateUserRoute><Gallery /></PrivateUserRoute>}></Route>
             <Route path="/user/my-account" element={<PrivateUserRoute><UserAccount /></PrivateUserRoute>}></Route>
           </Routes>
         </UserContextProvider>

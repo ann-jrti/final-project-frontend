@@ -34,7 +34,7 @@ export default function UserProfile() {
                 <Box>
                     <Grid item gap={1} display={'flex'} flexDirection={'row'} justifyContent={'center'} alignItems={'center'}>
                         <Button variant="outlined">{t('user-page.get-advice')}</Button>
-                        <Button onClick={() => navigate('/user/upload-artwork')} variant="outlined">{t('user-page.upload-artwork')}</Button>
+                        <Button onClick={() => navigate(`/user/my-gallery/artworks/${localStorage.getItem('login-token')}`)} variant="outlined">{t('user-page.upload-artwork')}</Button>
 
                     </Grid>
                 </Box>
