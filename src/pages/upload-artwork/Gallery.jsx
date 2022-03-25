@@ -1,3 +1,4 @@
+import './index.css'
 import { Button, ImageList, Box, Grid, Typography, ImageListItem } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
@@ -35,7 +36,7 @@ export default function Gallery() {
 
             <Grid container display={'flex'} justifyContent={'center'} >
                 <Grid item>
-                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={2}>
+                    <Box mb={2} display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={2}>
                         <Typography variant={'h3'} color={'success.main'}>My gallery</Typography>
                         <Button onClick={addNewArtwork} variant={'contained'} color='secondary'>Add new artwork</Button>
                     </Box>
@@ -43,8 +44,8 @@ export default function Gallery() {
                 {buffers ? <ImageList  >
                     <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={2}>
                         {buffers.map((b) => (
-                            <Grid item>
-                                <ImageListItem key={b.buffer}>
+                            <Grid item width={300}>
+                                <ImageListItem key={b._id}>
                                     <img className='gallery__user-img'
                                         src={`data:image/png;base64,${b.buffer}`}
                                         // srcSet={`data:image/png;base64,${b.buffer}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}

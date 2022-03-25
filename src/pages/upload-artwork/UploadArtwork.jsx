@@ -77,9 +77,9 @@ export default function UploadArtwork() {
                         <br />
                         <br />
 
-                        <Button variant={'outlined'} type="submit">Submit Form</Button>
+                        <Button variant={'outlined'} type="submit">Upload file</Button>
                     </form>
-                    <Button onClick={handleClick}>get artwork</Button>
+                    <Button variant={'contained'} onClick={handleClick}>Back to my Gallery</Button>
                 </Box>
             </Grid>
         </Grid>
