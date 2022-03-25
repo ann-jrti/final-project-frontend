@@ -1,6 +1,7 @@
 import { Grid, Box, Typography, Button, FormGroup, FormControl, InputLabel, Input, FormHelperText } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function SignUp() {
     const [t, i18n] = useTranslation('global');
@@ -10,6 +11,7 @@ export default function SignUp() {
         e.preventDefault();
 
         const user = {
+            userId: uuidv4(),
             username: e.target.username.value,
             email: e.target.email.value,
             password: e.target.password.value,

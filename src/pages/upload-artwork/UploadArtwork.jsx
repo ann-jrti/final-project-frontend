@@ -1,27 +1,27 @@
 import React, { useState } from "react";
 import axios from 'axios'
 import { Grid, Typography, Box, Input, Button, InputLabel } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import Gallery from "./Gallery";
 
 export default function UploadArtwork() {
-
     const [uploadedFile, setUploadedFile] = useState('');
     const [fileTitle, setFileTitle] = useState('');
+    const navigate = useNavigate()
 
     function handleFormSubmittion(e) {
         e.preventDefault();
 
-        let form = document.getElementById('form');
-        let formData = new FormData(form);
+        const form = document.getElementById('form');
+        const userEmail = localStorage.getItem('email')
 
-        // do something
-        console.log("Form submitted")
-        // fetch('http://localhost:4000/artwork/upload', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(formData)
-        // })
+        const formData = new FormData(form);
+
+        formData.append('email', userEmail);
+
+        for (const pair of formData.entries()) {
+            console.log(pair[0] + ', ' + JSON.stringify(pair[1]));
+        }
 
         axios.post('http://localhost:4000/artwork/upload', formData)
     }
@@ -32,6 +32,18 @@ export default function UploadArtwork() {
 
     function handleUploadedFile(e) {
         setUploadedFile(e.target.value);
+    }
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        const response = await fetch('http://localhost:4000/artwork/jingzhiyong_144734506_978530326009943_3700448638933136413_n.jpg')
+        console.log(response);
+        const data = await response.json()
+        console.log(data);
+        console.log(data.originalname);
+        const filename = data.originalname;
+        navigate(`/user/my-gallery/artworks/${filename}`);
+
     }
 
     return (
@@ -50,10 +62,12 @@ export default function UploadArtwork() {
                         <Input
                             type="file"
                             name="uploadedFile"
+                            id='ok'
                             value={uploadedFile}
                             onChange={handleUploadedFile}
                             required
                         />
+
                         <br />
                         <br />
 
@@ -71,6 +85,7 @@ export default function UploadArtwork() {
 
                         <Button variant={'outlined'} type="submit">Submit Form</Button>
                     </form>
+                    <Button onClick={handleClick}>get artwork</Button>
                 </Box>
             </Grid>
         </Grid>

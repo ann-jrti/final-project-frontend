@@ -50,7 +50,7 @@ export default function NavBar() {
                 navigate('/user')
                 break;
             case (t('header.avatar-account')):
-                navigate('/')
+                navigate('/user/my-account')
                 break;
             case (t('header.avatar-logout')):
                 localStorage.clear();
