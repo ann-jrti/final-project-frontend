@@ -183,15 +183,5 @@ export const getCurrentSeasonInfo = async (encryptedId) => {
     const seasonInfoEnpoint = getCurrentSesionEndpoint(encryptedId);
     const response = await fetch(seasonInfoEnpoint);
     const data = await response.json();
-    console.log('creating');
-    const seasonData = {
-        tier: data[0].tier,
-        rank: data[0].rank,
-        wins: data[0].wins,
-        losses: data[0].losses,
-        queue: data[0].queueType,
-        hotStreak: data[0].hotStreak,
-        inactive: data[0].inactive
-    }
-    return seasonData
+    return data
 }

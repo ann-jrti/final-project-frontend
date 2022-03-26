@@ -40,6 +40,7 @@ export default function CustomLolProfile() {
             await changeCustomProfileStatusInDB(localStorage.getItem('email'));
         }
         const seasonInfo = await getCurrentSeasonInfo(registeredUserInfoAccount.encryptedId)
+        console.log(seasonInfo);
         setCurrentSeasonStats(seasonInfo)
 
         setTimeout(async () => {
