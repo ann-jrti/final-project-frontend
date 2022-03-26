@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Grid, Box, Button, Typography, TextField } from "@mui/material";
+import { Grid, Box, Button, Typography, TextField, InputLabel } from "@mui/material";
 import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails, getCurrentSeasonInfo } from "../../riot-data-management/fetches/riot-fetches";
 import poroAvatar from '../../assets/imgs/fat-poro.webp'
 import { changeCustomProfileStatusInDB, createsProfileUserInDB } from "./users-utils";
@@ -8,97 +8,53 @@ import { UserContext } from "../../context/user-context/user-context";
 import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
 
 export default function CustomLolProfile() {
-    const [registeredUserInfoAccount, setRegisteredUserInfoAccount] = useState({});
-    const [mostPlayedChamps, setMostPlayedChamps] = useState({});
-    const [lastMatches, setLastMatchesId] = useState([]);
-    const [meanStats, setMeanStats] = useState({});
-    const [currentSeasonStats, setCurrentSeasonStats] = useState({});
     let [, , isCustomProfileCreated, setIsCustomProfileCreated] = useContext(UserContext)
 
     const hideButton = isCustomProfileCreated ? 'none' : 'flex'
-    console.log('customProfileCreated value :', isCustomProfileCreated);
-
-    console.log('hideButton value', hideButton);
 
     const GenerateProfileButton = styled(Button)`
     display: ${hideButton}
     `
     console.log('working custom lol profile');
 
-
-    const handleInsertPlayerForCustomProfile = async (e) => {
-        e.preventDefault();
-        const results = await getBasicInfo(e.target.generateMyProfile.value)
-        setRegisteredUserInfoAccount(results);
-
-        setTimeout(async () => {
-            const seasonInfo = await getCurrentSeasonInfo(registeredUserInfoAccount.encryptedId)
-            console.log(seasonInfo);
-            setCurrentSeasonStats(seasonInfo)
-        }, 100)
-
-    }
-
-    const handleGenerateLolProfile = async (e) => {
-        e.preventDefault();
-        await createsProfileUserInDB({ stats: { meanStats }, infoAccount: { registeredUserInfoAccount }, seasonInfo: { currentSeasonStats }, champs: { mostPlayedChamps } });
+    const getProfileData = async (event) => {
+        const basicInfo = await getBasicInfo(event);
+        const seasonInfo = await getCurrentSeasonInfo(basicInfo.encryptedId);
+        const firstThreeChampsMostPlayed = await getThreeMostPlayedChamps(basicInfo.encryptedId)
+        const last10matches = await getLast30Matches(basicInfo.puuid);
+        const { numOfMatches, allGamesDetails, totalStats, roles } = await getAllGameDetails(last10matches, basicInfo.encryptedId);
+        let mean = { ...totalStats }
+        for (const property in mean) {
+            mean[property] = mean[property] / numOfMatches
+            if (mean[property] > 99) {
+                mean[property] = Math.round(mean[property])
+            }
+        }
+        await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles } });
         await changeCustomProfileStatusInDB(localStorage.getItem('email'));
         setIsCustomProfileCreated(true);
     }
 
-    useEffect(() => {
-        const saveMostPlayedChamps = async () => {
-            if (registeredUserInfoAccount.encryptedId) {
-                const firstThreeChampsMostPlayed = await getThreeMostPlayedChamps(registeredUserInfoAccount.encryptedId)
-                setMostPlayedChamps(firstThreeChampsMostPlayed)
-            }
-        }
-        saveMostPlayedChamps();
-    }, [registeredUserInfoAccount.encryptedId])
+    const handleTryClick = (e) => {
+        e.preventDefault();
+        getProfileData(e.target.try.value);
+    }
 
-    useEffect(() => {
-        const saveLastMathesId = async () => {
-            if (mostPlayedChamps[0]) {
-                const results = await getLast30Matches(registeredUserInfoAccount.puuid);
-                setLastMatchesId(results);
-            }
-        }
-        saveLastMathesId();
-    }, [mostPlayedChamps[0]])
-
-    useEffect(() => {
-        const getMeanStatsOfLastGames = async () => {
-            if (lastMatches[0]) {
-                const { numOfMatches, allGamesDetails, totalStats, roles } = await getAllGameDetails(lastMatches, registeredUserInfoAccount.encryptedId);
-                let mean = { ...totalStats }
-                console.log(allGamesDetails);
-                console.log(totalStats);
-                console.log(roles);
-                for (const property in mean) {
-                    mean[property] = mean[property] / numOfMatches
-                    if (mean[property] > 99) {
-                        mean[property] = Math.round(mean[property])
-                    }
-                }
-                console.log(mean);
-                console.log(totalStats);
-                setMeanStats(mean);
-            }
-        }
-        getMeanStatsOfLastGames();
-
-    }, [lastMatches[0]])
 
     return (
         <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
 
-            <form onSubmit={handleInsertPlayerForCustomProfile}>
-                {isCustomProfileCreated ? '' : <TextField id="generateMyProfile" >Search</TextField>}
-            </form>
-            {isCustomProfileCreated ? '' : <GenerateProfileButton variant={'contained'} onClick={handleGenerateLolProfile} color='warning'> Generate my LoL profile!</GenerateProfileButton>}
+            {isCustomProfileCreated ? '' : <form onSubmit={handleTryClick}>
+
+                <InputLabel>Type your summoner name</InputLabel>
+                <TextField id="try" placeholder="type here"></TextField>
+                <GenerateProfileButton variant={'contained'} color='warning' type="submit">Generate my Lol profile</GenerateProfileButton>
+            </form>}
+
             <>
                 {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''}
             </>
+
         </Grid>
 
     )

@@ -5,11 +5,8 @@ import poroAvatar from '../../../assets/imgs/fat-poro.webp'
 import { getUserLolAccountData } from '../../../db-requests'
 import { champsImages } from '../../../riot-data-management/img-urls'
 
-
-
 export default function CustomProfileCard() {
     const [playerData, setPlayerData] = useState({})
-
 
     const getPlayerData = async () => {
         const data = await getUserLolAccountData(localStorage.getItem('email'))
@@ -18,7 +15,7 @@ export default function CustomProfileCard() {
     }
 
     const print = () => {
-        const printed = playerData.mostPlayedChamps.map(champ => {
+        const printed = playerData.firstThreeChampsMostPlayed.map(champ => {
             const champImagesInAssets = champsImages.filter(c => {
                 const champName = c.split('_')
                 return champName[0] === champ.mostPlayedChampName;
@@ -26,7 +23,6 @@ export default function CustomProfileCard() {
             const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)]
 
             return (
-
                 <div key={champ.lastTimePlayed} className="card">
                     <div className="bg" />
                     <div className="card-front-img">
@@ -52,14 +48,6 @@ export default function CustomProfileCard() {
         return printed
     }
 
-    // useEffect(() => {
-    //     // if (playerData.mostPlayedChamps[0]) {
-
-    //     // }
-
-    // }, [playerData.mostPlayedChamps[0]])
-
-
     useEffect(() => {
         getPlayerData();
     }, [])
@@ -80,13 +68,13 @@ export default function CustomProfileCard() {
                                 </Box>
                                 <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                     {/* <Divider sx={{ color: 'red' }} /> */}
-                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerData.registeredUserInfoAccount.name}</Typography>
+                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerData.basicInfo.name}</Typography>
                                     <Typography variant={'h4'}>Mean stats last 10 games: </Typography>
                                     <List>
-                                        <ListItem>Wins: {playerData.meanStats.wins}</ListItem>
-                                        <ListItem>Average kills per game: {playerData.meanStats.kills}</ListItem>
-                                        <ListItem>Average assists per game: {playerData.meanStats.assists}</ListItem>
-                                        <ListItem>Average deaths per game: {playerData.meanStats.deaths}</ListItem>
+                                        <ListItem>Wins: {playerData.mean.wins}</ListItem>
+                                        <ListItem>Average kills per game: {playerData.mean.kills}</ListItem>
+                                        <ListItem>Average assists per game: {playerData.mean.assists}</ListItem>
+                                        <ListItem>Average deaths per game: {playerData.mean.deaths}</ListItem>
 
                                     </List>
                                     <Typography variant={'h4'}>Most played champs: </Typography>

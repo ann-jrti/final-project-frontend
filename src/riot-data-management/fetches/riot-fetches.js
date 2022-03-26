@@ -38,7 +38,6 @@ export const getBasicInfo = async (player) => {
         encryptedId: data.id,
         puuid: data.puuid
     }
-    console.log(results);
     return results
 }
 
