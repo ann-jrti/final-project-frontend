@@ -48,17 +48,19 @@ export default function Gallery() {
 
 
 
-            <Grid container display={'flex'} justifyContent={'center'} >
-                <Grid item>
-                    <Box mb={2} display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={2}>
+            <Grid container display={'flex'} justifyContent={'center'} flexDirection={'column'} >
+
+                <Grid item display={'flex'} justifyContent={'center'} >
+                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={2} mb={5}>
                         <Typography variant={'h3'} color={'success.main'}>My gallery</Typography>
                         <Button onClick={addNewArtwork} variant={'contained'} color='secondary'>Add new artwork</Button>
                     </Box>
                 </Grid>
+
                 {buffers ? <ImageList  >
-                    <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={2}>
+                    <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={3}>
                         {buffers.map((b) => (
-                            <Grid item width={300}>
+                            <Grid display={'flex'} justifyContent={'center'} item width={300}>
                                 <ImageListItem key={b._id}>
                                     <img className='gallery__user-img'
                                         src={`data:image/png;base64,${b.buffer}`}
@@ -87,6 +89,7 @@ export default function Gallery() {
                         ))}
                     </Box>
                 </ImageList> : <Typography>Loading your awesome gallery...</Typography>}
+
             </Grid>
 
 

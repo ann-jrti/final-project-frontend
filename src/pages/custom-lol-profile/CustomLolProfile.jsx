@@ -94,7 +94,7 @@ export default function CustomLolProfile() {
     }, [lastMatches[0]])
 
     return (
-        <Grid container>
+        <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
 
             <form onSubmit={handleInsertPlayerForCustomProfile}>
                 {isCustomProfileCreated ? '' : <TextField id="generateMyProfile" >Search</TextField>}
