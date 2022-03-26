@@ -37,6 +37,12 @@ export default function Gallery() {
 
     }
 
+    const handleDeleteArtwork = (e) => {
+        e.preventDefault();
+        console.log(e.target);
+
+    }
+
     return (
 
         <>
@@ -77,7 +83,7 @@ export default function Gallery() {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
-                                        <MenuItem onClick={handleClose}> <DeleteIcon></DeleteIcon>Delete from my gallery</MenuItem>
+                                        <MenuItem onClick={handleClose}> <DeleteIcon></DeleteIcon><Button onClick={handleDeleteArtwork}>Delete from my gallery</Button></MenuItem>
                                     </Menu>
                                 </ImageListItem>
                             </Grid>

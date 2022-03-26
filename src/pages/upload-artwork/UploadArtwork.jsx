@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from 'axios'
 import { Grid, Typography, Box, Input, Button, InputLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Gallery from "./Gallery";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function UploadArtwork() {
     const [uploadedFile, setUploadedFile] = useState('');
@@ -18,10 +18,7 @@ export default function UploadArtwork() {
         const formData = new FormData(form);
 
         formData.append('email', userEmail);
-
-        for (const pair of formData.entries()) {
-            console.log(pair[0] + ', ' + JSON.stringify(pair[1]));
-        }
+        formData.append('id', uuidv4());
 
         axios.post('http://localhost:4000/artwork/upload', formData)
     }
