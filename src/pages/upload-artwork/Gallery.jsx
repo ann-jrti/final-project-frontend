@@ -2,12 +2,10 @@ import './index.css'
 import { Button, ImageList, Menu, MenuItem, Box, Grid, Typography, ImageListItem } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import ImagesMenu from './components/images-menu/ImagesMenu';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Gallery() {
     let [buffers, setBuffer] = useState(null)
-    const { token } = useParams();
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -17,12 +15,9 @@ export default function Gallery() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-    // let [searchParams] = useSearchParams();
-    // const filename = searchParams.get('artworkname');
-    // console.log(filename);
 
     const getArt = async () => {
-        const response = await fetch(`http://localhost:4000/artwork?token=${token}`)
+        const response = await fetch(`http://localhost:4000/artwork?email=${localStorage.getItem('email')}`)
         const data = await response.json()
         console.log(data);
         setBuffer(data)

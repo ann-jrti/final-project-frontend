@@ -31,24 +31,19 @@ export default function CustomLolProfile() {
         const results = await getBasicInfo(e.target.generateMyProfile.value)
         setRegisteredUserInfoAccount(results);
 
+        setTimeout(async () => {
+            const seasonInfo = await getCurrentSeasonInfo(registeredUserInfoAccount.encryptedId)
+            console.log(seasonInfo);
+            setCurrentSeasonStats(seasonInfo)
+        }, 100)
+
     }
 
     const handleGenerateLolProfile = async (e) => {
         e.preventDefault();
-        const create = async () => {
-            await createsProfileUserInDB({ stats: { meanStats }, infoAccount: { registeredUserInfoAccount }, seasonInfo: { currentSeasonStats }, champs: { mostPlayedChamps } });
-            await changeCustomProfileStatusInDB(localStorage.getItem('email'));
-        }
-        const seasonInfo = await getCurrentSeasonInfo(registeredUserInfoAccount.encryptedId)
-        console.log(seasonInfo);
-        setCurrentSeasonStats(seasonInfo)
-
-        setTimeout(async () => {
-            await create()
-            setIsCustomProfileCreated(true);
-        }, 100)
-
-
+        await createsProfileUserInDB({ stats: { meanStats }, infoAccount: { registeredUserInfoAccount }, seasonInfo: { currentSeasonStats }, champs: { mostPlayedChamps } });
+        await changeCustomProfileStatusInDB(localStorage.getItem('email'));
+        setIsCustomProfileCreated(true);
     }
 
     useEffect(() => {

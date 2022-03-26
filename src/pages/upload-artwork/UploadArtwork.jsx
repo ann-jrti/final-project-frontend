@@ -18,7 +18,6 @@ export default function UploadArtwork() {
         const formData = new FormData(form);
 
         formData.append('email', userEmail);
-        formData.append('token', localStorage.getItem('login-token'));
 
         for (const pair of formData.entries()) {
             console.log(pair[0] + ', ' + JSON.stringify(pair[1]));
@@ -37,7 +36,7 @@ export default function UploadArtwork() {
 
     const handleClick = async (e) => {
         e.preventDefault();
-        navigate(`/user/my-gallery/artworks/${localStorage.getItem('login-token')}`);
+        navigate(`/user/my-gallery/artworks/${localStorage.getItem('email')}`);
     }
 
     return (
