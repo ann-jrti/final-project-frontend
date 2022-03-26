@@ -1,5 +1,5 @@
 export const getUserAccountInfo = async (email) => {
-    const response = await fetch(`http://localhost:4000/users/${email}`,
+    const response = await fetch(`http://localhost:4000/users/`,
         {
             method: 'GET',
             headers: {

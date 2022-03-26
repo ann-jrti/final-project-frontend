@@ -3,11 +3,17 @@ import axios from 'axios'
 import { Grid, Typography, Box, Input, Button, InputLabel } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
+import * as tf from '@tensorflow/tfjs'
+import * as nsfwjs from 'nsfwjs'
+
+let model = null;
+nsfwjs.load().then(d => window.model = d);
 
 export default function UploadArtwork() {
-    const [uploadedFile, setUploadedFile] = useState('');
+    const [uploadedFile, setUploadedFile] = useState(null);
     const [fileTitle, setFileTitle] = useState('');
     const navigate = useNavigate()
+
 
     function handleFormSubmittion(e) {
         e.preventDefault();
@@ -27,8 +33,10 @@ export default function UploadArtwork() {
         setFileTitle(e.target.value);
     }
 
-    function handleUploadedFile(e) {
-        setUploadedFile(e.target.value);
+    async function handleUploadedFile(e) {
+        setUploadedFile(e.target.files[0]);
+        // const predictions = await model.classify(imgData)
+        // console.log('Predictions: ', predictions)
     }
 
     const handleClick = async (e) => {
@@ -42,6 +50,7 @@ export default function UploadArtwork() {
             <Grid item display={'flex'} flexDirection={'column'} gap={3}>
                 <Box>
                     <Typography variant={'h4'}>Upload your artwork</Typography>
+                    <img id='test-img' src={uploadedFile ? URL.createObjectURL(uploadedFile) : ''}></img>
                 </Box>
                 <Box>
                     <form
@@ -53,7 +62,7 @@ export default function UploadArtwork() {
                             type="file"
                             name="uploadedFile"
                             id='ok'
-                            value={uploadedFile}
+                            // value={uploadedFile}
                             onChange={handleUploadedFile}
                             required
                         />

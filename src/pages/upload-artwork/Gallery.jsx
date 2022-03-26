@@ -17,7 +17,13 @@ export default function Gallery() {
     };
 
     const getArt = async () => {
-        const response = await fetch(`http://localhost:4000/artwork?email=${localStorage.getItem('email')}`)
+        const response = await fetch(`http://localhost:4000/artwork?email=${localStorage.getItem('email')}`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `bearer ${localStorage.getItem('login-token')}`
+                }
+            })
         const data = await response.json()
         console.log(data);
         setBuffer(data)
