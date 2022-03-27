@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 import * as tf from '@tensorflow/tfjs'
 import * as nsfwjs from 'nsfwjs'
 import sensitiveParameters from './sensitive-content-config.json'
+import styled from "@emotion/styled";
 
 export default function UploadArtwork() {
     const [uploadedFile, setUploadedFile] = useState('');
@@ -15,6 +16,10 @@ export default function UploadArtwork() {
     const [message, setMessage] = useState('')
     const navigate = useNavigate()
 
+    const StyledImg = styled('img')`
+    filter: ${invalidImage} ? blur(5px) : blur(0px);
+    webKitFilter: ${invalidImage} ? blur(5px) : blur(0px)
+    `
 
     function handleFormSubmittion(e) {
         e.preventDefault();
@@ -79,7 +84,7 @@ export default function UploadArtwork() {
             <Grid item display={'flex'} flexDirection={'column'} gap={3}>
                 <Box>
                     <Typography variant={'h4'}>Upload your artwork</Typography>
-                    <img width={350} id='test-img' src={uploaded ? URL.createObjectURL(uploaded) : ''}></img>
+                    <StyledImg width={350} id='test-img' src={uploaded ? URL.createObjectURL(uploaded) : ''}></StyledImg>
                 </Box>
                 <Box>
                     <form

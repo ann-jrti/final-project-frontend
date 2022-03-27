@@ -5,7 +5,7 @@ import poroAvatar from '../../../assets/imgs/fat-poro.webp'
 import { getUserLolAccountData } from '../../../db-requests'
 import { champsImages } from '../../../riot-data-management/img-urls'
 
-export default function CustomProfileCard() {
+export default React.memo(function CustomProfileCard() {
     const [playerData, setPlayerData] = useState({})
 
     const getPlayerData = async () => {
@@ -94,6 +94,6 @@ export default function CustomProfileCard() {
         </>
     )
 
-}
+})
 
 
