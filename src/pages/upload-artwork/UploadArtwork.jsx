@@ -7,9 +7,6 @@ import * as tf from '@tensorflow/tfjs'
 import * as nsfwjs from 'nsfwjs'
 import sensitiveParameters from './sensitive-content-config.json'
 
-// let model = null;
-// nsfwjs.load().then(d => model = d);
-
 export default function UploadArtwork() {
     const [uploadedFile, setUploadedFile] = useState('');
     const [uploaded, setUploaded] = useState('');
@@ -34,11 +31,14 @@ export default function UploadArtwork() {
         formData.append('id', uuidv4());
 
         axios.post('http://localhost:4000/artwork/upload', formData, { headers: headers })
-
     }
 
     function handleFileTitle(e) {
         setFileTitle(e.target.value);
+    }
+
+    const handleSensitiveContent = () => {
+
     }
 
     async function handleUploadedFile(e) {
