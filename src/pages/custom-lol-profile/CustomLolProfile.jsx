@@ -31,7 +31,6 @@ export default function CustomLolProfile() {
             }
         }
         await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles } });
-        await changeCustomProfileStatusInDB(localStorage.getItem('email'));
         setIsCustomProfileCreated(true);
     }
 
