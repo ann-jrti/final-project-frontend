@@ -64,7 +64,7 @@ export default React.memo(function CustomProfileCard() {
                         <Grid item display={'flex'} justifyContent={'center'}>
                             <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                 <Box >
-                                    <img className='avatar-profile' src={poroAvatar}></img>
+                                    <img className='avatar-profile' src={`https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerData.basicInfo.iconId}.png`}></img>
                                 </Box>
                                 <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                     {/* <Divider sx={{ color: 'red' }} /> */}

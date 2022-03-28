@@ -36,7 +36,8 @@ export const getBasicInfo = async (player) => {
         level: data.summonerLevel,
         accountId: data.accountId,
         encryptedId: data.id,
-        puuid: data.puuid
+        puuid: data.puuid,
+        iconId: data.profileIconId
     }
     return results
 }

@@ -9,9 +9,11 @@ export default function Gallery() {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -53,10 +55,11 @@ export default function Gallery() {
                     'Authorization': `bearer ${localStorage.getItem('login-token')}`
                 }
             })
+        if (response.ok) getArt();
         const data = await response.json()
         console.log(data);
     }
-
+    console.log(buffers);
     return (
 
         <>
@@ -72,9 +75,10 @@ export default function Gallery() {
 
                 {buffers ? <ImageList  >
                     <Box display={'flex'} justifyContent={'center'} flexDirection={'row'} gap={3}>
+
                         {buffers.map((b) => (
                             <Grid display={'flex'} justifyContent={'center'} item width={300}>
-                                <ImageListItem key={b._id}>
+                                <ImageListItem key={b.id}>
                                     <img className='gallery__user-img'
                                         src={`data:image/png;base64,${b.buffer}`}
                                         // srcSet={`data:image/png;base64,${b.buffer}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
@@ -86,17 +90,10 @@ export default function Gallery() {
                                         aria-expanded={open ? 'true' : undefined}
                                         onClick={handleClick}
                                     />
-                                    <Menu
-                                        id="basic-menu"
-                                        anchorEl={anchorEl}
-                                        open={open}
-                                        onClose={handleClose}
-                                        MenuListProps={{
-                                            'aria-labelledby': 'basic-button',
-                                        }}
-                                    >
-                                        <MenuItem onClick={handleClose}> <DeleteIcon></DeleteIcon><Button onClick={() => handleDeleteArtwork(b.id, b)}>Delete from my gallery</Button></MenuItem>
-                                    </Menu>
+                                    <Button size='small' sx={{ position: 'absolute', right: '-.7rem' }} onClick={() => handleDeleteArtwork(b.id, b)}>
+                                        <Box display='flex' justifyContent='center' alignItems='center' sx={{ bgcolor: '#edf2f4', height: '22px', width: '22px', borderRadius: '.8rem', margin: '.3rem' }}>
+                                            <Typography color='#df1638' variant='h6'>x</Typography>
+                                        </Box></Button>
                                 </ImageListItem>
                             </Grid>
                         ))}

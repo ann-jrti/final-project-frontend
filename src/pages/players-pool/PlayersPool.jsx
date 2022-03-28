@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import PlayerPoolCard from "./PlayerPoolCard/PlayerPoolCard";
 import { Grid, Typography, Modal, Card, Box, List, ListItem } from "@mui/material";
+import { getUserLolAccountData } from "../../db-requests";
 import { champsImages } from "../../riot-data-management/img-urls";
+import poroAvatar from '../../assets/imgs/fat-poro.webp'
 
 export default function PlayersPool() {
     const [offers, setOffers] = useState(null)
     let [summoner, setSummoner] = useState('')
     const [openProfile, setOpenProfile] = useState(false)
-    const [playerData, setPlayerData] = useState({})
-    const [playerEmail, setPlayerEmail] = useState('')
     const [playerProfile, setPlayerProfile] = useState({})
 
     const [open, setOpen] = React.useState(false);
@@ -77,16 +77,20 @@ export default function PlayersPool() {
         })
         return printed
     }
-
+    console.log(offers);
     const printCustomLolProfile = () => {
         return (
             <>
+
                 {playerProfile.email === undefined ? 'cargando' :
                     <Grid container display={'flex'} justifyContent={'center'}>
 
                         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} m={3}>
                             <Grid item display={'flex'} justifyContent={'center'}>
                                 <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                                    <Box >
+                                        <img className='avatar-profile' src={poroAvatar}></img>
+                                    </Box>
                                     <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                         <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerProfile.basicInfo.name}</Typography>
                                         <Typography variant={'h4'}>Mean stats last 10 games: </Typography>
@@ -134,8 +138,10 @@ export default function PlayersPool() {
     return (
 
         <Grid container justifyContent='center' mt={3} gap={2}>
-            <Typography variant='h2' color='primary'>PLAYERS POOL</Typography>
-
+            <Grid item gap={3} display='flex' flexDirection='column' alignItems='center'>
+                <Typography variant='h2' color='primary'>PLAYERS POOL</Typography>
+                {offers ? <Typography variant='body1'>No one is looking for a team for now...</Typography> : ''}
+            </Grid>
             <Grid item display='flex' gap={3}>
                 {offers ? offers.map(offer => <PlayerPoolCard openFullCustomProfile={() => {
                     setOpen(true)
@@ -144,7 +150,6 @@ export default function PlayersPool() {
                     const found = offers.find(offerr => offer.email === offerr.email)
                     console.log('found', found)
                     setPlayerProfile(found)
-                    setPlayerEmail(offer.email)
 
                 }} role={offer.role} userName={offer.basicInfo.name} playerMessage={offer.playerDescription}></PlayerPoolCard>) : 'loading...'}
             </Grid>
