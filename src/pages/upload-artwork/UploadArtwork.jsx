@@ -8,6 +8,11 @@ import * as nsfwjs from 'nsfwjs'
 import sensitiveParameters from './sensitive-content-config.json'
 import styled from "@emotion/styled";
 
+// const StyledImg = React.memo(styled('img')`
+// filter: ${invalidImage} ? blur(5px) : blur(0px);
+// webKitFilter: ${invalidImage} ? blur(5px) : blur(0px)
+// `)
+
 export default function UploadArtwork() {
     const [uploadedFile, setUploadedFile] = useState('');
     const [uploaded, setUploaded] = useState('');
@@ -16,10 +21,8 @@ export default function UploadArtwork() {
     const [message, setMessage] = useState('')
     const navigate = useNavigate()
 
-    const StyledImg = styled('img')`
-    filter: ${invalidImage} ? blur(5px) : blur(0px);
-    webKitFilter: ${invalidImage} ? blur(5px) : blur(0px)
-    `
+
+
 
     function handleFormSubmittion(e) {
         e.preventDefault();
@@ -47,6 +50,7 @@ export default function UploadArtwork() {
     }
 
     async function handleUploadedFile(e) {
+        console.log('calling handleUploadedFile');
         setUploadedFile(e.target.files[0]);
         setUploaded(e.target.files[0]);
         nsfwjs.load().then(model => {
@@ -78,13 +82,15 @@ export default function UploadArtwork() {
         navigate(`/user/my-gallery/artworks/${localStorage.getItem('email')}`);
     }
 
+    const imgSRC = React.useMemo(() => uploaded ? URL.createObjectURL(uploaded) : '', [uploaded])
+
     return (
         <Grid container display={'flex'} flexDirection={'column'} alignItems={'center'}>
 
             <Grid item display={'flex'} flexDirection={'column'} gap={3}>
                 <Box>
                     <Typography variant={'h4'}>Upload your artwork</Typography>
-                    <StyledImg width={350} id='test-img' src={uploaded ? URL.createObjectURL(uploaded) : ''}></StyledImg>
+                    <img style={{ filter: invalidImage ? 'blur(16px)' : 'blur(0px)' }} width={350} id='test-img' src={imgSRC}></img>
                 </Box>
                 <Box>
                     <form

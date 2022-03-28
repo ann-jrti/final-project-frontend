@@ -53,8 +53,6 @@ export default function Gallery() {
 
         <>
 
-
-
             <Grid container display={'flex'} justifyContent={'center'} flexDirection={'column'} >
 
                 <Grid item display={'flex'} justifyContent={'center'} >
