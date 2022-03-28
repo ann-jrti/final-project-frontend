@@ -63,8 +63,8 @@ export default function PlayersPool() {
                     <Box className="card-info">
                         <Box className="card-info-section">
                             <Box className="card-info__faction">
-                                <Box className="card-info__name"><Typography>{champ.mostPlayedChampName}</Typography></Box>
-                                <Box display={'flex'} justifyContent={'center'} sx={{ paddingLeft: '.3rem' }} className="card-info__points"><Typography sx={{ fontSize: '.7rem' }}>Score points: {champ.champPoints}</Typography> </Box>
+                                <Box className="card-info__name"><Typography variant='h6'>{champ.mostPlayedChampName}</Typography></Box>
+                                <Box display={'flex'} justifyContent={'center'} sx={{ marginLeft: '.6rem' }} ><Typography sx={{ fontSize: '.7rem', color: 'white', paddingBottom: '.3rem' }}>Score points: {champ.champPoints}</Typography> </Box>
                             </Box>
                             <Box className="card-info__avatar">
                                 <img src={`https://ddragon.canisback.com/img/champion/tiles/${champ.mostPlayedChampName}_0.jpg`} />
