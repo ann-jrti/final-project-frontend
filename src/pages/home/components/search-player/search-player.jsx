@@ -140,6 +140,7 @@ export default function SearchPlayer() {
                             name={playerResults.name}
                             imgSrc={`https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerResults.iconId}.png`}
                             level={playerResults.level}
+                            rankIcon={seasonResults !== null ? seasonResults.tier : ''}
                             rank={seasonResults !== null ? `${seasonResults.tier} ${seasonResults.rank}` : ''}
                             losses={seasonResults !== null ? seasonResults.losses : ''} wins={seasonResults !== null ? seasonResults.wins : ''}
                             // hotstreak={ seasonResults.hotStreak ? 'In a hot streak!' : ''}
