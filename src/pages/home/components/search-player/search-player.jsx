@@ -64,6 +64,7 @@ export default function SearchPlayer() {
             if (response.status === 200) setIsPlaying(true);
             const data = await response.json();
             console.log(data);
+            if (!data.participants) return;
             const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
             const champPlaying = await getChampNameByChampId(champId);
             const game = {
