@@ -39,48 +39,86 @@ export default function SearchPlayer() {
         )
     }
 
-    useEffect(async () => {
-        if (playerResults.encryptedId) {
-            const data = await getCurrentSeasonInfo(playerResults.encryptedId)
+    // useEffect(async () => {
+    //     if (playerResults.encryptedId) {
+    //         const data = await getCurrentSeasonInfo(playerResults.encryptedId)
+    //         const seasonData = {
+    //             tier: data[0].tier,
+    //             rank: data[0].rank,
+    //             wins: data[0].wins,
+    //             losses: data[0].losses,
+    //             queue: data[0].queueType,
+    //             hotStreak: data[0].hotStreak,
+    //             inactive: data[0].inactive
+    //         }
+    //         setSeasonResults(seasonData)
+    //     }
+    // }, [playerResults.encryptedId])
+
+    // useEffect(async () => {
+    //     if (seasonResults) {
+    //         const spectatorEndpoint = getCurrentPlayerGameEndpoint(playerResults.encryptedId);
+    //         const response = await fetch(spectatorEndpoint);
+    //         if (response.status === 404) setIsPlaying(false);
+    //         if (response.status === 200) setIsPlaying(true);
+    //         const data = await response.json();
+    //         console.log(data);
+    //         if (!data.participants) return;
+    //         const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
+    //         const champPlaying = await getChampNameByChampId(champId);
+    //         const game = {
+    //             gameMode: data.gameMode,
+    //             champ: champPlaying,
+    //             gameLength: Math.round(data.gameLength / 60)
+    //         }
+    //         setCurrentGame(game)
+    //     }
+
+    // }, [seasonResults])
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(e.target.searchPlayer.value);
+        const basicInfo = await getBasicInfo(e.target.searchPlayer.value)
+        console.log(basicInfo);
+        const seasonResults = await getCurrentSeasonInfo(basicInfo.encryptedId)
+        console.log(seasonResults);
+
+        console.log(seasonResults.length);
+        if (seasonResults.length !== 0) {
             const seasonData = {
-                tier: data[0].tier,
-                rank: data[0].rank,
-                wins: data[0].wins,
-                losses: data[0].losses,
-                queue: data[0].queueType,
-                hotStreak: data[0].hotStreak,
-                inactive: data[0].inactive
+                tier: seasonResults[0].tier,
+                rank: seasonResults[0].rank,
+                wins: seasonResults[0].wins,
+                losses: seasonResults[0].losses,
+                queue: seasonResults[0].queueType,
+                hotStreak: seasonResults[0].hotStreak,
+                inactive: seasonResults[0].inactive
             }
             setSeasonResults(seasonData)
         }
-    }, [playerResults.encryptedId])
 
-    useEffect(async () => {
-        if (seasonResults) {
-            const spectatorEndpoint = getCurrentPlayerGameEndpoint(playerResults.encryptedId);
-            const response = await fetch(spectatorEndpoint);
-            if (response.status === 404) setIsPlaying(false);
-            if (response.status === 200) setIsPlaying(true);
-            const data = await response.json();
+        const spectatorEndpoint = getCurrentPlayerGameEndpoint(basicInfo.encryptedId);
+        const isPlaying = await fetch(spectatorEndpoint);
+        if (isPlaying.status === 404) setIsPlaying(false);
+        if (isPlaying.status === 200) {
+            setIsPlaying(true);
+            const data = await isPlaying.json();
             console.log(data);
-            if (!data.participants) return;
-            const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
+            const champId = data.participants.find(p => p.summonerId === basicInfo.encryptedId).championId
             const champPlaying = await getChampNameByChampId(champId);
             const game = {
                 gameMode: data.gameMode,
                 champ: champPlaying,
                 gameLength: Math.round(data.gameLength / 60)
+
             }
             setCurrentGame(game)
         }
 
-    }, [seasonResults])
-
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const results = await getBasicInfo(e.target.searchPlayer.value)
-        setPlayerResults(results);
+        console.log(seasonResults);
+        setPlayerResults(basicInfo);
     }
 
     return (
@@ -95,19 +133,20 @@ export default function SearchPlayer() {
                 </Box>
             </Grid>
             <>
-                {(playerResults && seasonResults) &&
+                {playerResults.name !== undefined ?
                     <>
                         <InfoPlayerCard
                             image={`https://ddragon.canisback.com/img/champion/splash/${champsImages[Math.floor(Math.random() * champsImages.length)]}`}
                             name={playerResults.name}
+                            imgSrc={`https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerResults.iconId}.png`}
                             level={playerResults.level}
-                            rank={seasonResults.tier + ' ' + seasonResults.rank}
-                            losses={seasonResults.losses} wins={seasonResults.wins}
-                            hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
+                            rank={seasonResults !== null ? `${seasonResults.tier} ${seasonResults.rank}` : ''}
+                            losses={seasonResults !== null ? seasonResults.losses : ''} wins={seasonResults !== null ? seasonResults.wins : ''}
+                            // hotstreak={ seasonResults.hotStreak ? 'In a hot streak!' : ''}
                             playing={<Typography variant={'p'}>{isPlaying ? printNowPlayingButton() : 'Not playing right now'}</Typography>}
                         ></InfoPlayerCard>
 
-                    </>}
+                    </> : ''}
             </>
 
         </>

@@ -5,7 +5,7 @@ import { BadgeOutlined, Whatshot, StarBorder } from '@mui/icons-material';
 import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import styled from '@emotion/styled';
-
+import './infoplayercard.css'
 
 
 const StyleCard = styled(Card)`
@@ -23,7 +23,7 @@ export default function InfoPlayerCard(props) {
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        height="400"
+                        height="300"
                         image={props.image}
                         alt="green iguana"
                     />
@@ -32,8 +32,11 @@ export default function InfoPlayerCard(props) {
 
                         <Box display={'flex'} flexDirection={'column'} gap={1}>
 
-                            <Box display={'flex'} justifyContent={'center'}>
-                                <Typography gutterBottom variant="h3" component="div">{props.name}</Typography>
+                            <Box display={'flex'} justifyContent={'center'} flexDirection='column' alignItems='center' >
+
+                                <img style={{ maxWidth: '4.5rem', maxHeight: '4.5rem', borderRadius: '50%', position: 'absolute', marginBottom: '7rem', border: '.3rem solid #8d99ae', backgroundColor: '#8d99ae' }} className='search-player-avatar-icon' src={props.imgSrc}></img>
+
+                                <Typography paddingTop={2} gutterBottom variant="h3" component="div">{props.name}</Typography>
                             </Box>
 
                             <Box display={'flex'} gap={2} alignItems={'center'}>
