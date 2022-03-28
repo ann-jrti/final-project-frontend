@@ -7,6 +7,9 @@ import styled from "@emotion/styled";
 import { UserContext } from "../../context/user-context/user-context";
 import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
 
+
+const GAME_ROLES = ['Top', 'Jungle', 'Mid', 'Adc', 'Support'];
+
 export default function CustomLolProfile() {
     let [, , isCustomProfileCreated, setIsCustomProfileCreated] = useContext(UserContext)
     const [open, setOpen] = useState(false);
@@ -71,13 +74,13 @@ export default function CustomLolProfile() {
             role,
             playerDescription
         }
-        const response = await fetch('http://localhost:4000/orphan-players', {
+        const response = await fetch('http://localhost:4000/players-pool', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `bearer ${localStorage.getItem('login-token')}`
             },
-            body
+            body: JSON.stringify(body)
         })
         setCreateOfferResponse(response.ok ? 'Created' : 'Couldnt do it :(')
         const results = await response.json();
@@ -109,12 +112,7 @@ export default function CustomLolProfile() {
                                     label="Role"
                                     onChange={handleChange}
                                 >
-                                    <MenuItem value={0}>Top</MenuItem>
-                                    <MenuItem value={1}>Jungle</MenuItem>
-                                    <MenuItem value={2}>Mid</MenuItem>
-                                    <MenuItem value={3}>Adc</MenuItem>
-                                    <MenuItem value={4}>Support</MenuItem>
-
+                                    {GAME_ROLES.map((rol) => <MenuItem value={rol}>{rol}</MenuItem>)}
                                 </Select>
                             </FormControl>
                         </Box>
@@ -139,7 +137,7 @@ export default function CustomLolProfile() {
 
 
                 </Box>
-            </Modal>
+            </Modal >
 
             {
                 isCustomProfileCreated ? '' : <form onSubmit={handleTryClick}>
@@ -151,7 +149,8 @@ export default function CustomLolProfile() {
             }
 
             <>
-                {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''}
+                {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''
+                }
             </>
 
         </Grid >

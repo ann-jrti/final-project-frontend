@@ -14,6 +14,7 @@ import CustomLolProfile from './pages/custom-lol-profile/CustomLolProfile';
 import UploadArtwork from './pages/upload-artwork/UploadArtwork';
 import Gallery from './pages/upload-artwork/Gallery';
 import UserAccount from './pages/user-account/UserAccount';
+import PlayersPool from './pages/players-pool/PlayersPool';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="/login" element={<LogIn />}></Route>
             <Route path="/validate" element={<ValidateToken />}></Route>
             <Route path="/signup" element={<SignUp />}></Route>
+            <Route path="/players-pool" element={<PlayersPool />}></Route>
             <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/my-lol-profile" element={<PrivateUserRoute><CustomLolProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/upload-artwork" element={<PrivateUserRoute><UploadArtwork /></PrivateUserRoute>}></Route>

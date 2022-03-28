@@ -15,7 +15,7 @@ export default function NavBar() {
     let [isLogged, setIsLogged] = useContext(UserContext);
     const navigate = useNavigate();
 
-    const pages = [t('header.search-player'), t('header.compare-players')];
+    const pages = [t('header.search-player'), t('header.compare-players'), 'Players pool'];
     const settings = [t('header.avatar-profile'), t('header.avatar-account'), t('header.avatar-logout')];
 
 
@@ -39,6 +39,9 @@ export default function NavBar() {
                 break;
             case (t('header.compare-players')):
                 navigate('/')
+                break;
+            case (t('Players pool')):
+                navigate('/players-pool')
                 break;
         }
     }
