@@ -12,7 +12,10 @@ export default function Home() {
         <>
             <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
                 <Typography variant='h3'>{t('home.slogan')}</Typography>
-                {/* <iframe className='allistar-gif' onClick={'disabled'} src="https://giphy.com/embed/3oKIP73vEZmJjFNXtC" width="200" height="200" frameBorder="0" ></iframe> */}
+                {/* <iframe className='allistar-gif' onClick='disabled' src="https://giphy.com/embed/3oKIP73vEZmJjFNXtC" width="200" height="200" frameBorder="0" ></iframe> */}
+
+                {/* <iframe className='allistar-gif' src="https://giphy.com/embed/lqut5VxPEhP9zCJdUT" onClick='disabled' width="200" height="200" frameBorder="0"  ></iframe> */}
+
                 <SearchPlayer></SearchPlayer>
             </Grid>
         </>

@@ -43,10 +43,18 @@ export default function Gallery() {
 
     }
 
-    const handleDeleteArtwork = (e) => {
-        e.preventDefault();
-        console.log(e.target);
-
+    const handleDeleteArtwork = async (id, b) => {
+        console.log(id);
+        const response = await fetch(`http://localhost:4000/artwork/${id}`,
+            {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `bearer ${localStorage.getItem('login-token')}`
+                }
+            })
+        const data = await response.json()
+        console.log(data);
     }
 
     return (
@@ -87,7 +95,7 @@ export default function Gallery() {
                                             'aria-labelledby': 'basic-button',
                                         }}
                                     >
-                                        <MenuItem onClick={handleClose}> <DeleteIcon></DeleteIcon><Button onClick={handleDeleteArtwork}>Delete from my gallery</Button></MenuItem>
+                                        <MenuItem onClick={handleClose}> <DeleteIcon></DeleteIcon><Button onClick={() => handleDeleteArtwork(b.id, b)}>Delete from my gallery</Button></MenuItem>
                                     </Menu>
                                 </ImageListItem>
                             </Grid>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PlayerPoolCard from "./PlayerPoolCard/PlayerPoolCard";
 import { Grid, Typography, Modal, Card, Box, List, ListItem } from "@mui/material";
-import { getUserLolAccountData } from "../../db-requests";
 import { champsImages } from "../../riot-data-management/img-urls";
-import poroAvatar from '../../assets/imgs/fat-poro.webp'
 
 export default function PlayersPool() {
     const [offers, setOffers] = useState(null)
@@ -89,9 +87,6 @@ export default function PlayersPool() {
                         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} m={3}>
                             <Grid item display={'flex'} justifyContent={'center'}>
                                 <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-                                    <Box >
-                                        <img className='avatar-profile' src={poroAvatar}></img>
-                                    </Box>
                                     <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                         <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerProfile.basicInfo.name}</Typography>
                                         <Typography variant={'h4'}>Mean stats last 10 games: </Typography>
@@ -130,7 +125,6 @@ export default function PlayersPool() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style} display={'flex'} flexDirection={'column'}>
-                    <Typography>hi</Typography>
                     {printCustomLolProfile()}
                 </Box>
             </Modal>
