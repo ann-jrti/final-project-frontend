@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react"
-import PlayerCard from "./PlayerCard"
+import PlayerCard from "./PlayerCard/PlayerCard"
+import { Grid, Typography } from "@mui/material"
 
 export default function PlayersPool() {
     const [offers, setOffers] = useState(null)
@@ -21,13 +22,14 @@ export default function PlayersPool() {
 
     return (
 
-        <>
-            <h1>Players pool</h1>
-            <>
-                {offers ? offers.map(offer => <PlayerCard></PlayerCard>) : 'loading...'}
-            </>
+        <Grid container justifyContent='center' mt={3} gap={2}>
+            <Typography variant='h2' color='primary'>PLAYERS POOL</Typography>
 
-        </>
+            <Grid item display='flex' gap={3}>
+                {offers ? offers.map(offer => <PlayerCard role={offer.role} userName={offer.basicInfo.name} playerMessage={offer.playerDescription}></PlayerCard>) : 'loading...'}
+            </Grid>
+
+        </Grid>
 
 
     )

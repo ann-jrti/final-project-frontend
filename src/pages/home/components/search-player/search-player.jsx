@@ -22,8 +22,7 @@ export default function SearchPlayer() {
             const champName = champ.split('_')
             return champName[0] === currentGame.champ
         })
-        const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)]
-        console.log(randomChampImageToPrint);
+        const randomChampImageToPrint = champImagesInAssets[Math.floor(Math.random() * champImagesInAssets.length)];
         return (
 
             <Box display={'flex'} alignItems={'center'} gap={1}>

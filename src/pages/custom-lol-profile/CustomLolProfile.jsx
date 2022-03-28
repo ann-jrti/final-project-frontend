@@ -90,7 +90,7 @@ export default function CustomLolProfile() {
 
     return (
         <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
-            <Button onClick={handleOpen} variant='contained'>Looking for a team</Button>
+            {isCustomProfileCreated ? <Button onClick={handleOpen} variant='contained'>Looking for a team</Button> : ''}
             <Modal
                 open={open}
                 onClose={handleClose}
