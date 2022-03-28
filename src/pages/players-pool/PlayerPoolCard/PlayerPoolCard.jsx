@@ -12,7 +12,7 @@ import supportIcon from './icons/support_icon.webp'
 import topIcon from './icons/top_icon.webp'
 
 
-export default function PlayerCard(props) {
+export default function PlayerPoolCard(props) {
     const roles = {
         'Top': topIcon,
         'Mid': midIcon,
@@ -22,6 +22,7 @@ export default function PlayerCard(props) {
     }
 
     const iconByRole = (role) => roles[role]
+
 
     return (
 
@@ -44,7 +45,7 @@ export default function PlayerCard(props) {
                     </CardContent>
                     <CardActions>
                         <Box display='flex' justifyContent='center'>
-                            <Button variant='contained' color='error' size="small"><Typography variant='subtitle2' color='white'>See full player profile</Typography></Button>
+                            <Button onClick={props.openFullCustomProfile} variant='contained' color='error' size="small"><Typography variant='subtitle2' color='white'>See full player profile</Typography></Button>
                         </Box>
                     </CardActions>
                 </Grid>
