@@ -1,28 +1,25 @@
 import * as React from 'react';
 import { Card, CardContent, Grid, Box, CardMedia, Divider, Typography, CardActionArea } from '@mui/material';
-import { BadgeOutlined, Whatshot, StarBorder } from '@mui/icons-material';
-import ThumbUpOutlinedIcon from '@mui/icons-material/ThumbUpOutlined';
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import styled from '@emotion/styled';
-import './infoplayercard.css'
-import ironIcon from '../../../../assets/tier-icons/iron-icon.webp';
-import bronzeIcon from '../../../../assets/tier-icons/bronze-icon.webp';
-import silverIcon from '../../../../assets/tier-icons/silver-icon.webp';
-import goldIcon from '../../../../assets/tier-icons/gold-icon.webp';
-import platIcon from '../../../../assets/tier-icons/platinum-icon.webp';
-import diamondIcon from '../../../../assets/tier-icons/diamond-icon.webp';
-import challengerIcon from '../../../../assets/tier-icons/challenger-icon.webp';
-import masterIcon from '../../../../assets/tier-icons/master-icon.webp';
-import grandmasterIcon from '../../../../assets/tier-icons/grandmaster-icon.webp';
-import level50 from '../../../../assets/level-icons/level_50-74.png'
-
+import ironIcon from '../../../assets/tier-icons/iron-icon.webp';
+import bronzeIcon from '../../../assets/tier-icons/bronze-icon.webp';
+import silverIcon from '../../../assets/tier-icons/silver-icon.webp';
+import goldIcon from '../../../assets/tier-icons/gold-icon.webp';
+import platIcon from '../../../assets/tier-icons/platinum-icon.webp';
+import diamondIcon from '../../../assets/tier-icons/diamond-icon.webp';
+import challengerIcon from '../../../assets/tier-icons/challenger-icon.webp';
+import masterIcon from '../../../assets/tier-icons/master-icon.webp';
+import grandmasterIcon from '../../../assets/tier-icons/grandmaster-icon.webp';
+import level50 from '../../../assets/level-icons/level_50-74.png'
 
 const StyleCard = styled(Card)`
-max-width: 700px;
+max-width: 200rem;
 margin: 2rem;
+
 `
 
 export default function InfoPlayerCard(props) {
+
     const tierIcons = {
         'IRON': ironIcon,
         'BRONZE': bronzeIcon,
@@ -34,6 +31,8 @@ export default function InfoPlayerCard(props) {
         'MASTER': masterIcon,
         'GRANDMASTER': grandmasterIcon
     }
+
+
 
     return (
         <>
@@ -50,7 +49,6 @@ export default function InfoPlayerCard(props) {
                     <CardContent >
 
                         <Box display={'flex'} flexDirection={'column'} gap={1}>
-
                             <Box display={'flex'} justifyContent={'center'} flexDirection='column' alignItems='center' >
 
                                 <img style={{ maxWidth: '4.5rem', maxHeight: '4.5rem', borderRadius: '50%', position: 'absolute', marginBottom: '7rem', border: '.3rem solid #8d99ae', backgroundColor: '#8d99ae' }} className='search-player-avatar-icon' src={props.imgSrc}></img>

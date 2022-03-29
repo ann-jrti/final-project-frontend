@@ -17,6 +17,7 @@ const style = {
 
 const StyledModal = styled(Modal)`
 max-width: 400px;
+
 `
 
 export default function CurrentGameDetails(props) {
