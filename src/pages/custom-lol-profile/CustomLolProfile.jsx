@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Grid, Box, Button, Typography, FormControl, MenuItem, Select, TextareaAutosize, TextField, Modal, InputLabel } from "@mui/material";
-
+import './customLolProfile.css'
 import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails, getCurrentSeasonInfo } from "../../riot-data-management/fetches/riot-fetches";
 import { changeCustomProfileStatusInDB, createsProfileUserInDB } from "./users-utils";
 import styled from "@emotion/styled";
@@ -48,7 +48,11 @@ export default function CustomLolProfile() {
                 mean[property] = Math.round(mean[property])
             }
         }
-        await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles } });
+        const rolesPlayed = Object.values(roles);
+        const rolesEntries = Object.entries(roles);
+        const mostTimesPlayed = Math.max(...rolesPlayed);
+        const mostPlayedRole = rolesEntries.find(r => r[1] === mostTimesPlayed)
+        await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles }, mostPlayedRole: { mostPlayedRole } });
         setIsCustomProfileCreated(true);
     }
 
@@ -90,7 +94,7 @@ export default function CustomLolProfile() {
 
     return (
         <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
-            {isCustomProfileCreated ? <Button onClick={handleOpen} variant='contained'>Looking for a team</Button> : ''}
+            {isCustomProfileCreated ? <button className="learn-more" onClick={handleOpen} variant='contained'>Looking for a team?</button> : ''}
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -137,21 +141,31 @@ export default function CustomLolProfile() {
 
 
                 </Box>
-            </Modal >
+            </Modal>
 
             {
-                isCustomProfileCreated ? '' : <form onSubmit={handleTryClick}>
-
-                    <InputLabel>Type your summoner name</InputLabel>
-                    <TextField id="try" placeholder="type here"></TextField>
-                    <GenerateProfileButton variant={'contained'} color='warning' type="submit">Generate my Lol profile</GenerateProfileButton>
-                </form>
+                isCustomProfileCreated ? '' :
+                    <Grid container sx={{ height: '100vh' }} display='flex' justifyContent='center' alignItems='center'>
+                        <Grid item mb={30}>
+                            <form onSubmit={handleTryClick}>
+                                <Box display='flex' gap={3} flexDirection='column' justifyContent='center' alignItems='center'>
+                                    <Box >
+                                        <Typography variant='h5' color='primary'>Type your summoner name</Typography>
+                                    </Box>
+                                    <Box >
+                                        <TextField id="try" placeholder="type here"></TextField>
+                                    </Box>
+                                    <Box>
+                                        <GenerateProfileButton variant={'contained'} color='warning' type="submit">Generate my Lol profile</GenerateProfileButton>
+                                    </Box>
+                                </Box>
+                            </form>
+                        </Grid>
+                    </Grid>
             }
 
-            <>
-                {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''
-                }
-            </>
+
+            {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''}
 
         </Grid >
 

@@ -5,11 +5,11 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import adcIcon from './icons/bottom_icon.webp'
-import jungleIcon from './icons/jungle_icon.webp'
-import midIcon from './icons/middle_icon.webp'
-import supportIcon from './icons/support_icon.webp'
-import topIcon from './icons/top_icon.webp'
+import adcIcon from '../../../assets/roles-icons/bottom_icon.webp'
+import jungleIcon from '../../../assets/roles-icons/jungle_icon.webp'
+import midIcon from '../../../assets/roles-icons/middle_icon.webp'
+import supportIcon from '../../../assets/roles-icons/support_icon.webp'
+import topIcon from '../../../assets/roles-icons/top_icon.webp'
 
 
 export default function PlayerPoolCard(props) {

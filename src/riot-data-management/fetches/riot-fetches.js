@@ -30,6 +30,7 @@ export const getBasicInfo = async (player) => {
     const summonerEndpoint = getSummonerInfoEndpoint(player);
 
     const response = await fetch(summonerEndpoint);
+    if (response.status === 404) return false
     const data = await response.json();
     const results = {
         name: data.name,

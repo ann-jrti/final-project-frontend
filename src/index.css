@@ -7,12 +7,12 @@
   font-weight: bold;
   }
 
-  @font-face {
-    font-family: "FactionOutline";
-    src: local("FactionOutline"),
+@font-face {
+  font-family: "FactionOutline";
+  src: local("FactionOutline"),
      url("./fonts/faction/FactionOutline-Personal.otf") format("truetype");
-    font-weight: bold;
-    }
+  font-weight: bold;
+}
 
 * {
   margin: 0;

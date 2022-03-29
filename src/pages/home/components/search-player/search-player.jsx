@@ -8,14 +8,27 @@ import { getChampNameByChampId, getChampByName, getBasicInfo, getCurrentSeasonIn
 import InfoPlayerCard from "../info-player-card/InfoPlayerCard.jsx";
 import CurrentGameDetails from "../current-game-details/CurrentGameDetails.jsx";
 import { champsImages } from "../../../../riot-data-management/img-urls/index.js";
+import poroAvatar from '../../../../assets/imgs/fat-poro.webp';
+import { useNavigate } from "react-router-dom";
 
 export default function SearchPlayer() {
     const [playerResults, setPlayerResults] = useState({});
     const [seasonResults, setSeasonResults] = useState(null);
     let [isPlaying, setIsPlaying] = useState(false);
     const [currentGame, setCurrentGame] = useState({});
+    const [playerNotFound, setPlayerNotFound] = useState(false);
     const [t, i18n] = useTranslation("global");
     const searchPlayer = t('home.search-bar.search-player');
+
+    const navigate = useNavigate()
+
+    const reset = () => {
+        setPlayerResults({})
+        setSeasonResults(null)
+        setIsPlaying(false)
+        setCurrentGame({})
+        setPlayerNotFound(false)
+    }
 
     const printNowPlayingButton = () => {
         const champImagesInAssets = champsImages.filter(champ => {
@@ -39,62 +52,43 @@ export default function SearchPlayer() {
         )
     }
 
-    // useEffect(async () => {
-    //     if (playerResults.encryptedId) {
-    //         const data = await getCurrentSeasonInfo(playerResults.encryptedId)
-    //         const seasonData = {
-    //             tier: data[0].tier,
-    //             rank: data[0].rank,
-    //             wins: data[0].wins,
-    //             losses: data[0].losses,
-    //             queue: data[0].queueType,
-    //             hotStreak: data[0].hotStreak,
-    //             inactive: data[0].inactive
-    //         }
-    //         setSeasonResults(seasonData)
-    //     }
-    // }, [playerResults.encryptedId])
-
-    // useEffect(async () => {
-    //     if (seasonResults) {
-    //         const spectatorEndpoint = getCurrentPlayerGameEndpoint(playerResults.encryptedId);
-    //         const response = await fetch(spectatorEndpoint);
-    //         if (response.status === 404) setIsPlaying(false);
-    //         if (response.status === 200) setIsPlaying(true);
-    //         const data = await response.json();
-    //         console.log(data);
-    //         if (!data.participants) return;
-    //         const champId = data.participants.find(p => p.summonerId === playerResults.encryptedId).championId
-    //         const champPlaying = await getChampNameByChampId(champId);
-    //         const game = {
-    //             gameMode: data.gameMode,
-    //             champ: champPlaying,
-    //             gameLength: Math.round(data.gameLength / 60)
-    //         }
-    //         setCurrentGame(game)
-    //     }
-
-    // }, [seasonResults])
-
+    const formatQueueType = (str) => {
+        const formatedStr = str.split('_').map(letter => letter[0].toUpperCase() + letter.substring(1, letter.length).toLowerCase()).join(' ')
+        return formatedStr
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         console.log(e.target.searchPlayer.value);
         const basicInfo = await getBasicInfo(e.target.searchPlayer.value)
+        console.log(basicInfo);
+        if (!basicInfo) {
+            setPlayerNotFound(true)
+            return
+        }
         console.log(basicInfo);
         const seasonResults = await getCurrentSeasonInfo(basicInfo.encryptedId)
         console.log(seasonResults);
 
         console.log(seasonResults.length);
         if (seasonResults.length !== 0) {
+            let queue
+            if (seasonResults.length === 1) {
+                queue = seasonResults[0]
+            } else {
+                queue = seasonResults.find(results => results.queueType === 'RANKED_SOLO_5x5' || results.queueType === 'RANKED_FLEX_SR')
+            }
+            console.log(queue);
+
             const seasonData = {
-                tier: seasonResults[0].tier,
-                rank: seasonResults[0].rank,
-                wins: seasonResults[0].wins,
-                losses: seasonResults[0].losses,
-                queue: seasonResults[0].queueType,
-                hotStreak: seasonResults[0].hotStreak,
-                inactive: seasonResults[0].inactive
+                tier: queue.tier,
+                rank: queue.rank,
+                wins: queue.wins,
+                losses: queue.losses,
+                queue: queue.queueType,
+                hotStreak: queue.hotStreak,
+                inactive: queue.inactive,
             }
             setSeasonResults(seasonData)
         }
@@ -117,7 +111,6 @@ export default function SearchPlayer() {
             setCurrentGame(game)
         }
 
-        console.log(seasonResults);
         setPlayerResults(basicInfo);
     }
 
@@ -126,10 +119,13 @@ export default function SearchPlayer() {
 
             <Grid sm={12} md={6} item>
                 <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={2} >
-                    <SearchIcon></SearchIcon>
-                    <form onSubmit={handleSubmit}>
+
+                    {playerResults.name !== undefined ? <Button variant='contained' color='secondary' onClick={() => reset()}>Search other player</Button> : <form onSubmit={handleSubmit}>
+                        <SearchIcon></SearchIcon>
                         <TextField fullWidth id="searchPlayer" label={searchPlayer} variant="outlined" />
-                    </form>
+                    </form>}
+
+                    {playerNotFound ? <Typography color='secondary' variant='body2'>Player not found</Typography> : ''}
                 </Box>
             </Grid>
             <>
@@ -138,12 +134,13 @@ export default function SearchPlayer() {
                         <InfoPlayerCard
                             image={`https://ddragon.canisback.com/img/champion/splash/${champsImages[Math.floor(Math.random() * champsImages.length)]}`}
                             name={playerResults.name}
-                            imgSrc={`https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerResults.iconId}.png`}
+                            imgSrc={playerResults.iconId <= 4680 ? `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerResults.iconId}.png` : poroAvatar}
                             level={playerResults.level}
+                            queue={seasonResults !== null ? formatQueueType(seasonResults.queue) : ''}
                             rankIcon={seasonResults !== null ? seasonResults.tier : ''}
                             rank={seasonResults !== null ? `${seasonResults.tier} ${seasonResults.rank}` : ''}
                             losses={seasonResults !== null ? seasonResults.losses : ''} wins={seasonResults !== null ? seasonResults.wins : ''}
-                            // hotstreak={ seasonResults.hotStreak ? 'In a hot streak!' : ''}
+                            // hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
                             playing={<Typography variant={'p'}>{isPlaying ? printNowPlayingButton() : 'Not playing right now'}</Typography>}
                         ></InfoPlayerCard>
 

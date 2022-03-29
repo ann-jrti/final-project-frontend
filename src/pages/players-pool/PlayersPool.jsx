@@ -109,7 +109,6 @@ export default function PlayersPool() {
                             <Grid item display={'flex'} flexDirection={'row'} gap={1}>
                                 {printThreeMostPlayedChampsCards()}
                             </Grid>
-
                         </Box>
 
                     </Grid>
@@ -138,24 +137,25 @@ export default function PlayersPool() {
     return (
 
         <Grid container justifyContent='center' mt={3} gap={2}>
-            <Grid item gap={3} display='flex' flexDirection='column' alignItems='center'>
-                <Typography variant='h2' color='primary'>PLAYERS POOL</Typography>
-                {offers ? <Typography variant='body1'>No one is looking for a team for now...</Typography> : ''}
-            </Grid>
-            <Grid item display='flex' gap={3}>
-                {offers ? offers.map(offer => <PlayerPoolCard openFullCustomProfile={() => {
-                    setOpen(true)
-                    setOpenProfile(true)
-                    setSummoner(offer.basicInfo.name)
-                    const found = offers.find(offerr => offer.email === offerr.email)
-                    console.log('found', found)
-                    setPlayerProfile(found)
+            <Box>
+                <Grid item gap={3} display='flex' flexDirection='column' alignItems='center'>
+                    <Typography variant='h2' color='primary'>PLAYERS POOL</Typography>
+                    {offers ? '' : <Typography variant='body1'>No one is looking for a team for now...</Typography>}
+                </Grid>
+                <Grid item display='flex' gap={3}>
+                    {offers ? offers.map(offer => <PlayerPoolCard openFullCustomProfile={() => {
+                        setOpen(true)
+                        setOpenProfile(true)
+                        setSummoner(offer.basicInfo.name)
+                        const found = offers.find(offerr => offer.email === offerr.email)
+                        console.log('found', found)
+                        setPlayerProfile(found)
 
-                }} role={offer.role} userName={offer.basicInfo.name} playerMessage={offer.playerDescription}></PlayerPoolCard>) : 'loading...'}
-            </Grid>
+                    }} role={offer.role} userName={offer.basicInfo.name} playerMessage={offer.playerDescription}></PlayerPoolCard>) : 'loading...'}
+                </Grid>
 
-            {openProfile ? openCustomProfileModal() : ''}
-
+                {openProfile ? openCustomProfileModal() : ''}
+            </Box>
         </Grid>
 
 

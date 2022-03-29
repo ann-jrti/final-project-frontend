@@ -61,7 +61,7 @@ export default function InfoPlayerCard(props) {
                             <Divider sx={{ marginBottom: '.8rem' }} />
 
 
-                            <Box display='flex' gap={2} flexDirection='row' justifyContent='center' marginTop={-3}>
+                            <Box display='flex' gap={4} flexDirection='row' justifyContent='center' marginTop={-3}>
                                 <Box display={'flex'} flexDirection='column' justifyContent='center' alignItems={'center'}>
                                     {/* <BadgeOutlined></BadgeOutlined> */}
                                     <Box >
@@ -77,7 +77,7 @@ export default function InfoPlayerCard(props) {
                                         <img src={tierIcons[props.rankIcon]}></img>
                                     </Box>
                                     <Box display='flex' flexDirection='column' alignItems='center'>
-                                        <Typography variant="body2" color="text.secondary">Current rank</Typography>
+                                        <Typography variant="body2" color="text.secondary">{props.queue}</Typography>
                                         <Typography variant='h5'>{props.rank}</Typography>
                                     </Box>
                                 </Box>

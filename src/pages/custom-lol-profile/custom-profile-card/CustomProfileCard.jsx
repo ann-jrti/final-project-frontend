@@ -1,9 +1,11 @@
-import './style.css'
-import React, { useEffect, useState } from 'react'
-import { Box, Grid, Typography, List, ListItem } from "@mui/material"
-import poroAvatar from '../../../assets/imgs/fat-poro.webp'
-import { getUserLolAccountData } from '../../../db-requests'
-import { champsImages } from '../../../riot-data-management/img-urls'
+import './style.css';
+import React, { useEffect, useState } from 'react';
+import { Box, Grid, Typography, Divider } from "@mui/material";
+import poroAvatar from '../../../assets/imgs/fat-poro.webp';
+import { getUserLolAccountData } from '../../../db-requests';
+import { champsImages } from '../../../riot-data-management/img-urls';
+
+
 
 export default React.memo(function CustomProfileCard() {
     const [playerData, setPlayerData] = useState({})
@@ -12,6 +14,7 @@ export default React.memo(function CustomProfileCard() {
         const data = await getUserLolAccountData(localStorage.getItem('email'))
         console.log(data);
         setPlayerData(data)
+        console.log(data.roles);
     }
 
     const print = () => {
@@ -62,29 +65,64 @@ export default React.memo(function CustomProfileCard() {
 
                     <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} m={3}>
                         <Grid item display={'flex'} justifyContent={'center'}>
-                            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
-                                <Box >
-                                    <img className='avatar-profile' src={`https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerData.basicInfo.iconId}.png`}></img>
-                                </Box>
-                                <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
-                                    {/* <Divider sx={{ color: 'red' }} /> */}
-                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerData.basicInfo.name}</Typography>
-                                    <Typography variant={'h4'}>Mean stats last 10 games: </Typography>
-                                    <List>
-                                        <ListItem>Wins: {playerData.mean.wins}</ListItem>
-                                        <ListItem>Average kills per game: {playerData.mean.kills}</ListItem>
-                                        <ListItem>Average assists per game: {playerData.mean.assists}</ListItem>
-                                        <ListItem>Average deaths per game: {playerData.mean.deaths}</ListItem>
 
-                                    </List>
-                                    <Typography variant={'h4'}>Most played champs: </Typography>
+                            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                                <Box>
+                                    <img className='avatar-profile' src={playerData.basicInfo.iconId <= 4680 ? `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerData.basicInfo.iconId}.png` : poroAvatar}></img>
+                                </Box>
+
+                                <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
+                                    <Typography color='secondary' sx={{ fontFamily: 'FactionOutline', letterSpacing: '.5rem', marginBottom: '.6rem' }} className='font-face-gm' variant={'h1'}>{playerData.basicInfo.name}</Typography>
+                                    {/* /* mean stats*  */}
+                                    <Box>
+                                        <Box display='flex' marginTop={2} marginBottom={3}>
+                                            <Typography variant={'h5'} color='#2b2d42'>MEAN STATS LAST GAMES </Typography>
+                                        </Box>
+
+                                        <Box display='flex' flexDirection='column' gap={3}>
+
+                                            <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
+                                                <Typography variant='body2'>Wins:</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.wins}</Typography>
+                                            </Box>
+
+                                            <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
+                                                <Typography variant='body2'>Average kills per game:</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.kills}</Typography>
+                                            </Box>
+
+                                            <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
+                                                <Typography variant='body2'>Average assists per game:</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.assists}</Typography>
+                                            </Box>
+
+
+                                            <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
+                                                <Typography variant='body2'>Average deaths per game:</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.deaths}</Typography>
+                                            </Box>
+                                        </Box>
+                                    </Box>
+
+                                    <Box>
+                                        <Box >
+                                            <Typography variant='body2'>Main role:</Typography>
+                                            <Typography sx={{ fontWeight: 'bold' }}>{playerData.mostPlayedRole[0]}</Typography>
+                                        </Box>
+                                    </Box>
+
+
                                 </Box>
                             </Box>
                         </Grid>
-
-                        <Grid item display={'flex'} flexDirection={'row'} gap={3}>
-                            {print()}
-                        </Grid>
+                        <Box mt={4} display='flex' flexDirection='column' alignItems='center' justifyContent='center'>
+                            <Box sx={{ backgroundColor: '#ced5e2', padding: '2rem', borderRadius: '2rem', maxHeight: 'auto' }} display='flex' flexDirection='column' alignItems='center'>
+                                <Typography sx={{ letterSpacing: '.3rem', fontWeight: 'bold' }} variant={'h4'} color='#3d405b'>MOST PLAYED CHAMPS </Typography>
+                                <Grid item display={'flex'} flexDirection={'row'} gap={3}>
+                                    {print()}
+                                </Grid>
+                            </Box>
+                        </Box>
 
                     </Box>
 
