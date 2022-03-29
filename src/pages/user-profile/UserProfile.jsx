@@ -17,7 +17,7 @@ export default function UserProfile() {
     return (
         <Grid container display={'flex'} justifyContent={'center'} flexDirection={'column'} >
             <Grid m={2} item display={'flex'} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-                <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+                <Avatar sx={{ width: '6rem', height: '6rem' }} alt="Your avatar profile" src={localStorage.getItem('summoner-icon')} />
                 <Typography variant={'h4'}>{t('user-page.greetings')} {userName}!</Typography>
             </Grid>
 

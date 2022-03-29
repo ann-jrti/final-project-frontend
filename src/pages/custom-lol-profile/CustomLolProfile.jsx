@@ -6,15 +6,18 @@ import { changeCustomProfileStatusInDB, createsProfileUserInDB } from "./users-u
 import styled from "@emotion/styled";
 import { UserContext } from "../../context/user-context/user-context";
 import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
+import welcomeIcon from '../../assets/emotes/mr-pengu.webp';
 
 
 const GAME_ROLES = ['Top', 'Jungle', 'Mid', 'Adc', 'Support'];
+const GAME_STYLES = ['Looking for a team', 'Looking for a duo', 'Just for casual playing']
 
 export default function CustomLolProfile() {
     let [, , isCustomProfileCreated, setIsCustomProfileCreated] = useContext(UserContext)
     const [open, setOpen] = useState(false);
     const [role, setRole] = useState('');
     const [playerDescription, setPlayerDescription] = useState('');
+    const [lookingFor, setLookingFor] = useState('');
     const [createOfferResponse, setCreateOfferResponse] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -22,11 +25,12 @@ export default function CustomLolProfile() {
 
     const hideButton = isCustomProfileCreated ? 'none' : 'flex'
 
-
-
-    const handleChange = (event) => {
-        setRole(event.target.value);
-    };
+    const getLFTButtonMessage = () => {
+        const doesUserHasActiveOffer = localStorage.getItem('player-offer');
+        console.log(doesUserHasActiveOffer)
+        if (!doesUserHasActiveOffer) return 'Edit my offer'
+        else return 'Looking for people to play with?'
+    }
 
     const GenerateProfileButton = styled(Button)`
     display: ${hideButton}
@@ -74,10 +78,13 @@ export default function CustomLolProfile() {
 
     const handleSubmitLFT = async (e) => {
         e.preventDefault();
+
         const body = {
             role,
-            playerDescription
+            playerDescription,
+            lookingFor
         }
+        console.log(body);
         const response = await fetch('http://localhost:4000/players-pool', {
             method: 'POST',
             headers: {
@@ -86,7 +93,10 @@ export default function CustomLolProfile() {
             },
             body: JSON.stringify(body)
         })
-        setCreateOfferResponse(response.ok ? 'Created' : 'Couldnt do it :(')
+        if (response.ok) {
+            localStorage.setItem('player-offer', true)
+        }
+        setCreateOfferResponse(response.ok ? 'Created' : 'Couldnt do it :(');
         const results = await response.json();
 
 
@@ -94,7 +104,7 @@ export default function CustomLolProfile() {
 
     return (
         <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
-            {isCustomProfileCreated ? <button className="learn-more" onClick={handleOpen} variant='contained'>Looking for a team?</button> : ''}
+            {isCustomProfileCreated ? <button className="learn-more" onClick={handleOpen} variant='contained'>{getLFTButtonMessage()}</button> : ''}
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -102,11 +112,13 @@ export default function CustomLolProfile() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">Post your LFT</Typography>
-
+                    <Box display='flex' flexDirection='column' gap={2}>
+                        <Typography id="modal-modal-title" variant="h5" color='secondary'>Find players to play with!</Typography>
+                        <Typography variant="body1">Please fill the form to publish the offer in the billboard:</Typography>
+                    </Box>
                     <form onSubmit={handleSubmitLFT}>
 
-                        <Box sx={{ minWidth: 120 }}>
+                        <Box mt={2} sx={{ minWidth: 120 }} display='flex' flexDirection='column' gap={3}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Your main role</InputLabel>
                                 <Select
@@ -114,28 +126,47 @@ export default function CustomLolProfile() {
                                     id="demo-simple-select"
                                     value={role}
                                     label="Role"
-                                    onChange={handleChange}
+                                    onChange={(e) => setRole(e.target.value)}
+                                    required
                                 >
                                     {GAME_ROLES.map((rol) => <MenuItem value={rol}>{rol}</MenuItem>)}
                                 </Select>
                             </FormControl>
+
+                            <FormControl fullWidth>
+                                <InputLabel>What are you looking for?</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={lookingFor}
+                                    label="Role"
+                                    onChange={(e) => setLookingFor(e.target.value)}
+                                    required
+                                >
+                                    {GAME_STYLES.map((style) => <MenuItem value={style}>{style}</MenuItem>)}
+                                </Select>
+
+                            </FormControl>
+
+                            <FormControl fullWidth>
+                                <Typography>Brief description about you</Typography>
+                                <TextareaAutosize
+                                    id='player-description'
+                                    aria-label="minimum height"
+                                    minRows={5}
+                                    onChange={(e) => setPlayerDescription(e.target.value)}
+                                    placeholder="Write here your description"
+                                    style={{ width: 200 }}
+                                    value={playerDescription}
+                                    required
+                                />
+                            </FormControl>
+
+                            <FormControl>
+                                <Button variant='contained' type="submit">Send</Button>
+                            </FormControl>
                         </Box>
 
-                        {/* <InputLabel>Main role</InputLabel>
-                        <TextField id='player-main-role' placeholder="Insert your role"></TextField> */}
-
-                        <InputLabel>Brief description about you</InputLabel>
-                        <TextareaAutosize
-                            id='player-description'
-                            aria-label="minimum height"
-                            minRows={5}
-                            onChange={(e) => setPlayerDescription(e.target.value)}
-                            placeholder="Write here your description"
-                            style={{ width: 200 }}
-                            value={playerDescription}
-                        />
-
-                        <Button variant='contained' type="submit">Send</Button>
                         {createOfferResponse ? createOfferResponse : ''}
                     </form>
 
@@ -145,22 +176,42 @@ export default function CustomLolProfile() {
 
             {
                 isCustomProfileCreated ? '' :
-                    <Grid container sx={{ height: '100vh' }} display='flex' justifyContent='center' alignItems='center'>
-                        <Grid item mb={30}>
+                    <Grid container mt={3} >
+                        <Grid item sm={12} mb={6} display='flex' justifyContent='center'>
+                            <Typography variant='h4' color='primary'>Welcome to your LoL profile stats creator</Typography>
+                        </Grid>
+
+                        <Grid item sm={6}>
+                            <Box display='flex' justifyContent='flex-end' mr={5}>
+                                <img width={200} src={welcomeIcon}></img>
+                            </Box>
+                        </Grid>
+
+                        <Grid item sm={6} borderLeft='1px solid #8d99ae'>
+
                             <form onSubmit={handleTryClick}>
-                                <Box display='flex' gap={3} flexDirection='column' justifyContent='center' alignItems='center'>
-                                    <Box >
-                                        <Typography variant='h5' color='primary'>Type your summoner name</Typography>
+
+                                <Box display='flex' flexDirection='column' ml={5} gap={2}>
+
+                                    <Box>
+                                        <Typography color='primary'>Please insert your summoner name</Typography>
                                     </Box>
+
                                     <Box >
                                         <TextField id="try" placeholder="type here"></TextField>
                                     </Box>
+
                                     <Box>
-                                        <GenerateProfileButton variant={'contained'} color='warning' type="submit">Generate my Lol profile</GenerateProfileButton>
+                                        <GenerateProfileButton size='large' variant={'contained'} color='warning' type="submit">Generate my Lol profile</GenerateProfileButton>
                                     </Box>
+
                                 </Box>
+
                             </form>
+
                         </Grid>
+
+
                     </Grid>
             }
 

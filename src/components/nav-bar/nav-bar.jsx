@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import ChangeLang from './lang-options/ChangeLang';
 import { UserContext } from '../../context/user-context/user-context';
 import { useNavigate } from 'react-router-dom';
-import userAvatar from '../../assets/imgs/fat-poro.webp'
 
 export default function NavBar() {
     const [t, i18n] = useTranslation("global");
@@ -138,7 +137,7 @@ export default function NavBar() {
                     <Box sx={{ flexGrow: 0, display: { xs: '', md: 'flex' }, flexDirection: 'row-reverse' }}>
                         {localStorage.getItem('login-token') ? <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, gap: 1 }}>
-                                <Avatar alt="Remy Sharp" src={userAvatar} />
+                                <Avatar alt="Remy Sharp" src={localStorage.getItem('summoner-icon')} />
                                 <Typography color={'warning.main'}>Hi {localStorage.getItem('username')}</Typography>
                             </IconButton>
 

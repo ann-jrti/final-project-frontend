@@ -6,7 +6,6 @@ import { getUserLolAccountData } from '../../../db-requests';
 import { champsImages } from '../../../riot-data-management/img-urls';
 
 
-
 export default React.memo(function CustomProfileCard() {
     const [playerData, setPlayerData] = useState({})
 
@@ -55,6 +54,16 @@ export default React.memo(function CustomProfileCard() {
         getPlayerData();
     }, [])
 
+    const getSummonerIconUrl = (iconId) => {
+        if (iconId > 4680) {
+            localStorage.setItem('summoner-icon', `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/1.png`);
+            return `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${poroAvatar}.png`;
+        } else {
+            localStorage.setItem('summoner-icon', `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${iconId}.png`);
+            return `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${iconId}.png`;
+        }
+    }
+
 
 
     return (
@@ -68,7 +77,7 @@ export default React.memo(function CustomProfileCard() {
 
                             <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
                                 <Box>
-                                    <img className='avatar-profile' src={playerData.basicInfo.iconId <= 4680 ? `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerData.basicInfo.iconId}.png` : poroAvatar}></img>
+                                    <img className='avatar-profile' src={getSummonerIconUrl(playerData.basicInfo.iconId)}></img>
                                 </Box>
 
                                 <Box marginTop={'-1rem'} display={'flex'} flexDirection={'column'} alignItems={'center'}>
