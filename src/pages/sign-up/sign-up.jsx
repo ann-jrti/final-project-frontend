@@ -8,7 +8,7 @@ export default function SignUp() {
     const [t, i18n] = useTranslation('global');
     const [error, setError] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const user = {

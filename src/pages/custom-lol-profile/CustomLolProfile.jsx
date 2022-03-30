@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Grid, Box, Button, Typography, FormControl, MenuItem, Select, TextareaAutosize, TextField, Modal, InputLabel } from "@mui/material";
 import './customLolProfile.css'
 import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails, getCurrentSeasonInfo } from "../../riot-data-management/fetches/riot-fetches";
-import { postProfileUser } from "./users-utils";
+import { postProfileUser } from "../../db-requests";
 import styled from "@emotion/styled";
 import { UserContext } from "../../context/user-context/user-context";
 import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
@@ -94,7 +94,7 @@ export default function CustomLolProfile() {
 
     const handleSubmitLFT = async (e) => {
         e.preventDefault();
-        const playerPool = await postPlayerOffer(role, playerDescripton, lookingFor);
+        const playerPool = await postPlayerOffer(role, playerDescription, lookingFor);
         setCreateOfferResponse(playerPool ? 'Created' : 'Couldnt do it :(');
     }
 

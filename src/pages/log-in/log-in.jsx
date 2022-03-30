@@ -11,7 +11,7 @@ export default function LogIn() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const user = {
@@ -21,7 +21,7 @@ export default function LogIn() {
 
         const error = await login();
         if (error) {
-            return setError(err.message);
+            return setError(error.message);
         }
         setIsLogged(localStorage.getItem('logged'));
         setError(null);

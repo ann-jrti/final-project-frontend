@@ -17,7 +17,7 @@ export default function PlayersPool() {
 
     useEffect(async () => {
         const playersPool = await getPlayersPool();
-        setOffers(data)
+        setOffers(playersPool)
     }, [])
 
 
