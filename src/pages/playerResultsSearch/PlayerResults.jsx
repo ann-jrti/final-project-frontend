@@ -124,7 +124,7 @@ export default function PlayerResults() {
                 <Grid mt={10} sm={12} item display='flex' justifyContent='center' >
                     <Box display='flex' flexDirection='column' alignItems='center'>
                         <img width={200} src={notFoundEmote}></img>
-                        <Typography variant='h6'>Oops! This player doesn't exists</Typography>
+                        <Typography variant='h6'>Oops! This player doesn't exist</Typography>
                     </Box>
                 </Grid> : ''}
 

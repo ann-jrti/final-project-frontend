@@ -1,4 +1,4 @@
-export const createsProfileUserInDB = async ({ stats, infoAccount, seasonInfo, champs, roles, mostPlayedRole }) => {
+export const createsProfileUserInDB = async ({ stats, infoAccount, seasonInfo, champs, roles, mostPlayedRole, date }) => {
     console.log(stats);
     const body = {
         ...stats,
@@ -7,6 +7,7 @@ export const createsProfileUserInDB = async ({ stats, infoAccount, seasonInfo, c
         ...champs,
         ...roles,
         ...mostPlayedRole,
+        date,
         email: localStorage.getItem('email')
     }
     const response = await fetch('http://localhost:4000/users/custom-profile', {

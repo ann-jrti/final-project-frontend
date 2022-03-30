@@ -24,7 +24,7 @@ export const getChampionMasteryEndpoint = (encryptedSummonerId) => {
 
 // get last 30 matches - MATCH-V5
 export const getLast30matchesEndpoint = (puuid) => {
-    return `${europeDomain}/lol/match/v5/matches/by-puuid/${puuid}/ids?type=ranked&start=0&count=10&api_key=${riotKey}`
+    return `${europeDomain}/lol/match/v5/matches/by-puuid/${puuid}/ids?type=ranked&start=0&count=15&api_key=${riotKey}`
 }
 
 //get match details by id - MATCH-V5

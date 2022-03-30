@@ -18,19 +18,21 @@ export default function CustomLolProfile() {
     const [playerDescription, setPlayerDescription] = useState('');
     const [lookingFor, setLookingFor] = useState('');
     const [createOfferResponse, setCreateOfferResponse] = useState(false);
+    const [profileUpdated, setProfileUpdated] = useState(false);
 
     const handleLFTButton = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleRefreshProfile = async (e) => {
         e.preventDefault();
-
+        getProfileData(localStorage.getItem('playername'));
     }
 
     const hideButton = isCustomProfileCreated ? 'none' : 'flex'
     useEffect(() => {
         getLFTButtonMessage()
     }, [])
+
     const getLFTButtonMessage = () => {
         const doesUserHasActiveOffer = localStorage.getItem('player-offer');
         console.log(doesUserHasActiveOffer)
@@ -48,6 +50,7 @@ export default function CustomLolProfile() {
     console.log('working custom lol profile');
 
     const getProfileData = async (event) => {
+        const date = new Date();
         const basicInfo = await getBasicInfo(event);
         const seasonInfo = await getCurrentSeasonInfo(basicInfo.encryptedId);
         const firstThreeChampsMostPlayed = await getThreeMostPlayedChamps(basicInfo.encryptedId)
@@ -66,13 +69,15 @@ export default function CustomLolProfile() {
         const rolesEntries = Object.entries(roles);
         const mostTimesPlayed = Math.max(...rolesPlayed);
         const mostPlayedRole = rolesEntries.find(r => r[1] === mostTimesPlayed)
-        await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles }, mostPlayedRole: { mostPlayedRole } });
+        await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles }, mostPlayedRole: { mostPlayedRole }, date: { date } });
         setIsCustomProfileCreated(true);
     }
 
-    const handleTryClick = (e) => {
+    const handleCreateProfileFirstTime = (e) => {
         e.preventDefault();
-        getProfileData(e.target.try.value);
+        getProfileData(e.target.playername.value);
+        setProfileUpdated(true);
+        localStorage.setItem('playername', e.target.playername.value);
     }
     const style = {
         position: 'absolute',
@@ -202,7 +207,7 @@ export default function CustomLolProfile() {
 
                         <Grid item sm={6} borderLeft='1px solid #8d99ae'>
 
-                            <form onSubmit={handleTryClick}>
+                            <form onSubmit={handleCreateProfileFirstTime}>
 
                                 <Box display='flex' flexDirection='column' ml={5} gap={2}>
 
@@ -211,7 +216,7 @@ export default function CustomLolProfile() {
                                     </Box>
 
                                     <Box >
-                                        <TextField id="try" placeholder="type here"></TextField>
+                                        <TextField id="playername" placeholder="type here"></TextField>
                                     </Box>
 
                                     <Box>
