@@ -86,7 +86,7 @@ export default function CustomLolProfile() {
         transform: 'translate(-50%, -50%)',
         width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: '2px solid #df1638',
         boxShadow: 24,
         p: 4,
     };

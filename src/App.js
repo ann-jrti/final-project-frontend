@@ -17,6 +17,7 @@ import UserAccount from './pages/user-account/UserAccount';
 import PlayersPool from './pages/players-pool/PlayersPool';
 import PlayerResults from './pages/playerResultsSearch/PlayerResults';
 import Footer from './components/footer/Footer';
+import ComparePlayers from './pages/compare-players/ComparePlayers';
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/players-pool" element={<PlayersPool />}></Route>
             <Route path="/player-results/" element={<PlayerResults />}></Route>
+            <Route path="/compare-players/" element={<ComparePlayers />}></Route>
             <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/my-lol-profile" element={<PrivateUserRoute><CustomLolProfile /></PrivateUserRoute>}></Route>
             <Route path="/user/upload-artwork" element={<PrivateUserRoute><UploadArtwork /></PrivateUserRoute>}></Route>

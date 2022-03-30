@@ -37,7 +37,7 @@ export default function NavBar() {
                 navigate('/')
                 break;
             case (t('header.compare-players')):
-                navigate('/')
+                navigate('/compare-players')
                 break;
             case (t('Players pool')):
                 navigate('/players-pool')
