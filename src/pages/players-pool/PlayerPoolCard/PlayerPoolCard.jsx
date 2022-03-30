@@ -36,16 +36,15 @@ export default function PlayerPoolCard(props) {
                             <Typography mb={1} mt={.5} borderBottom={'1px solid black'} sx={{ fontSize: 14, fontStyle: 'italic' }} color="text.secondary" gutterBottom>
                                 {props.lookingFor}
                             </Typography>
-                            <Box display='flex' flexDirection='row'>
+                            <Box display='flex' flexDirection='row' gap={1} alignItems='center'>
                                 <Typography sx={{ mb: 1, mt: 1 }} color="primary">
-                                    Main role: <Typography>{props.role}</Typography>
+                                    Main role:
                                 </Typography>
+                                <Typography sx={{ fontWeight: 'bold' }}>{props.role}</Typography>
                             </Box>
 
 
-                            <Typography variant="body2">
-                                Player message: {props.playerMessage}
-                            </Typography>
+                            <Typography >Player message: {props.playerMessage}</Typography>
                         </CardContent>
                         <CardActions>
                             <Box display='flex' justifyContent='center'>
