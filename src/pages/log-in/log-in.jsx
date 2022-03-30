@@ -1,100 +1,135 @@
-import { FormControl, InputLabel, Input, Box, Grid, Typography, Button, FormHelperText } from "@mui/material"
-import { useTranslation } from "react-i18next";
-import { useContext, useState } from "react";
+import {
+  FormControl,
+  InputLabel,
+  Input,
+  Box,
+  Grid,
+  Typography,
+  Button,
+  FormHelperText,
+} from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from "../../context/user-context/user-context";
+import { UserContext } from '../../context/user-context/user-context';
 
 export default function LogIn() {
-    const [t, i18n] = useTranslation('global');
-    let [isLogged, setIsLogged] = useContext(UserContext);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+  const [t, i18n] = useTranslation('global');
+  let [isLogged, setIsLogged] = useContext(UserContext);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    const doesPlayerHaveOfferPublished = async () => {
-        const response = await fetch('http://localhost:4000/players-pool/player-offer', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${localStorage.getItem('login-token')}`
-            }
-        })
-        if (response.ok) localStorage.setItem('player-offer', true)
-        else localStorage.setItem('player-offer', false)
-        const data = await response.json();
-        console.log(data);
-    }
+  const doesPlayerHaveOfferPublished = async () => {
+    const response = await fetch(
+      'http://localhost:4000/players-pool/player-offer',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${localStorage.getItem('login-token')}`,
+        },
+      }
+    );
+    if (response.ok) localStorage.setItem('player-offer', true);
+    else localStorage.setItem('player-offer', false);
+    const data = await response.json();
+    console.log(data);
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-        const user = {
-            email: e.target.email.value,
-            password: e.target.password.value,
-        }
+    const user = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
 
-        fetch('http://localhost:4000/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => {
-                if (!res.ok) throw Error(t('login.login-error-msg'));
-                return res.json();
-            })
-            .then(data => {
-                localStorage.setItem('login-token', data.access_token);
-                localStorage.setItem('email', data.email);
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('summoner-icon', 'https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/1.png')
-                localStorage.setItem('logged', true);
-                doesPlayerHaveOfferPublished()
-                // localStorage.setItem('postedOffer')
-                setIsLogged(localStorage.getItem('logged'));
-                setError(null);
-                navigate('/user');
-            })
-            .catch(err => {
-                setError(err.message);
-            })
+    fetch('http://localhost:4000/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => {
+        if (!res.ok) throw Error(t('login.login-error-msg'));
+        return res.json();
+      })
+      .then((data) => {
+        localStorage.setItem('login-token', data.access_token);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('username', data.username);
+        localStorage.setItem(
+          'summoner-icon',
+          'https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/1.png'
+        );
+        localStorage.setItem('logged', true);
+        localStorage.setItem('playername', data.playername);
+        doesPlayerHaveOfferPublished();
+        // localStorage.setItem('postedOffer')
+        setIsLogged(localStorage.getItem('logged'));
+        setError(null);
+        navigate('/user');
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+  return (
+    <Box>
+      <Grid
+        gap={3}
+        container
+        marginTop={5}
+        flexDirection={'column'}
+        justifyContent={'center'}
+        alignItems={'center'}
+      >
+        <Grid item>
+          <Typography variant={'h3'}>{t('login.welcome-message')}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant={'p'}>{t('login.insert-info')}</Typography>
+        </Grid>
 
-    }
-    return (
-        <Box>
+        <Grid item>
+          <form onSubmit={handleSubmit}>
+            <Box display="flex" flexDirection={'column'} gap={2}>
+              <FormControl required>
+                <InputLabel htmlFor="email">{t('login.email')}</InputLabel>
+                <Input
+                  type="email"
+                  id="email"
+                  aria-describedby="my-helper-text"
+                />
+              </FormControl>
 
-            <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>
-                <Grid item>
-                    <Typography variant={"h3"}>{t('login.welcome-message')}</Typography>
-                </Grid>
-                <Grid item>
-                    <Typography variant={"p"}>{t('login.insert-info')}</Typography>
-                </Grid>
+              <FormControl required>
+                <InputLabel htmlFor="password">
+                  {t('login.password')}
+                </InputLabel>
+                <Input
+                  type="password"
+                  id="password"
+                  aria-describedby="my-helper-text"
+                />
+              </FormControl>
 
-                <Grid item >
-                    <form onSubmit={handleSubmit}>
-                        <Box display='flex' flexDirection={'column'} gap={2}>
-
-                            <FormControl required>
-                                <InputLabel htmlFor="email">{t('login.email')}</InputLabel>
-                                <Input type="email" id="email" aria-describedby="my-helper-text" />
-                            </FormControl>
-
-                            <FormControl required>
-                                <InputLabel htmlFor="password">{t('login.password')}</InputLabel>
-                                <Input type="password" id="password" aria-describedby="my-helper-text" />
-                            </FormControl>
-
-                            <FormControl >
-                                <Button variant="outlined" color="primary" type="submit" id="submit'">{t('login.login-button')}</Button>
-                            </FormControl>
-                            {error && <Typography variant={'p'}>{error}</Typography>}
-                        </Box>
-                    </form>
-                </Grid>
-
-
-            </Grid>
-        </Box>
-    )
+              <FormControl>
+                <Button
+                  variant="outlined"
+                  color="primary"
+                  type="submit"
+                  id="submit'"
+                >
+                  {t('login.login-button')}
+                </Button>
+              </FormControl>
+              {error && <Typography variant={'p'}>{error}</Typography>}
+            </Box>
+          </form>
+        </Grid>
+      </Grid>
+    </Box>
+  );
 }
