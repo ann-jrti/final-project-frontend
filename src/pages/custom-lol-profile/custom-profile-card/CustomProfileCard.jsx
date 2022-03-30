@@ -87,23 +87,23 @@ export default React.memo(function CustomProfileCard() {
 
                                             <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
                                                 <Typography variant='body2'>Wins:</Typography>
-                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.wins}</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.wins.toFixed(1)}</Typography>
                                             </Box>
 
                                             <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
                                                 <Typography variant='body2'>Average kills per game:</Typography>
-                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.kills}</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.kills.toFixed(1)}</Typography>
                                             </Box>
 
                                             <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
                                                 <Typography variant='body2'>Average assists per game:</Typography>
-                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.assists}</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.assists.toFixed(1)}</Typography>
                                             </Box>
 
 
                                             <Box display='flex' borderBottom={'1px solid #8d99ae'} justifyContent='center' flexDirection='row' alignItems='center' gap={1}>
                                                 <Typography variant='body2'>Average deaths per game:</Typography>
-                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.deaths}</Typography>
+                                                <Typography sx={{ fontWeight: 'bold' }}>{playerData.mean.deaths.toFixed(1)}</Typography>
                                             </Box>
                                         </Box>
                                     </Box>

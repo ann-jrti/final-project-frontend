@@ -151,7 +151,10 @@ export default function PlayersPool() {
                         console.log('found', found)
                         setPlayerProfile(found)
 
-                    }} role={offer.role} userName={offer.basicInfo.name} playerMessage={offer.playerDescription}></PlayerPoolCard>) : 'loading...'}
+                    }} role={offer.role}
+                        userName={offer.basicInfo.name}
+                        playerMessage={offer.playerDescription}
+                        lookingFor={offer.lookingFor}></PlayerPoolCard>) : 'loading...'}
                 </Grid>
 
                 {openProfile ? openCustomProfileModal() : ''}

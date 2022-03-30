@@ -29,20 +29,6 @@ export default function CustomLolProfile() {
     }
 
     const hideButton = isCustomProfileCreated ? 'none' : 'flex'
-    useEffect(() => {
-        getLFTButtonMessage()
-    }, [])
-
-    const getLFTButtonMessage = () => {
-        const doesUserHasActiveOffer = localStorage.getItem('player-offer');
-        console.log(doesUserHasActiveOffer)
-        if (doesUserHasActiveOffer) {
-            return 'Edit my offer'
-        }
-        else {
-            return 'Looking for people to play with?'
-        }
-    }
 
     const GenerateProfileButton = styled(Button)`
     display: ${hideButton}
@@ -113,14 +99,11 @@ export default function CustomLolProfile() {
         }
         setCreateOfferResponse(response.ok ? 'Created' : 'Couldnt do it :(');
         const results = await response.json();
-
-
     }
 
     return (
         <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
             {isCustomProfileCreated ? <Box display='flex' gap={2}>
-                <Button className="btn btn-offer" onClick={handleLFTButton} variant='contained'>{getLFTButtonMessage()}</Button>
                 <Button className="btn btn-offer" onClick={handleRefreshProfile} variant='contained'>Refresh my profile</Button>
             </Box> : ''}
             <Modal

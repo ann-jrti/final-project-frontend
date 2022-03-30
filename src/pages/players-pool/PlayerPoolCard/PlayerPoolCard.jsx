@@ -33,12 +33,16 @@ export default function PlayerPoolCard(props) {
                             <Typography sx={{ fontFamily: 'FactionOutline', letterSpacing: '.2rem' }} variant="h3" color="secondary" component="div">
                                 {props.userName}
                             </Typography>
-                            <Typography mb={1} borderBottom={'1px solid black'} sx={{ fontSize: 14, fontStyle: 'italic' }} color="text.secondary" gutterBottom>
-                                is looking for a team...
+                            <Typography mb={1} mt={.5} borderBottom={'1px solid black'} sx={{ fontSize: 14, fontStyle: 'italic' }} color="text.secondary" gutterBottom>
+                                {props.lookingFor}
                             </Typography>
-                            <Typography sx={{ mb: 1, mt: 1 }} color="text.secondary">
-                                Main role: {props.role}
-                            </Typography>
+                            <Box display='flex' flexDirection='row'>
+                                <Typography sx={{ mb: 1, mt: 1 }} color="primary">
+                                    Main role: <Typography>{props.role}</Typography>
+                                </Typography>
+                            </Box>
+
+
                             <Typography variant="body2">
                                 Player message: {props.playerMessage}
                             </Typography>

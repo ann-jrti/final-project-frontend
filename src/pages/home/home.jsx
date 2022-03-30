@@ -1,7 +1,7 @@
 import { Typography, Grid, Box } from "@mui/material";
 import SearchPlayer from "./components/search-player/search-player";
 import { useTranslation } from 'react-i18next';
-import './style.css'
+import './style.css';
 import screenLoader from '../../assets/video-home/lol-home-video2.mp4'
 
 export default function Home() {
@@ -20,11 +20,11 @@ export default function Home() {
                     </Box>
                 </Grid>
                 <Grid sm={12} item display='flex' justifyContent='center' alignItems='center' sx={{ position: 'absolute' }}>
-                    <Box sx={{ position: 'absolute' }} >
-                        <Typography sx={{ fontFamily: 'FactionBlack', textTransform: 'uppercase', textAlign: 'center', letterSpacing: '.1rem', opacity: '.8' }} color='secondary' variant='h2'>{t('home.slogan')}</Typography>
+                    <Box sx={{ position: 'absolute', opacity: .2 }} >
+                        <Typography sx={{ fontFamily: 'FactionBlack', textTransform: 'uppercase', textAlign: 'center', letterSpacing: '.1rem' }} color='secondary' variant='h1'>{t('home.slogan')}</Typography>
                     </Box>
                     <Box sx={{ position: 'absolute' }} >
-                        <Typography sx={{ fontFamily: 'FactionOutline', textTransform: 'uppercase', textAlign: 'center', letterSpacing: '.1rem' }} color='white' variant='h2'>{t('home.slogan')}</Typography>
+                        <Typography sx={{ fontFamily: 'FactionOutline', textTransform: 'uppercase', textAlign: 'center', letterSpacing: '.1rem' }} color='white' variant='h1'>{t('home.slogan')}</Typography>
                     </Box>
                 </Grid>
 
