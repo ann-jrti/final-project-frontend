@@ -4,3 +4,10 @@
   pointer-events: none;
   border-radius: .8rem;
 }
+
+.videoTag {
+  position: relative;
+  width: 100%;
+  max-height: 50%;
+
+}

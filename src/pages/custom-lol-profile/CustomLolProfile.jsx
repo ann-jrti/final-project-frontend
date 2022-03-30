@@ -8,7 +8,6 @@ import { UserContext } from "../../context/user-context/user-context";
 import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
 import welcomeIcon from '../../assets/emotes/mr-pengu.webp';
 
-
 const GAME_ROLES = ['Top', 'Jungle', 'Mid', 'Adc', 'Support'];
 const GAME_STYLES = ['Looking for a team', 'Looking for a duo', 'Just for casual playing']
 
@@ -20,16 +19,27 @@ export default function CustomLolProfile() {
     const [lookingFor, setLookingFor] = useState('');
     const [createOfferResponse, setCreateOfferResponse] = useState(false);
 
-    const handleOpen = () => setOpen(true);
+    const handleLFTButton = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const hideButton = isCustomProfileCreated ? 'none' : 'flex'
+    const handleRefreshProfile = async (e) => {
+        e.preventDefault();
 
+    }
+
+    const hideButton = isCustomProfileCreated ? 'none' : 'flex'
+    useEffect(() => {
+        getLFTButtonMessage()
+    }, [])
     const getLFTButtonMessage = () => {
         const doesUserHasActiveOffer = localStorage.getItem('player-offer');
         console.log(doesUserHasActiveOffer)
-        if (!doesUserHasActiveOffer) return 'Edit my offer'
-        else return 'Looking for people to play with?'
+        if (doesUserHasActiveOffer) {
+            return 'Edit my offer'
+        }
+        else {
+            return 'Looking for people to play with?'
+        }
     }
 
     const GenerateProfileButton = styled(Button)`
@@ -104,7 +114,10 @@ export default function CustomLolProfile() {
 
     return (
         <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
-            {isCustomProfileCreated ? <button className="learn-more" onClick={handleOpen} variant='contained'>{getLFTButtonMessage()}</button> : ''}
+            {isCustomProfileCreated ? <Box display='flex' gap={2}>
+                <Button className="btn btn-offer" onClick={handleLFTButton} variant='contained'>{getLFTButtonMessage()}</Button>
+                <Button className="btn btn-offer" onClick={handleRefreshProfile} variant='contained'>Refresh my profile</Button>
+            </Box> : ''}
             <Modal
                 open={open}
                 onClose={handleClose}

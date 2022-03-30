@@ -1,4 +1,4 @@
-import { Grid, TextField, Box } from "@mui/material"
+import { Grid, TextField, Box, Typography } from "@mui/material"
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -16,14 +16,16 @@ export default function SearchPlayer() {
     return (
 
 
-        <Grid sm={12} md={6} item>
+        <Grid item>
             <Box display={'flex'} flexDirection={'row'} alignItems={'center'} gap={2} >
-                <SearchIcon></SearchIcon>
+
+                <Typography variant='h5' color='primary'>Look for a player stats</Typography>
+
                 <form onSubmit={handleSubmit}>
 
-                    <TextField fullWidth id="searchPlayer" label={searchPlayer} variant="outlined" />
+                    <TextField sx={{ width: '20rem' }} id="searchPlayer" label={searchPlayer} variant="outlined" />
                 </form>
-
+                <SearchIcon sx={{ ":hover": 'cursor' }}></SearchIcon>
 
             </Box>
         </Grid>

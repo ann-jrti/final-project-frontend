@@ -136,7 +136,7 @@ export default function PlayerResults() {
                         <InfoPlayerCard
                             image={`https://ddragon.canisback.com/img/champion/splash/${champsImages[Math.floor(Math.random() * champsImages.length)]}`}
                             name={playerResults.name}
-                            imgSrc={playerResults.iconId <= 4680 ? `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${playerResults.iconId}.png` : poroAvatar}
+                            imgSrc={`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${playerResults.iconId}.png`}
                             level={playerResults.level}
                             queue={seasonResults !== null ? formatQueueType(seasonResults.queue) : ''}
                             rankIcon={seasonResults !== null ? seasonResults.tier : ''}

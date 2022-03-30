@@ -55,13 +55,8 @@ export default React.memo(function CustomProfileCard() {
     }, [])
 
     const getSummonerIconUrl = (iconId) => {
-        if (iconId > 4680) {
-            localStorage.setItem('summoner-icon', `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/1.png`);
-            return `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${poroAvatar}.png`;
-        } else {
-            localStorage.setItem('summoner-icon', `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${iconId}.png`);
-            return `https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/${iconId}.png`;
-        }
+        localStorage.setItem('summoner-icon', `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`);
+        return `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`;
     }
 
 

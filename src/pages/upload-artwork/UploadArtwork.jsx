@@ -24,7 +24,7 @@ export default function UploadArtwork() {
 
 
 
-    function handleFormSubmittion(e) {
+    async function handleFormSubmittion(e) {
         e.preventDefault();
         const headers = {
             'Content-Type': 'application/json',
@@ -38,7 +38,25 @@ export default function UploadArtwork() {
         formData.append('email', userEmail);
         formData.append('id', uuidv4());
 
+        axios.interceptors.request.use(x => {
+            console.log(x)
+            return x
+        })
         axios.post('http://localhost:4000/artwork/upload', formData, { headers: headers })
+        navigate(`/user/my-gallery/artworks/${localStorage.getItem('email')}`)
+        // const response = await fetch('http://localhost:4000/artwork/upload', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `bearer ${localStorage.getItem('login-token')}`
+        //     },
+        //     body: formData
+        // })
+        // console.log(response);
+        // if (response.ok) navigate(`/user/my-gallery/artworks/${localStorage.getItem('email')}`)
+        // const data = await response.json()
+        // console.log(data);
+
     }
 
     function handleFileTitle(e) {

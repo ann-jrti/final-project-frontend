@@ -142,7 +142,7 @@ export default function PlayersPool() {
                     <Typography variant='h2' color='primary'>PLAYERS POOL</Typography>
                     {offers ? '' : <Typography variant='body1'>No one is looking for a team for now...</Typography>}
                 </Grid>
-                <Grid item display='flex' gap={3}>
+                <Grid item display='flex' gap={3} >
                     {offers ? offers.map(offer => <PlayerPoolCard openFullCustomProfile={() => {
                         setOpen(true)
                         setOpenProfile(true)

@@ -16,6 +16,7 @@ import Gallery from './pages/upload-artwork/Gallery';
 import UserAccount from './pages/user-account/UserAccount';
 import PlayersPool from './pages/players-pool/PlayersPool';
 import PlayerResults from './pages/playerResultsSearch/PlayerResults';
+import Footer from './components/footer/Footer';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
       <ThemeApp>
         <UserContextProvider>
           <NavBar></NavBar>
+          <Footer></Footer>
           <Routes>
             <Route path="/" element={<Home />}></Route>
             <Route path="/login" element={<LogIn />}></Route>
