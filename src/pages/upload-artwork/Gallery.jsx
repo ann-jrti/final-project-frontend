@@ -3,6 +3,7 @@ import { Button, ImageList, Menu, MenuItem, Box, Grid, Typography, ImageListItem
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { getArt } from '../../db-requests';
 
 export default function Gallery() {
     let [buffers, setBuffer] = useState(null)
@@ -18,21 +19,14 @@ export default function Gallery() {
         setAnchorEl(null);
     };
 
-    const getArt = async () => {
-        const response = await fetch(`http://localhost:4000/artwork?email=${localStorage.getItem('email')}`,
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `bearer ${localStorage.getItem('login-token')}`
-                }
-            })
+    const fetchArt = async () => {
+        const response = await getArt();
         const data = await response.json()
-        console.log(data);
         setBuffer(data)
     }
 
     useEffect(() => {
-        getArt();
+        fetchArt();
     }, [])
     //sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}
     const addNewArtwork = (e) => {
@@ -47,15 +41,8 @@ export default function Gallery() {
 
     const handleDeleteArtwork = async (id, b) => {
         console.log(id);
-        const response = await fetch(`http://localhost:4000/artwork/${id}`,
-            {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `bearer ${localStorage.getItem('login-token')}`
-                }
-            })
-        if (response.ok) getArt();
+        const response = deleteArtWork();
+        if (response.ok) fetchArt();
         const data = await response.json()
         console.log(data);
     }

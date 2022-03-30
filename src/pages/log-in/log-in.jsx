@@ -3,26 +3,13 @@ import { useTranslation } from "react-i18next";
 import { useContext, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from "../../context/user-context/user-context";
+import { doesPlayerHaveOfferPublished, login } from "../../db-requests";
 
 export default function LogIn() {
     const [t, i18n] = useTranslation('global');
     let [isLogged, setIsLogged] = useContext(UserContext);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-
-    const doesPlayerHaveOfferPublished = async () => {
-        const response = await fetch('http://localhost:4000/players-pool/player-offer', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${localStorage.getItem('login-token')}`
-            }
-        })
-        if (response.ok) localStorage.setItem('player-offer', true)
-        else localStorage.setItem('player-offer', false)
-        const data = await response.json();
-        console.log(data);
-    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,34 +19,15 @@ export default function LogIn() {
             password: e.target.password.value,
         }
 
-        fetch('http://localhost:4000/auth/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => {
-                if (!res.ok) throw Error(t('login.login-error-msg'));
-                return res.json();
-            })
-            .then(data => {
-                localStorage.setItem('login-token', data.access_token);
-                localStorage.setItem('email', data.email);
-                localStorage.setItem('username', data.username);
-                localStorage.setItem('summoner-icon', 'https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/1.png')
-                localStorage.setItem('logged', true);
-                doesPlayerHaveOfferPublished()
-                // localStorage.setItem('postedOffer')
-                setIsLogged(localStorage.getItem('logged'));
-                setError(null);
-                navigate('/user');
-            })
-            .catch(err => {
-                setError(err.message);
-            })
-
+        const error = await login();
+        if (error) {
+            return setError(err.message);
+        }
+        setIsLogged(localStorage.getItem('logged'));
+        setError(null);
+        navigate('/user');
     }
+
     return (
         <Box>
 

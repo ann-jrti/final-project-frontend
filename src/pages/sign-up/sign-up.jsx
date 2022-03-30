@@ -2,6 +2,7 @@ import { Grid, Box, Typography, Button, FormGroup, FormControl, InputLabel, Inpu
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { v4 as uuidv4 } from 'uuid';
+import { register } from "../../db-requests";
 
 export default function SignUp() {
     const [t, i18n] = useTranslation('global');
@@ -17,27 +18,10 @@ export default function SignUp() {
             password: e.target.password.value,
             customProfile: false
         }
-
-        fetch('http://localhost:4000/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
-            .then(res => {
-                if (!res.ok) {
-                    throw Error(t('signup.signup-error-msg'));
-                }
-                return res.json();
-            })
-            .then(data => {
-                setError(null);
-            })
-            .catch(err => {
-                setError(err.message);
-            })
+        const registerError = await register(user);
+        setError(registerError);
     }
+
     return (
 
         <Grid gap={3} container marginTop={5} flexDirection={'column'} justifyContent={'center'} alignItems={'center'}>

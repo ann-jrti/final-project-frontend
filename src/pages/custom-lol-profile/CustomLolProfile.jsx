@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { Grid, Box, Button, Typography, FormControl, MenuItem, Select, TextareaAutosize, TextField, Modal, InputLabel } from "@mui/material";
 import './customLolProfile.css'
 import { getBasicInfo, getLast30Matches, getThreeMostPlayedChamps, getAllGameDetails, getCurrentSeasonInfo } from "../../riot-data-management/fetches/riot-fetches";
-import { changeCustomProfileStatusInDB, createsProfileUserInDB } from "./users-utils";
+import { postProfileUser } from "./users-utils";
 import styled from "@emotion/styled";
 import { UserContext } from "../../context/user-context/user-context";
 import CustomProfileCard from "./custom-profile-card/CustomProfileCard";
 import welcomeIcon from '../../assets/emotes/mr-pengu.webp';
+import { postPlayerOffer } from "../../db-requests";
 
 const GAME_ROLES = ['Top', 'Jungle', 'Mid', 'Adc', 'Support'];
 const GAME_STYLES = ['Looking for a team', 'Looking for a duo', 'Just for casual playing']
@@ -69,7 +70,7 @@ export default function CustomLolProfile() {
         const rolesEntries = Object.entries(roles);
         const mostTimesPlayed = Math.max(...rolesPlayed);
         const mostPlayedRole = rolesEntries.find(r => r[1] === mostTimesPlayed)
-        await createsProfileUserInDB({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles }, mostPlayedRole: { mostPlayedRole }, date: { date } });
+        await postProfileUser({ stats: { mean }, infoAccount: { basicInfo }, seasonInfo: { seasonInfo }, champs: { firstThreeChampsMostPlayed }, roles: { roles }, mostPlayedRole: { mostPlayedRole }, date: { date } });
         setIsCustomProfileCreated(true);
     }
 
@@ -93,28 +94,8 @@ export default function CustomLolProfile() {
 
     const handleSubmitLFT = async (e) => {
         e.preventDefault();
-
-        const body = {
-            role,
-            playerDescription,
-            lookingFor
-        }
-        console.log(body);
-        const response = await fetch('http://localhost:4000/players-pool', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${localStorage.getItem('login-token')}`
-            },
-            body: JSON.stringify(body)
-        })
-        if (response.ok) {
-            localStorage.setItem('player-offer', true)
-        }
-        setCreateOfferResponse(response.ok ? 'Created' : 'Couldnt do it :(');
-        const results = await response.json();
-
-
+        const playerPool = await postPlayerOffer(role, playerDescripton, lookingFor);
+        setCreateOfferResponse(playerPool ? 'Created' : 'Couldnt do it :(');
     }
 
     return (
