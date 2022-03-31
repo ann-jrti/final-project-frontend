@@ -10,7 +10,7 @@ import {
   ImageListItem,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useHis } from 'react-router-dom';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function Gallery() {
@@ -81,13 +81,15 @@ export default function Gallery() {
             gap={2}
             mb={5}
           >
-            <Typography variant={'h3'} color={'success.main'}>
+            <Typography mt={2} variant={'h3'} color={'success.main'}>
               My gallery
             </Typography>
             <Button
+              sx={{ marginTop: '1rem' }}
               onClick={addNewArtwork}
               variant={'contained'}
               color="secondary"
+              size="large"
             >
               Add new artwork
             </Button>

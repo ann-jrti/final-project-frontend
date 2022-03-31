@@ -14,6 +14,7 @@ import * as tf from '@tensorflow/tfjs';
 import * as nsfwjs from 'nsfwjs';
 import sensitiveParameters from './sensitive-content-config.json';
 import styled from '@emotion/styled';
+import uploadImg from '../../assets/imgs/upload-artwork.jpg';
 
 // const StyledImg = React.memo(styled('img')`
 // filter: ${invalidImage} ? blur(5px) : blur(0px);
@@ -50,6 +51,7 @@ export default function UploadArtwork() {
       headers: headers,
     });
     navigate(`/user/my-gallery/artworks/${localStorage.getItem('email')}`);
+    // window.history.back();
   }
 
   function handleFileTitle(e) {
@@ -110,73 +112,98 @@ export default function UploadArtwork() {
     <Grid
       container
       display={'flex'}
-      flexDirection={'column'}
+      flexDirection={'row'}
       alignItems={'center'}
+      justifyContent="center"
     >
-      <Grid item display={'flex'} flexDirection={'column'} mt={5} gap={3}>
-        <Box>
-          <Typography variant={'h4'}>Upload your artwork</Typography>
-          <img
-            style={{ filter: invalidImage ? 'blur(16px)' : 'blur(0px)' }}
-            width={350}
-            id="test-img"
-            src={imgSRC}
-          ></img>
-        </Box>
-        <Box>
-          <form
-            encType="multipart/form-data"
-            onSubmit={handleFormSubmittion}
-            id="form"
-          >
-            <Input
-              type="file"
-              name="uploadedFile"
-              id="ok"
-              // value={uploadedFile}
-              onChange={handleUploadedFile}
-              required
-            />
-
-            <br />
-            <br />
-
-            <InputLabel>File title:</InputLabel>
-            <Input
-              type="text"
-              placeholder="Enter file title"
-              name="fileTitle"
-              value={fileTitle}
-              onChange={handleFileTitle}
-              required
-            />
-            <br />
-            <br />
-
-            <Button variant={'outlined'} disabled={invalidImage} type="submit">
-              Upload file
-            </Button>
-          </form>
-          <Box mt={2}>
-            <Button variant={'contained'} onClick={handleClick}>
-              Back to my Gallery
-            </Button>
+      <Grid
+        sm={6}
+        item
+        display={'flex'}
+        flexDirection={'column'}
+        mt={5}
+        gap={3}
+      >
+        <Box
+          display="flex"
+          ml={20}
+          mb={20}
+          flexDirection="column"
+          justifyContent="center"
+        >
+          <Box>
+            <Typography variant={'h4'}>Upload your artwork</Typography>
+            <img
+              style={{ filter: invalidImage ? 'blur(16px)' : 'blur(0px)' }}
+              width={350}
+              id="test-img"
+              src={imgSRC}
+            ></img>
           </Box>
+          <Box>
+            <form
+              encType="multipart/form-data"
+              onSubmit={handleFormSubmittion}
+              id="form"
+            >
+              <Input
+                type="file"
+                name="uploadedFile"
+                id="ok"
+                // value={uploadedFile}
+                onChange={handleUploadedFile}
+                required
+              />
 
-          <Grid item sm={6}>
-            <Box display="flex" mt={1}>
-              {message.length ? (
-                <Typography
-                  variant={'body1'}
-                  color={invalidImage ? 'secondary' : 'primary'}
-                >
-                  {message}
-                </Typography>
-              ) : (
-                ''
-              )}
+              <br />
+              <br />
+
+              <InputLabel>File title:</InputLabel>
+              <Input
+                type="text"
+                placeholder="Enter file title"
+                name="fileTitle"
+                value={fileTitle}
+                onChange={handleFileTitle}
+                required
+              />
+              <br />
+              <br />
+
+              <Button
+                variant={'outlined'}
+                disabled={invalidImage}
+                type="submit"
+              >
+                Upload file
+              </Button>
+            </form>
+            <Box mt={2}>
+              <Button variant={'contained'} onClick={handleClick}>
+                Back to my Gallery
+              </Button>
             </Box>
-          </Grid>
+
+            <Grid item sm={6}>
+              <Box display="flex" mt={1}>
+                {message.length ? (
+                  <Typography
+                    variant={'body1'}
+                    color={invalidImage ? 'secondary' : 'primary'}
+                  >
+                    {message}
+                  </Typography>
+                ) : (
+                  ''
+                )}
+              </Box>
+            </Grid>
+          </Box>
+        </Box>
+      </Grid>
+      <Grid item sm={6}>
+        <Box className="div-artwork" sx={{ height: '100vh' }}>
+          {/* <img className="artwork-img" src={uploadImg}></img> */}
         </Box>
       </Grid>
     </Grid>

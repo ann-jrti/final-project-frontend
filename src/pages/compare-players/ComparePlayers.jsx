@@ -26,14 +26,14 @@ export default function ComparePlayers() {
   return (
     <Grid container>
       <></>
-      <Grid item sm={6} sx={{ backgroundColor: '#c5ccda' }}>
+      <Grid item sm={6} sx={{ backgroundColor: '#e0e2e6' }}>
         <Box
           gap={1}
           display="flex"
           alignItems="center"
           flexDirection="column"
           m={3}
-          sx={{ height: '100vh' }}
+          sx={{ height: '1050px' }}
         >
           <Typography color="primary" variant="h4">
             Player 1

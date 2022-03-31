@@ -19,9 +19,9 @@ import PlayerResults from './pages/playerResultsSearch/PlayerResults';
 import Footer from './components/footer/Footer';
 import ComparePlayers from './pages/compare-players/ComparePlayers';
 import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
-
   return (
     <BrowserRouter>
       <ThemeApp>
@@ -35,13 +35,55 @@ function App() {
             <Route path="/signup" element={<SignUp />}></Route>
             <Route path="/players-pool" element={<PlayersPool />}></Route>
             <Route path="/player-results/" element={<PlayerResults />}></Route>
-            <Route path="/compare-players/" element={<ComparePlayers />}></Route>
-            <Route path="/user" element={<PrivateUserRoute><UserProfile /></PrivateUserRoute>}></Route>
-            <Route path="/user/my-lol-profile" element={<PrivateUserRoute><CustomLolProfile /></PrivateUserRoute>}></Route>
-            <Route path="/user/upload-artwork" element={<PrivateUserRoute><UploadArtwork /></PrivateUserRoute>}></Route>
-            <Route path="/user/my-gallery/artworks/:token" element={<PrivateUserRoute><Gallery /></PrivateUserRoute>}></Route>
-            <Route path="/user/my-account" element={<PrivateUserRoute><UserAccount /></PrivateUserRoute>}></Route>
-            <Route path="/privacy-policy" element ={<PrivacyPolicy></PrivacyPolicy>}></Route>
+            <Route
+              path="/compare-players/"
+              element={<ComparePlayers />}
+            ></Route>
+            <Route
+              path="/user"
+              element={
+                <PrivateUserRoute>
+                  <UserProfile />
+                </PrivateUserRoute>
+              }
+            ></Route>
+            <Route
+              path="/user/my-lol-profile"
+              element={
+                <PrivateUserRoute>
+                  <CustomLolProfile />
+                </PrivateUserRoute>
+              }
+            ></Route>
+            <Route
+              path="/user/upload-artwork"
+              element={
+                <PrivateUserRoute>
+                  <UploadArtwork />
+                </PrivateUserRoute>
+              }
+            ></Route>
+            <Route
+              path="/user/my-gallery/artworks/:token"
+              element={
+                <PrivateUserRoute>
+                  <Gallery />
+                </PrivateUserRoute>
+              }
+            ></Route>
+            <Route
+              path="/user/my-account"
+              element={
+                <PrivateUserRoute>
+                  <UserAccount />
+                </PrivateUserRoute>
+              }
+            ></Route>
+            <Route
+              path="/privacy-policy"
+              element={<PrivacyPolicy></PrivacyPolicy>}
+            ></Route>
+            <Route path="*" element={<NotFound></NotFound>}></Route>
           </Routes>
         </UserContextProvider>
       </ThemeApp>

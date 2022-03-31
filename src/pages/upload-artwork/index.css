@@ -1,7 +1,16 @@
 .gallery__user-img {
-    object-fit: cover;
+  object-fit: cover;
 }
 
+.artwork-img {
+  object-fit: cover;
+}
+
+.div-artwork {
+  background-image: url('../../assets/imgs/upload-artwork2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 /* .gallery__user-img:hover {
     cursor: pointer;
 } */

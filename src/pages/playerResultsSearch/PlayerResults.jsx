@@ -10,6 +10,8 @@ import {
   getChampByName,
   getBasicInfo,
   getCurrentSeasonInfo,
+  getLast30Matches,
+  getAllGameDetails,
 } from '../../riot-data-management/fetches/riot-fetches';
 import { champsImages } from '../../riot-data-management/img-urls';
 import poroAvatar from '../../assets/imgs/fat-poro.webp';
@@ -30,6 +32,7 @@ export default function PlayerResults({
   let [isPlaying, setIsPlaying] = useState(false);
   const [currentGame, setCurrentGame] = useState({});
   const [playerNotFound, setPlayerNotFound] = useState(false);
+  const [meanStats, setMeanStats] = useState(null);
   const [t, i18n] = useTranslation('global');
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -79,12 +82,28 @@ export default function PlayerResults({
   };
   const printPlayerCard = async () => {
     const basicInfo = await getBasicInfo(playerSearch || search);
-    console.log(basicInfo);
     if (!basicInfo) {
       setPlayerNotFound(true);
       return;
     }
+    const last10matches = await getLast30Matches(basicInfo.puuid);
+    const { numOfMatches, allGamesDetails, totalStats, roles } =
+      await getAllGameDetails(last10matches, basicInfo.encryptedId);
+
+    let mean = { ...totalStats };
+    for (const property in mean) {
+      mean[property] = mean[property] / numOfMatches;
+      if (mean[property] > 99) {
+        mean[property] = Math.round(mean[property]);
+      }
+    }
+    const rolesPlayed = Object.values(roles);
+    const rolesEntries = Object.entries(roles);
+    const mostTimesPlayed = Math.max(...rolesPlayed);
+    console.log(mean);
+    const mostPlayedRole = rolesEntries.find((r) => r[1] === mostTimesPlayed);
     console.log(basicInfo);
+
     const seasonResults = await getCurrentSeasonInfo(basicInfo.encryptedId);
     console.log(seasonResults);
 
@@ -113,6 +132,7 @@ export default function PlayerResults({
       };
 
       setSeasonResults(seasonData);
+      setMeanStats(mean);
     }
 
     const spectatorEndpoint = getCurrentPlayerGameEndpoint(
@@ -203,6 +223,14 @@ export default function PlayerResults({
             }
             losses={seasonResults !== null ? seasonResults.losses : ''}
             wins={seasonResults !== null ? seasonResults.wins : ''}
+            statWins={seasonResults !== null ? meanStats.wins.toFixed(1) : ''}
+            statKills={seasonResults !== null ? meanStats.kills.toFixed(1) : ''}
+            statAssists={
+              seasonResults !== null ? meanStats.assists.toFixed(1) : ''
+            }
+            statsDeaths={
+              seasonResults !== null ? meanStats.deaths.toFixed(1) : ''
+            }
             // hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
             playing={
               <Typography variant={'p'}>

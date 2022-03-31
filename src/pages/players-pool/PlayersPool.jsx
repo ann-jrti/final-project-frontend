@@ -91,6 +91,8 @@ export default function PlayersPool() {
     padding: '2rem',
     top: '50%',
     left: '50%',
+    maxHeight: '100vh',
+    overflowY: 'auto',
     transform: 'translate(-50%, -50%)',
     width: '80%',
     bgcolor: 'background.paper',

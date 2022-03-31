@@ -38,7 +38,7 @@ export default function InfoPlayerCard(props) {
   return (
     <>
       {/* <Grid container display={'flex'} justifyContent={'center'}> */}
-      <StyleCard>
+      <StyleCard sx={{ width: '700px' }}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -80,7 +80,7 @@ export default function InfoPlayerCard(props) {
                   {props.name}
                 </Typography>
               </Box>
-              <Divider sx={{ marginBottom: '.8rem' }} />
+              <Divider sx={{ marginBottom: '.9rem' }} />
 
               <Box
                 display="flex"
@@ -142,7 +142,6 @@ export default function InfoPlayerCard(props) {
                     </Typography>
                   </Box>
                 </Box>
-
                 <Box display="flex" justifyContent="center" gap={3}>
                   <Box
                     display="flex"
@@ -172,6 +171,90 @@ export default function InfoPlayerCard(props) {
                         {props.playing}
                       </Typography>
                     </Box>
+                  </Box>
+                </Box>
+
+                <Box
+                  display="flex"
+                  flexDirection="column"
+                  border={'1px solid gainsboro'}
+                  p={3}
+                  borderRadius={'.9rem'}
+                >
+                  <Box display="flex" justifyContent="center">
+                    <Typography
+                      variant="h5"
+                      sx={{ textOrientation: 'upright' }}
+                      color="primary"
+                      mb={1}
+                    >
+                      Average stats last 15 games
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography
+                      sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
+                    >
+                      Wins:
+                    </Typography>
+                    <Typography color="primary" sx={{ fontWeight: 'bold' }}>
+                      {props.statWins}
+                    </Typography>
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography
+                      sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
+                    >
+                      Average kills per game:
+                    </Typography>
+                    <Typography color="primary" sx={{ fontWeight: 'bold' }}>
+                      {props.statKills}
+                    </Typography>
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography
+                      sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
+                    >
+                      Average assists per game:
+                    </Typography>
+                    <Typography color="primary" sx={{ fontWeight: 'bold' }}>
+                      {props.statAssists}
+                    </Typography>
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography
+                      sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
+                    >
+                      Average deaths per game:
+                    </Typography>
+                    <Typography color="primary" sx={{ fontWeight: 'bold' }}>
+                      {props.statsDeaths}
+                    </Typography>
                   </Box>
                 </Box>
               </Box>

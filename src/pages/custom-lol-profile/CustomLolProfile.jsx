@@ -45,6 +45,7 @@ export default function CustomLolProfile() {
   const [lookingFor, setLookingFor] = useState('');
   const [createOfferResponse, setCreateOfferResponse] = useState(false);
   const [profileUpdated, setProfileUpdated] = useState(false);
+  const [profileRefreshed, setProfileRefreshed] = useState(false);
 
   const handleLFTButton = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -52,6 +53,7 @@ export default function CustomLolProfile() {
   const handleRefreshProfile = async (e) => {
     e.preventDefault();
     getProfileData(localStorage.getItem('playername'));
+    setProfileRefreshed(true);
   };
 
   const hideButton = isCustomProfileCreated ? 'none' : 'flex';
@@ -133,14 +135,16 @@ export default function CustomLolProfile() {
     if (response.ok) {
       localStorage.setItem('player-offer', true);
     }
-    setCreateOfferResponse(response.ok ? 'Created' : 'Couldnt do it :(');
+    setCreateOfferResponse(
+      response.ok ? 'Your offer have been published!' : 'Couldnt do it :('
+    );
     const results = await response.json();
   };
 
   return (
     <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
       {isCustomProfileCreated ? (
-        <Box display="flex" gap={2}>
+        <Box display="flex" flexDirection="column" gap={2}>
           <Button
             className="btn btn-offer"
             onClick={handleRefreshProfile}
@@ -148,6 +152,13 @@ export default function CustomLolProfile() {
           >
             Refresh my profile
           </Button>
+          {profileRefreshed ? (
+            <Typography color="green">
+              Your profile has been refreshed!
+            </Typography>
+          ) : (
+            ''
+          )}
         </Box>
       ) : (
         ''
@@ -238,7 +249,7 @@ export default function CustomLolProfile() {
       {isCustomProfileCreated ? (
         ''
       ) : (
-        <Grid container mt={3}>
+        <Grid container mt={3} mr={10}>
           <Grid item sm={12} mb={6} display="flex" justifyContent="center">
             <Typography variant="h4" color="primary">
               Welcome to your LoL profile stats creator

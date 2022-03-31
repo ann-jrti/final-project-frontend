@@ -1,0 +1,38 @@
+.not-found-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(241, 241, 241);
+}
+
+.not-found-msg-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 40px;
+}
+
+.not-found-img {
+  border-radius: 5px;
+  width: 400px;
+}
+
+.not-found-msg {
+  font-size: 20px;
+  letter-spacing: 0.1rem;
+  color: rgb(131, 131, 131);
+}
+
+.back-home {
+  font-size: 14px;
+  background-color: rgb(212, 54, 54);
+  padding: 15px;
+  border-radius: 4px;
+}
+
+.back-home:hover {
+  cursor: pointer;
+}

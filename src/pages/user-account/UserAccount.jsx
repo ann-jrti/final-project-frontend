@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import beeSadIcon from '../../assets/emotes/bee-sad-emote.webp';
 
 export default function UserAccount() {
   const [open, setOpen] = useState(false);
@@ -76,9 +77,11 @@ export default function UserAccount() {
                 <input placeholder="Your name"></input>
               </Grid>
             </Box> */}
-            <Typography>
-              Are you sure you want to delete your account?
-            </Typography>
+            <Box display="flex" justifyContent="center">
+              <Typography>
+                Are you sure you want to delete your account?
+              </Typography>
+            </Box>
           </form>
           <Divider sx={{ marginTop: '20px' }} color="#8d99ae" />
           <Box mt={3} display="flex" justifyContent="center">
@@ -106,13 +109,16 @@ export default function UserAccount() {
         </Grid>
 
         <Grid item sm={12} display="flex" justifyContent="center">
-          <Button
-            className="btn btn-offer"
-            onClick={handleClick}
-            variant="contained"
-          >
-            Delete my account
-          </Button>
+          <Box display="flex" flexDirection="column" gap={5}>
+            <Button
+              className="btn btn-offer"
+              onClick={handleClick}
+              variant="contained"
+            >
+              Delete my account
+            </Button>
+            <img width={200} src={beeSadIcon}></img>
+          </Box>
         </Grid>
       </Box>
       {open ? openCustomProfileModal() : ''}

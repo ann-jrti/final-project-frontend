@@ -1,9 +1,9 @@
 {
   "header": {
     "hello-world": "Hello world",
-    "search-player": "Busca un jugador",
+    "search-player": "Busca un jugador |",
     "search-player-text": "Busca las stats de un jugador",
-    "compare-players": "Compara dos jugadores",
+    "compare-players": "Compara dos jugadores |",
     "log-in": "Inicia sesión",
     "sign-up": "Regístrate",
     "dark-mode": "Modo oscuro",
