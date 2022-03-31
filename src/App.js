@@ -18,6 +18,7 @@ import PlayersPool from './pages/players-pool/PlayersPool';
 import PlayerResults from './pages/playerResultsSearch/PlayerResults';
 import Footer from './components/footer/Footer';
 import ComparePlayers from './pages/compare-players/ComparePlayers';
+import PrivacyPolicy from './pages/privacy-policy/privacy-policy';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
             <Route path="/user/upload-artwork" element={<PrivateUserRoute><UploadArtwork /></PrivateUserRoute>}></Route>
             <Route path="/user/my-gallery/artworks/:token" element={<PrivateUserRoute><Gallery /></PrivateUserRoute>}></Route>
             <Route path="/user/my-account" element={<PrivateUserRoute><UserAccount /></PrivateUserRoute>}></Route>
+            <Route path="/privacy-policy" element ={<PrivacyPolicy></PrivacyPolicy>}></Route>
           </Routes>
         </UserContextProvider>
       </ThemeApp>
