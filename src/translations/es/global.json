@@ -48,5 +48,18 @@
     "game-mode": "Modo de juego",
     "game-duration": "Lleva jugando",
     "minutes": "minutos"
+  },
+  "privacy": {
+    "title": "Política de privacidad",
+    "intro": "Esta Política de privacidad rige la forma en que porofessor.gg recopila, usa, mantiene y divulga la información recopilada de los usuarios (cada uno, un \"Usuario\") del sitio web http://ohlol.gg (\"Sitio\")",
+    "personal": "Información de identificación personal",
+    "personal-text": "Información de identificación personal Podemos recopilar información de identificación personal de los Usuarios de diversas maneras en relación con las actividades, servicios, características o recursos que ponemos a disposición en nuestro Sitio. Los usuarios pueden visitar nuestro Sitio de forma anónima. Recopilaremos información de identificación personal de los Usuarios solo si nos envían voluntariamente dicha información Los usuarios siempre pueden negarse a proporcionar información de identificación personal, excepto que puede impedirles participar en ciertas actividades relacionadas con el Sitio.",
+    "howeuse-title": "Cómo usamos la información recopilada",
+    "howeuse-text": "Podemos recopilar y utilizar la información personal de los usuarios para los siguientes propósitos:",
+    "howeuse-1": "Mostrar contenido de manera efectiva",
+    "howeuse-2": "Para personalizar la experiencia del usuario.",
+    "howeuse-3": "Mejorar nuestros productos y servicios.",
+    "contact-title": "Contacto",
+    "contact-text": "Si tiene alguna pregunta sobre esta Política de privacidad, las prácticas de este sitio o sus tratos con este sitio, comuníquese con nosotros. Este documento se actualizó por última vez el 31 de marzo de 2022"
   }
 }
