@@ -105,7 +105,7 @@ export default function PlayersPool() {
                 />
               </Box>
             </Box>
-            <Box className="see-more">Last time played: ayer</Box>
+            <Box className="see-more">Last time played: 29/03</Box>
           </Box>
         </Card>
       );
@@ -233,7 +233,13 @@ export default function PlayersPool() {
             </Typography>
           )}
         </Grid>
-        <Grid container display="flex" flexWrap="wrap" gap={3}>
+        <Grid
+          container
+          display="flex"
+          justifyContent="center"
+          flexWrap="wrap"
+          gap={3}
+        >
           {offers
             ? offers.map((offer) => (
                 <Grid item>

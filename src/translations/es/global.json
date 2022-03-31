@@ -1,50 +1,52 @@
 {
-    "header": {
-        "hello-world": "Hello world",
-        "search-player": "Busca un jugador",
-        "compare-players": "Compara dos jugadores",
-        "log-in": "Inicia sesión",
-        "sign-up": "Regístrate",
-        "dark-mode": "Modo oscuro",
-        "lang": "Idioma",
-        "avatar-profile": "Mi perfil",
-        "avatar-account": "Mi cuenta",
-        "avatar-logout": "Cerrar sesión"
+  "header": {
+    "hello-world": "Hello world",
+    "search-player": "Busca un jugador",
+    "search-player-text": "Busca las stats de un jugador",
+    "compare-players": "Compara dos jugadores",
+    "log-in": "Inicia sesión",
+    "sign-up": "Regístrate",
+    "dark-mode": "Modo oscuro",
+    "lang": "Idioma",
+    "avatar-profile": "Mi perfil",
+    "avatar-account": "Mi cuenta",
+    "avatar-logout": "Cerrar sesión"
+  },
+  "home": {
+    "search-bar": {
+      "search-player": "Escribe el nombre del jugador",
+      "search-player-text": "Busca las stats de un jugador"
     },
-    "home": {
-        "search-bar": {
-            "search-player": "Busca un jugador"
-        },
-        "slogan": "Bienvenido a cool stats"
-    },
-    "login": {
-        "welcome-message": "¡Hola de nuevo!",
-        "insert-info": "Escribe tu email y contraseña para iniciar sesión:",
-        "email": "Email",
-        "password": "Contraseña",
-        "login-button": "Iniciar sesión",
-        "login-error-msg": "El email o contraseña no es correcto. Por favor, inténtalo de nuevo."
-    },
-    "signup": {
-        "signup": "Regístrate",
-        "email": "Dirección email",
-        "name": "Nombre",
-        "password": "Contraseña",
-        "password-instructions": "La contraseña debe contener al menos una mayúscula, un número y un caracter especial.",
-        "register": "¡Regístrame!",
-        "signup-error-msg": "Email o contraseña no válido. Por favor asegúrate de que la contraseña cumple los requisitos."
-    },
-    "user-page": {
-        "greetings": "Hola ",
-        "generate-profile": "Generar mi perfil",
-        "challenge-friend": "Retar a un amigo",
-        "get-advice": "Consejos para mejorar",
-        "upload-artwork": "Mi galería de artworks"
-    },
-    "game-details": {
-        "is-playing": "está jugando",
-        "game-mode": "Modo de juego",
-        "game-duration": "Lleva jugando",
-        "minutes": "minutos"
-    }
+    "slogan": "Bienvenido a OH LOL"
+  },
+  "login": {
+    "welcome-message": "¡Hola de nuevo!",
+    "insert-info": "Escribe tu email y contraseña para iniciar sesión:",
+    "email": "Email",
+    "password": "Contraseña",
+    "login-button": "Iniciar sesión",
+    "login-error-msg": "El email o contraseña no es correcto. Por favor, inténtalo de nuevo."
+  },
+  "signup": {
+    "signup": "Regístrate",
+    "email": "Dirección email",
+    "name": "Nombre",
+    "password": "Contraseña",
+    "password-instructions": "La contraseña debe contener al menos una mayúscula, un número y un caracter especial.",
+    "register": "¡Regístrame!",
+    "signup-error-msg": "Email o contraseña no válido. Por favor asegúrate de que la contraseña cumple los requisitos."
+  },
+  "user-page": {
+    "greetings": "Hola ",
+    "generate-profile": "Generar mi perfil",
+    "challenge-friend": "Retar a un amigo",
+    "get-advice": "Consejos para mejorar",
+    "upload-artwork": "Mi galería de artworks"
+  },
+  "game-details": {
+    "is-playing": "está jugando",
+    "game-mode": "Modo de juego",
+    "game-duration": "Lleva jugando",
+    "minutes": "minutos"
+  }
 }

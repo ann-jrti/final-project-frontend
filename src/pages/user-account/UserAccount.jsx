@@ -10,11 +10,14 @@ import {
   Divider,
 } from '@mui/material';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserAccount() {
   const [open, setOpen] = useState(false);
   const handleClick = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const navigate = useNavigate();
+
   const handleSubmitEditAccount = () => {};
 
   const handleDeleteAccount = async (e) => {
@@ -31,7 +34,7 @@ export default function UserAccount() {
     console.log(response);
     const data = await response.json();
     console.log(data);
-    window.location.reload();
+    navigate('/');
   };
 
   const style = {
@@ -40,7 +43,7 @@ export default function UserAccount() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
+    width: '30%',
     bgcolor: 'background.paper',
     border: '2px solid #bd8778',
     boxShadow: 24,
@@ -55,9 +58,14 @@ export default function UserAccount() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style} display={'flex'} flexDirection={'column'}>
+        <Box
+          sx={style}
+          display={'flex'}
+          flexDirection={'column'}
+          justifyContent="center"
+        >
           <form onSubmit={handleSubmitEditAccount}>
-            <Box display="flex" gap={2}>
+            {/* <Box display="flex" gap={2}>
               <Grid item sm={12}>
                 <Typography>Edit your name</Typography>
                 <input placeholder="Your name"></input>
@@ -67,16 +75,20 @@ export default function UserAccount() {
                 <Typography>Edit your email</Typography>
                 <input placeholder="Your name"></input>
               </Grid>
-            </Box>
+            </Box> */}
+            <Typography>
+              Are you sure you want to delete your account?
+            </Typography>
           </form>
           <Divider sx={{ marginTop: '20px' }} color="#8d99ae" />
-          <Box mt={3}>
+          <Box mt={3} display="flex" justifyContent="center">
             <Button
+              variant="contained"
               display="flex"
               onClick={handleDeleteAccount}
               color="secondary"
             >
-              Delete my account
+              Yes, delete my account
             </Button>
           </Box>
         </Box>
@@ -87,30 +99,20 @@ export default function UserAccount() {
   return (
     <Grid container display="flex" justifyContent="center" alignItems="center">
       <Box display="flex" flexDirection="column" gap={5}>
-        <Grid item sm={12}>
-          <Typography variant="h2">My account</Typography>
+        <Grid item display="flex" justifyContent="center" sm={12}>
+          <Typography mt={6} variant="h2">
+            My account
+          </Typography>
         </Grid>
 
-        <Grid item sm={12}>
+        <Grid item sm={12} display="flex" justifyContent="center">
           <Button
             className="btn btn-offer"
             onClick={handleClick}
             variant="contained"
           >
-            Edit account
+            Delete my account
           </Button>
-        </Grid>
-        <Grid item sm={12}>
-          <Box>
-            <FormControl required>
-              <Typography>Cuenta</Typography>
-              <TextField
-                type="text"
-                id="username"
-                aria-describedby="my-helper-text"
-              />
-            </FormControl>
-          </Box>
         </Grid>
       </Box>
       {open ? openCustomProfileModal() : ''}

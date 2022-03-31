@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
 @font-face {
-  font-family: "FactionBlack";
-  src: local("FactionBlack"),
-   url("./fonts/faction/FactionBlack-Personal.otf") format("truetype");
+  font-family: 'FactionBlack';
+  src: local('FactionBlack'),
+    url('./fonts/faction/FactionBlack-Personal.otf') format('truetype');
   font-weight: bold;
-  }
+}
 
 @font-face {
-  font-family: "FactionOutline";
-  src: local("FactionOutline"),
-     url("./fonts/faction/FactionOutline-Personal.otf") format("truetype");
+  font-family: 'FactionOutline';
+  src: local('FactionOutline'),
+    url('./fonts/faction/FactionOutline-Personal.otf') format('truetype');
   font-weight: bold;
 }
 
@@ -19,7 +19,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 
 body {
   margin: 0;
@@ -57,10 +56,9 @@ p {
 
 } */
 
-
 .dsfasdfas {
   /* primary */
-  color: #2b2d42; 
+  color: #2b2d42;
   color: #2e2e2e;
 
   /* secondary */
@@ -78,12 +76,12 @@ p {
   /* info */
   color: #edf2f4;
   color: #3d405b;
+  color: rgb(207, 207, 207);
 
   /* success */
-  color: #2e2e2e; 
+  color: #2e2e2e;
   color: #8a8989;
 
   /* grey */
   color: rgb(192, 37, 37);
-
 }

@@ -1,50 +1,52 @@
 {
-    "header": {
-        "hello-world": "Hello world",
-        "search-player": "Search player",
-        "compare-players": "Compare players",
-        "log-in": "Log in",
-        "sign-up": "Sign up",
-        "dark-mode": "Dark mode",
-        "lang": "Language",
-        "avatar-profile": "My profile",
-        "avatar-account": "My account",
-        "avatar-logout": "Log out"
+  "header": {
+    "hello-world": "Hello world",
+    "search-player": "Search player",
+    "search-player-text": "Look for a player stats",
+    "compare-players": "Compare players",
+    "log-in": "Log in",
+    "sign-up": "Sign up",
+    "dark-mode": "Dark mode",
+    "lang": "Language",
+    "avatar-profile": "My profile",
+    "avatar-account": "My account",
+    "avatar-logout": "Log out"
+  },
+  "home": {
+    "search-bar": {
+      "search-player": "Search player",
+      "search-player-text": "Look for a player stats"
     },
-    "home": {
-        "search-bar": {
-            "search-player": "Search player"
-        },
-        "slogan": "Welcome to oh lol"
-    },
-    "login": {
-        "welcome-message": "Welcome!",
-        "insert-info": "Please log in with your email and password",
-        "email": "Email",
-        "password": "Password",
-        "login-button": "Log in",
-        "login-error-msg": "Email or password are not valid. Please try again."
-    },
-    "signup": {
-        "signup": "Sign up",
-        "email": "Email address",
-        "name": "Name",
-        "password": "Password",
-        "password-instructions": "Password must contain one capital letter, one number and one special character.",
-        "register": "Register!",
-        "signup-error-msg": "Email or password not valid. Please make sure password meet the requirements."
-    },
-    "user-page": {
-        "greetings": "Hi ",
-        "generate-profile": "Generate my player profile",
-        "challenge-friend": "Challenge a friend",
-        "get-advice": "Get advice",
-        "upload-artwork": "My artworks gallery"
-    },
-    "game-details": {
-        "is-playing": "is playing",
-        "game-mode": "Game mode",
-        "game-duration": "Playing this game for",
-        "minutes": "minutes now"
-    }
+    "slogan": "Welcome to oh lol"
+  },
+  "login": {
+    "welcome-message": "Welcome!",
+    "insert-info": "Please log in with your email and password",
+    "email": "Email",
+    "password": "Password",
+    "login-button": "Log in",
+    "login-error-msg": "Email or password are not valid. Please try again."
+  },
+  "signup": {
+    "signup": "Sign up",
+    "email": "Email address",
+    "name": "Name",
+    "password": "Password",
+    "password-instructions": "Password must contain one capital letter, one number and one special character.",
+    "register": "Register!",
+    "signup-error-msg": "Email or password not valid. Please make sure password meet the requirements."
+  },
+  "user-page": {
+    "greetings": "Hi ",
+    "generate-profile": "Generate my player profile",
+    "challenge-friend": "Challenge a friend",
+    "get-advice": "Get advice",
+    "upload-artwork": "My artworks gallery"
+  },
+  "game-details": {
+    "is-playing": "is playing",
+    "game-mode": "Game mode",
+    "game-duration": "Playing this game for",
+    "minutes": "minutes now"
+  }
 }
