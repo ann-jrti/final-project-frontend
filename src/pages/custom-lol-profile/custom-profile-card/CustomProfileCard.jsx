@@ -159,6 +159,8 @@ export default React.memo(function CustomProfileCard() {
                   <Box
                     m={2}
                     p={1.5}
+                    pl={3}
+                    pr={3}
                     flexDirection="row"
                     backgroundColor="#3d405b"
                     borderRadius={'.7rem'}
@@ -179,7 +181,10 @@ export default React.memo(function CustomProfileCard() {
                         paddingLeft: '1rem',
                       }}
                     >
-                      <img src={gameRoles[playerData.mostPlayedRole[0]]} />
+                      <img
+                        width={60}
+                        src={gameRoles[playerData.mostPlayedRole[0]]}
+                      />
                     </Box>
                     <Box>
                       <Typography
