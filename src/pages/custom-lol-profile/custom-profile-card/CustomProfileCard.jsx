@@ -4,9 +4,22 @@ import { Box, Grid, Typography, Divider } from '@mui/material';
 import poroAvatar from '../../../assets/imgs/fat-poro.webp';
 import { getUserLolAccountData } from '../../../db-requests';
 import { champsImages } from '../../../riot-data-management/img-urls';
+import adcIcon from '../../../assets/roles-icons/bottom_icon.png';
+import jungleIcon from '../../../assets/roles-icons/jungle_icon.png';
+import midIcon from '../../../assets/roles-icons/middle_icon.png';
+import supportIcon from '../../../assets/roles-icons/support_icon.png';
+import topIcon from '../../../assets/roles-icons/top_icon.png';
 
 export default React.memo(function CustomProfileCard() {
   const [playerData, setPlayerData] = useState({});
+
+  const gameRoles = {
+    top: topIcon,
+    mid: midIcon,
+    jungle: jungleIcon,
+    adc: adcIcon,
+    support: supportIcon,
+  };
 
   const getPlayerData = async () => {
     const data = await getUserLolAccountData(localStorage.getItem('email'));
@@ -118,7 +131,7 @@ export default React.memo(function CustomProfileCard() {
                   <Box>
                     <Box display="flex" marginTop={2} marginBottom={3}>
                       <Typography variant={'h5'} color="#2b2d42">
-                        MEAN STATS LAST GAMES{' '}
+                        MEAN STATS LAST 15 GAMES
                       </Typography>
                     </Box>
 
@@ -171,7 +184,6 @@ export default React.memo(function CustomProfileCard() {
 
                       <Box
                         display="flex"
-                        borderBottom={'1px solid #8d99ae'}
                         justifyContent="center"
                         flexDirection="row"
                         alignItems="center"
@@ -188,10 +200,39 @@ export default React.memo(function CustomProfileCard() {
                   </Box>
 
                   <Box>
-                    <Box>
-                      <Typography variant="body2">Main role:</Typography>
-                      <Typography sx={{ fontWeight: 'bold' }}>
-                        {playerData.mostPlayedRole[0]}
+                    <Box
+                      mt={1}
+                      p={1.5}
+                      flexDirection="column"
+                      backgroundColor="white"
+                      borderRadius={'1rem'}
+                      display="flex"
+                      gap={2}
+                      alignItems="center"
+                      variant="h5"
+                    >
+                      <Typography color="primary" variant="h6">
+                        MOST PLAYED ROLE
+                      </Typography>
+                      <Box>
+                        <img src={gameRoles[playerData.mostPlayedRole[0]]} />
+                      </Box>
+                      <Typography
+                        variant="h6"
+                        marginTop={'-1rem'}
+                        color="error"
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        {playerData.mostPlayedRole[0].toUpperCase()}
+                      </Typography>
+
+                      <Typography
+                        marginTop={'-.9rem'}
+                        sx={{ fontStyle: 'italic' }}
+                        variant="body2"
+                      >
+                        {playerData.mostPlayedRole[1]} times played in last 15
+                        games
                       </Typography>
                     </Box>
                   </Box>
