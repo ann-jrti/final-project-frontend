@@ -64,7 +64,9 @@ export default function LogIn() {
           'https://ddragon.leagueoflegends.com/cdn/10.18.1/img/profileicon/1.png'
         );
         localStorage.setItem('logged', true);
-        localStorage.setItem('playername', data.playername);
+        if (data.playername)
+          localStorage.setItem('playername', data.playername);
+
         doesPlayerHaveOfferPublished();
         // localStorage.setItem('postedOffer')
         setIsLogged(localStorage.getItem('logged'));
