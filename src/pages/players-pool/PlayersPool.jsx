@@ -14,6 +14,20 @@ import { getUserLolAccountData } from '../../db-requests';
 import { champsImages } from '../../riot-data-management/img-urls';
 import poroAvatar from '../../assets/imgs/fat-poro.webp';
 
+import adcIcon from '../../assets/roles-icons/jungle_icon.png';
+import jungleIcon from '../../assets/roles-icons/jungle_icon.png';
+import midIcon from '../../assets/roles-icons/middle_icon.png';
+import supportIcon from '../../assets/roles-icons/support_icon.png';
+import topIcon from '../../assets/roles-icons/top_icon.png';
+
+import provisionalIcon from '../..//assets/tier-icons/provisional-icon.png';
+import silverIcon from '../../assets/tier-icons/silver-icon.png';
+import goldIcon from '../../assets/tier-icons/gold-icon.png';
+import platIcon from '../../assets/tier-icons/platinum-icon.png';
+import diamondIcon from '../../assets/tier-icons/diamond-icon.png';
+import grandmasterIcon from '../../assets/tier-icons/challenger-icon.png';
+import masterIcon from '../../assets/tier-icons/master-icon.png';
+
 export default function PlayersPool() {
   const [offers, setOffers] = useState(null);
   let [summoner, setSummoner] = useState('');
@@ -23,7 +37,41 @@ export default function PlayersPool() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const formatQueueType = (str) => {
+    const formatedStr = str
+      .split('_')
+      .map(
+        (letter) =>
+          letter[0].toUpperCase() +
+          letter.substring(1, letter.length).toLowerCase()
+      )
+      .join(' ');
+    return formatedStr;
+  };
+  const tierIcons = {
+    PROVISIONAL: provisionalIcon,
+    SILVER: silverIcon,
+    GOLD: goldIcon,
+    PLATINUM: platIcon,
+    DIAMOND: diamondIcon,
+    GRANDMASTER: grandmasterIcon,
+    MASTER: masterIcon,
+  };
+  const gameRoles = {
+    top: topIcon,
+    mid: midIcon,
+    jungle: jungleIcon,
+    adc: adcIcon,
+    support: supportIcon,
+  };
 
+  const getSummonerIconUrl = (iconId) => {
+    localStorage.setItem(
+      'summoner-icon',
+      `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`
+    );
+    return `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`;
+  };
   useEffect(async () => {
     const response = await fetch('http://localhost:4000/players-pool', {
       method: 'GET',
@@ -44,7 +92,7 @@ export default function PlayersPool() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '70%',
+    width: '80%',
     bgcolor: 'background.paper',
     border: '2px solid #df1638',
     boxShadow: 24,
@@ -133,8 +181,12 @@ export default function PlayersPool() {
                   alignItems={'center'}
                 >
                   <Box>
-                    <img className="avatar-profile" src={poroAvatar}></img>
+                    <img
+                      className="avatar-profile"
+                      src={getSummonerIconUrl(playerProfile.basicInfo.iconId)}
+                    ></img>
                   </Box>
+
                   <Box
                     marginTop={'-1rem'}
                     display={'flex'}
@@ -153,34 +205,283 @@ export default function PlayersPool() {
                     >
                       {playerProfile.basicInfo.name}
                     </Typography>
-                    <Typography variant={'h4'}>
-                      Mean stats last 10 games:{' '}
-                    </Typography>
-                    <List>
-                      <ListItem>
-                        Wins: {playerProfile.mean.wins.toFixed(1)}
-                      </ListItem>
-                      <ListItem>
-                        Average kills per game:{' '}
-                        {playerProfile.mean.kills.toFixed(1)}
-                      </ListItem>
-                      <ListItem>
-                        Average assists per game:{' '}
-                        {playerProfile.mean.assists.toFixed(1)}
-                      </ListItem>
-                      <ListItem>
-                        Average deaths per game:{' '}
-                        {playerProfile.mean.deaths.toFixed(1)}
-                      </ListItem>
-                    </List>
-                    <Typography variant={'h4'}>Most played champs: </Typography>
+
+                    <Box
+                      m={2}
+                      p={1.5}
+                      flexDirection="row"
+                      backgroundColor="#3d405b"
+                      borderRadius={'.7rem'}
+                      display="flex"
+                      gap={2}
+                      alignItems="center"
+                      justifyContent="center"
+                      variant="h5"
+                    >
+                      <Box>
+                        <Typography color="white" variant="h6">
+                          MOST PLAYED ROLE
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{
+                          borderLeft: '1px solid #8d99ae',
+                          paddingLeft: '1rem',
+                        }}
+                      >
+                        <img src={gameRoles[playerProfile.mostPlayedRole[0]]} />
+                      </Box>
+                      <Box>
+                        <Typography
+                          variant="h6"
+                          color="gainsboro"
+                          sx={{ fontWeight: 'bold' }}
+                        >
+                          {playerProfile.mostPlayedRole[0].toUpperCase()}
+                        </Typography>
+                      </Box>
+
+                      <Box>
+                        <Typography
+                          color="white"
+                          sx={{ fontStyle: 'italic' }}
+                          variant="body2"
+                        >
+                          {playerProfile.mostPlayedRole[1]} times played in last
+                          15 games
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    <Box
+                      m={2}
+                      flexDirection="row"
+                      pl={2}
+                      pr={2}
+                      border="1px solid rgb(207, 207, 207)"
+                      borderRadius={'.7rem'}
+                      display="flex"
+                      gap={2}
+                      alignItems="center"
+                      justifyContent="center"
+                      variant="h5"
+                    >
+                      <Typography color="primary" variant="h6">
+                        CURRENT RANK
+                      </Typography>
+                      <img
+                        width={120}
+                        src={tierIcons[playerProfile.seasonInfo[0].tier]}
+                      />
+                      <Typography
+                        variant="h6"
+                        color="primary"
+                        sx={{ fontWeight: 'bold' }}
+                      >
+                        {playerProfile.seasonInfo[0].tier}{' '}
+                        {playerProfile.seasonInfo[0].rank}
+                      </Typography>
+                    </Box>
+
+                    {/* /* mean stats*  */}
+                    <Box display="flex" gap={3}>
+                      <Grid
+                        item
+                        pr={3}
+                        sx={{ borderRight: '1px solid rgb(207, 207, 207)' }}
+                      >
+                        <Box display="flex" marginTop={2} marginBottom={3}>
+                          <Typography variant={'h5'} color="primary">
+                            MEAN STATS LAST 15 GAMES
+                          </Typography>
+                        </Box>
+
+                        <Box display="flex" flexDirection="column" gap={2}>
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography sx={{ fontSize: '1rem' }}>
+                              Wins:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {playerProfile.mean.wins.toFixed(1)}
+                            </Typography>
+                          </Box>
+
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography sx={{ fontSize: '1rem' }}>
+                              Average kills per game:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {playerProfile.mean.kills.toFixed(1)}
+                            </Typography>
+                          </Box>
+
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography sx={{ fontSize: '1rem' }}>
+                              Average assists per game:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {playerProfile.mean.assists.toFixed(1)}
+                            </Typography>
+                          </Box>
+
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography sx={{ fontSize: '1rem' }}>
+                              Average deaths per game:
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {playerProfile.mean.deaths.toFixed(1)}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Grid>
+
+                      <Grid item>
+                        <Box
+                          display="flex"
+                          marginTop={2}
+                          marginBottom={3}
+                          justifyContent="flex-start"
+                        >
+                          <Typography variant={'h5'} color="primary">
+                            THIS SEASON DATA
+                          </Typography>
+                        </Box>
+
+                        <Box display="flex" flexDirection="column" gap={2}>
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography sx={{ fontSize: '1rem' }}>
+                              Wins
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {playerProfile.seasonInfo[0].wins}
+                            </Typography>
+                          </Box>
+
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography sx={{ fontSize: '1rem' }}>
+                              Losses
+                            </Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {playerProfile.seasonInfo[0].losses}
+                            </Typography>
+                          </Box>
+                          <Box
+                            display="flex"
+                            justifyContent="flex-start"
+                            flexDirection="row"
+                            alignItems="center"
+                            gap={1}
+                          >
+                            <Typography>Queue type:</Typography>
+                            <Typography
+                              variant="h6"
+                              color="primary"
+                              sx={{ fontWeight: 'bold' }}
+                            >
+                              {formatQueueType(
+                                playerProfile.seasonInfo[0].queueType
+                              )}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Grid>
+                    </Box>
                   </Box>
                 </Box>
               </Grid>
-
-              <Grid item display={'flex'} flexDirection={'row'} gap={1}>
-                {printThreeMostPlayedChampsCards()}
-              </Grid>
+              <Box
+                mt={4}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Box
+                  sx={{
+                    backgroundColor: '#ced5e2',
+                    padding: '2rem',
+                    borderRadius: '2rem',
+                    maxHeight: 'auto',
+                  }}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                >
+                  <Typography
+                    sx={{
+                      letterSpacing: '.3variant="h6" rem',
+                      fontWeight: 'bold',
+                    }}
+                    variant={'h4'}
+                    color="#3d405b"
+                  >
+                    MOST PLAYED CHAMPS{' '}
+                  </Typography>
+                  <Grid item display={'flex'} flexDirection={'row'} gap={3}>
+                    {printThreeMostPlayedChampsCards()}
+                  </Grid>
+                </Box>
+              </Box>
             </Box>
           </Grid>
         )}
