@@ -22,14 +22,12 @@ export default function ChangeLang() {
   };
 
   return (
-    <Box sx={{ minWidth: 80, color: 'white' }}>
+    <Box mr={3} sx={{ minWidth: 80, color: 'white' }}>
       <FormControl fullWidth>
         <InputLabel
           sx={{ color: 'white', height: '20px' }}
           id="demo-simple-select-label"
-        >
-          {t('header.lang')}
-        </InputLabel>
+        ></InputLabel>
         <Select
           sx={{ color: '#8d99ae', border: '1px solid #8d99ae' }}
           z

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import {
   Grid,
   Box,
@@ -28,6 +28,7 @@ import styled from '@emotion/styled';
 import { UserContext } from '../../context/user-context/user-context';
 import CustomProfileCard from './custom-profile-card/CustomProfileCard';
 import welcomeIcon from '../../assets/emotes/mr-pengu.webp';
+import { exportComponentAsJPEG } from 'react-component-export-image';
 
 const GAME_ROLES = ['Top', 'Jungle', 'Mid', 'Adc', 'Support'];
 const GAME_STYLES = [
@@ -46,6 +47,7 @@ export default function CustomLolProfile() {
   const [createOfferResponse, setCreateOfferResponse] = useState(false);
   const [profileUpdated, setProfileUpdated] = useState(false);
   const [profileRefreshed, setProfileRefreshed] = useState(false);
+  const componentRef = useRef();
 
   const handleLFTButton = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -142,13 +144,21 @@ export default function CustomLolProfile() {
   };
 
   return (
-    <Grid container display={'flex'} justifyContent={'center'} m={4} gap={2}>
+    <Grid
+      container
+      display={'flex'}
+      justifyContent={'center'}
+      flexDirection="column"
+      m={4}
+      gap={2}
+    >
       {isCustomProfileCreated ? (
-        <Box display="flex" flexDirection="column" gap={2}>
+        <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
           <Button
             className="btn btn-offer"
             onClick={handleRefreshProfile}
             variant="contained"
+            sx={{ width: '200px' }}
           >
             Refresh my profile
           </Button>
@@ -293,8 +303,33 @@ export default function CustomLolProfile() {
           </Grid>
         </Grid>
       )}
-
-      {isCustomProfileCreated ? <CustomProfileCard></CustomProfileCard> : ''}
+      <Box>
+        <Box display="flex" ref={componentRef}>
+          {isCustomProfileCreated ? (
+            <CustomProfileCard></CustomProfileCard>
+          ) : (
+            ''
+          )}
+        </Box>
+      </Box>
+      {isCustomProfileCreated ? (
+        <Box display="flex" justifyContent={'center'} mb={3}>
+          <Button
+            sx={{ width: '200px' }}
+            variant="contained"
+            onClick={() =>
+              exportComponentAsJPEG(componentRef, {
+                fileName: `${localStorage.getItem('playername')}-lol-profile`,
+              })
+            }
+            size={'large'}
+          >
+            Download my profile
+          </Button>
+        </Box>
+      ) : (
+        ''
+      )}
     </Grid>
   );
 }
