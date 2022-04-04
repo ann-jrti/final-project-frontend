@@ -25,7 +25,8 @@ import silverIcon from '../../assets/tier-icons/silver-icon.png';
 import goldIcon from '../../assets/tier-icons/gold-icon.png';
 import platIcon from '../../assets/tier-icons/platinum-icon.png';
 import diamondIcon from '../../assets/tier-icons/diamond-icon.png';
-import grandmasterIcon from '../../assets/tier-icons/challenger-icon.png';
+import challengerIcon from '../../assets/tier-icons/challenger-icon.png';
+import grandmasterIcon from '../../assets/tier-icons/grandmaster-icon.png';
 import masterIcon from '../../assets/tier-icons/master-icon.png';
 
 export default function PlayersPool() {
@@ -55,6 +56,7 @@ export default function PlayersPool() {
     PLATINUM: platIcon,
     DIAMOND: diamondIcon,
     GRANDMASTER: grandmasterIcon,
+    CHALLENGER: challengerIcon,
     MASTER: masterIcon,
   };
   const gameRoles = {

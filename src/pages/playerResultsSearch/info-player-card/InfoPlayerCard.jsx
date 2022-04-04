@@ -15,7 +15,8 @@ import silverIcon from '../../../assets/tier-icons/silver-icon.png';
 import goldIcon from '../../../assets/tier-icons/gold-icon.png';
 import platIcon from '../../../assets/tier-icons/platinum-icon.png';
 import diamondIcon from '../../../assets/tier-icons/diamond-icon.png';
-import grandmasterIcon from '../../../assets/tier-icons/challenger-icon.png';
+import challengerIcon from '../../../assets/tier-icons/challenger-icon.png';
+import grandmasterIcon from '../../../assets/tier-icons/grandmaster-icon.png';
 import masterIcon from '../../../assets/tier-icons/master-icon.png';
 import level50 from '../../../assets/level-icons/level_50-74.png';
 
@@ -32,6 +33,7 @@ export default function InfoPlayerCard(props) {
     PLATINUM: platIcon,
     DIAMOND: diamondIcon,
     GRANDMASTER: grandmasterIcon,
+    CHALLENGER: challengerIcon,
     MASTER: masterIcon,
   };
 
@@ -188,13 +190,16 @@ export default function InfoPlayerCard(props) {
                       color="primary"
                       mb={1}
                     >
-                      Average stats last 15 games
+                      Stats last 15 games
                     </Typography>
                   </Box>
 
                   <Box
                     display="flex"
-                    justifyContent="center"
+                    justifyContent="flex-start"
+                    marginLeft={'12.5rem'}
+                    borderLeft={'1px solid gainsboro'}
+                    paddingLeft={'.5rem'}
                     flexDirection="row"
                     alignItems="center"
                     gap={1}
@@ -202,7 +207,7 @@ export default function InfoPlayerCard(props) {
                     <Typography
                       sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
                     >
-                      Wins:
+                      Average wins:
                     </Typography>
                     <Typography color="primary" sx={{ fontWeight: 'bold' }}>
                       {props.statWins}
@@ -210,7 +215,10 @@ export default function InfoPlayerCard(props) {
                   </Box>
                   <Box
                     display="flex"
-                    justifyContent="center"
+                    justifyContent="flex-start"
+                    marginLeft={'12.5rem'}
+                    borderLeft={'1px solid gainsboro'}
+                    paddingLeft={'.5rem'}
                     flexDirection="row"
                     alignItems="center"
                     gap={1}
@@ -218,7 +226,7 @@ export default function InfoPlayerCard(props) {
                     <Typography
                       sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
                     >
-                      Average kills per game:
+                      Average kills:
                     </Typography>
                     <Typography color="primary" sx={{ fontWeight: 'bold' }}>
                       {props.statKills}
@@ -226,7 +234,10 @@ export default function InfoPlayerCard(props) {
                   </Box>
                   <Box
                     display="flex"
-                    justifyContent="center"
+                    justifyContent="flex-start"
+                    marginLeft={'12.5rem'}
+                    borderLeft={'1px solid gainsboro'}
+                    paddingLeft={'.5rem'}
                     flexDirection="row"
                     alignItems="center"
                     gap={1}
@@ -234,7 +245,7 @@ export default function InfoPlayerCard(props) {
                     <Typography
                       sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
                     >
-                      Average assists per game:
+                      Average assists:
                     </Typography>
                     <Typography color="primary" sx={{ fontWeight: 'bold' }}>
                       {props.statAssists}
@@ -242,7 +253,10 @@ export default function InfoPlayerCard(props) {
                   </Box>
                   <Box
                     display="flex"
-                    justifyContent="center"
+                    justifyContent="flex-start"
+                    marginLeft={'12.5rem'}
+                    borderLeft={'1px solid gainsboro'}
+                    paddingLeft={'.5rem'}
                     flexDirection="row"
                     alignItems="center"
                     gap={1}
@@ -250,10 +264,50 @@ export default function InfoPlayerCard(props) {
                     <Typography
                       sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
                     >
-                      Average deaths per game:
+                      Average deaths:
                     </Typography>
                     <Typography color="primary" sx={{ fontWeight: 'bold' }}>
                       {props.statsDeaths}
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    marginLeft={'12.5rem'}
+                    borderLeft={'1px solid gainsboro'}
+                    paddingLeft={'.5rem'}
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography
+                      sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
+                    >
+                      Average gold earned:
+                    </Typography>
+                    <Typography color="primary" sx={{ fontWeight: 'bold' }}>
+                      {props.statsGold}
+                    </Typography>
+                  </Box>
+
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    marginLeft={'12.5rem'}
+                    borderLeft={'1px solid gainsboro'}
+                    paddingLeft={'.5rem'}
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography
+                      sx={{ fontSize: '.9rem', letterSpacing: '.1rem' }}
+                    >
+                      Average damage dealt:
+                    </Typography>
+                    <Typography color="primary" sx={{ fontWeight: 'bold' }}>
+                      {props.statsDamage}
                     </Typography>
                   </Box>
                 </Box>

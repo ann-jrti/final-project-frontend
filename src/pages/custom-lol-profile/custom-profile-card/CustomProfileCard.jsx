@@ -15,7 +15,8 @@ import silverIcon from '../../../assets/tier-icons/silver-icon.png';
 import goldIcon from '../../../assets/tier-icons/gold-icon.png';
 import platIcon from '../../../assets/tier-icons/platinum-icon.png';
 import diamondIcon from '../../../assets/tier-icons/diamond-icon.png';
-import grandmasterIcon from '../../../assets/tier-icons/challenger-icon.png';
+import challengerIcon from '../../../assets/tier-icons/challenger-icon.png';
+import grandmasterIcon from '../../../assets/tier-icons/grandmaster-icon.png';
 import masterIcon from '../../../assets/tier-icons/master-icon.png';
 
 export default React.memo(function CustomProfileCard() {
@@ -27,6 +28,7 @@ export default React.memo(function CustomProfileCard() {
     PLATINUM: platIcon,
     DIAMOND: diamondIcon,
     GRANDMASTER: grandmasterIcon,
+    CHALLENGER: challengerIcon,
     MASTER: masterIcon,
   };
   const gameRoles = {
@@ -247,7 +249,7 @@ export default React.memo(function CustomProfileCard() {
                     >
                       <Box display="flex" marginTop={2} marginBottom={3}>
                         <Typography variant={'h5'} color="primary">
-                          MEAN STATS LAST 15 GAMES
+                          YOUR STATS FROM LAST 15 GAMES
                         </Typography>
                       </Box>
 
@@ -260,7 +262,7 @@ export default React.memo(function CustomProfileCard() {
                           gap={1}
                         >
                           <Typography sx={{ fontSize: '1rem' }}>
-                            Wins:
+                            Average wins:
                           </Typography>
                           <Typography
                             variant="h6"
@@ -279,7 +281,7 @@ export default React.memo(function CustomProfileCard() {
                           gap={1}
                         >
                           <Typography sx={{ fontSize: '1rem' }}>
-                            Average kills per game:
+                            Average kills:
                           </Typography>
                           <Typography
                             variant="h6"
@@ -298,7 +300,7 @@ export default React.memo(function CustomProfileCard() {
                           gap={1}
                         >
                           <Typography sx={{ fontSize: '1rem' }}>
-                            Average assists per game:
+                            Average assists:
                           </Typography>
                           <Typography
                             variant="h6"
@@ -317,7 +319,7 @@ export default React.memo(function CustomProfileCard() {
                           gap={1}
                         >
                           <Typography sx={{ fontSize: '1rem' }}>
-                            Average deaths per game:
+                            Average deaths:
                           </Typography>
                           <Typography
                             variant="h6"
@@ -325,6 +327,44 @@ export default React.memo(function CustomProfileCard() {
                             sx={{ fontWeight: 'bold' }}
                           >
                             {playerData.mean.deaths.toFixed(1)}
+                          </Typography>
+                        </Box>
+
+                        <Box
+                          display="flex"
+                          justifyContent="flex-start"
+                          flexDirection="row"
+                          alignItems="center"
+                          gap={1}
+                        >
+                          <Typography sx={{ fontSize: '1rem' }}>
+                            Average gold earned:
+                          </Typography>
+                          <Typography
+                            variant="h6"
+                            color="primary"
+                            sx={{ fontWeight: 'bold' }}
+                          >
+                            {playerData.mean.goldEarned.toFixed(0)}
+                          </Typography>
+                        </Box>
+
+                        <Box
+                          display="flex"
+                          justifyContent="flex-start"
+                          flexDirection="row"
+                          alignItems="center"
+                          gap={1}
+                        >
+                          <Typography sx={{ fontSize: '1rem' }}>
+                            Average damage dealt:
+                          </Typography>
+                          <Typography
+                            variant="h6"
+                            color="primary"
+                            sx={{ fontWeight: 'bold' }}
+                          >
+                            {playerData.mean.damageDealt.toFixed(0)}
                           </Typography>
                         </Box>
                       </Box>
@@ -338,10 +378,26 @@ export default React.memo(function CustomProfileCard() {
                         justifyContent="flex-start"
                       >
                         <Typography variant={'h5'} color="primary">
-                          THIS SEASON DATA
+                          YOUR SEASON DATA
                         </Typography>
                       </Box>
-
+                      <Box
+                        display="flex"
+                        justifyContent="flex-start"
+                        flexDirection="row"
+                        alignItems="center"
+                        gap={1}
+                        mb={2}
+                      >
+                        <Typography>Queue:</Typography>
+                        <Typography
+                          variant="h6"
+                          color="primary"
+                          sx={{ fontWeight: 'bold' }}
+                        >
+                          {formatQueueType(playerData.seasonInfo[0].queueType)}
+                        </Typography>
+                      </Box>
                       <Box display="flex" flexDirection="column" gap={2}>
                         <Box
                           display="flex"
@@ -351,7 +407,7 @@ export default React.memo(function CustomProfileCard() {
                           gap={1}
                         >
                           <Typography sx={{ fontSize: '1rem' }}>
-                            Wins
+                            Wins:
                           </Typography>
                           <Typography
                             variant="h6"
@@ -370,7 +426,7 @@ export default React.memo(function CustomProfileCard() {
                           gap={1}
                         >
                           <Typography sx={{ fontSize: '1rem' }}>
-                            Losses
+                            Losses:
                           </Typography>
                           <Typography
                             variant="h6"
@@ -378,24 +434,6 @@ export default React.memo(function CustomProfileCard() {
                             sx={{ fontWeight: 'bold' }}
                           >
                             {playerData.seasonInfo[0].losses}
-                          </Typography>
-                        </Box>
-                        <Box
-                          display="flex"
-                          justifyContent="flex-start"
-                          flexDirection="row"
-                          alignItems="center"
-                          gap={1}
-                        >
-                          <Typography>Queue type:</Typography>
-                          <Typography
-                            variant="h6"
-                            color="primary"
-                            sx={{ fontWeight: 'bold' }}
-                          >
-                            {formatQueueType(
-                              playerData.seasonInfo[0].queueType
-                            )}
                           </Typography>
                         </Box>
                       </Box>

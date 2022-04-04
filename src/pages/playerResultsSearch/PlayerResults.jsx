@@ -231,6 +231,12 @@ export default function PlayerResults({
             statsDeaths={
               seasonResults !== null ? meanStats.deaths.toFixed(1) : ''
             }
+            statsGold={
+              seasonResults !== null ? Math.round(meanStats.goldEarned) : ''
+            }
+            statsDamage={
+              seasonResults !== null ? Math.round(meanStats.damageDealt) : ''
+            }
             // hotstreak={seasonResults.hotStreak ? 'In a hot streak!' : ''}
             playing={
               <Typography variant={'p'}>

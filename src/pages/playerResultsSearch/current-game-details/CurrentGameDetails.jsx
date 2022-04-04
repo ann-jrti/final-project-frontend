@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, Typography, Modal, Image } from '@mui/material';
+import { Box, Button, Typography, Modal, Image, Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import styled from '@emotion/styled';
 
@@ -16,9 +16,8 @@ const style = {
 };
 
 const StyledModal = styled(Modal)`
-max-width: 400px;
-
-`
+  max-width: 400px;
+`;
 
 export default function CurrentGameDetails(props) {
   const [t, i18n] = useTranslation('global');
@@ -26,10 +25,16 @@ export default function CurrentGameDetails(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-
   return (
-    <div >
-      <Button onClick={handleOpen} variant={'contained'} size='small' color='warning'>Open to see game details</Button>
+    <div>
+      <Button
+        onClick={handleOpen}
+        variant={'contained'}
+        size="small"
+        color="warning"
+      >
+        Open to see game details
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -49,7 +54,8 @@ export default function CurrentGameDetails(props) {
           </Typography> */}
 
           <Typography variant="h6" component="h2">
-            {t('game-details.game-duration')} {props.gameTime} {t('game-details.minutes')}
+            {t('game-details.game-duration')} {props.gameTime}{' '}
+            {t('game-details.minutes')}
           </Typography>
           <img width={'600'} src={props.image} alt={'champ image'}></img>
         </Box>
