@@ -12,12 +12,13 @@ import {
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
+import { register } from '../../db-requests';
 
 export default function SignUp() {
   const [t, i18n] = useTranslation('global');
   const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user = {
@@ -27,31 +28,10 @@ export default function SignUp() {
       password: e.target.password.value,
       customProfile: false,
     };
-
-    fetch('http://localhost:4000/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.log('throwing error');
-          throw Error(t('signup.signup-error-msg'));
-          return;
-        } else {
-          return;
-        }
-      })
-      .then((data) => {
-        setError('Success! User created please confirm your email');
-      })
-      .catch((err) => {
-        console.log('something tthrew');
-        setError(err.message);
-      });
+    const registerError = await register(user);
+    setError(registerError);
   };
+
   return (
     <Grid
       gap={3}

@@ -8,9 +8,8 @@ import {
   Box,
   List,
   ListItem,
-  Divider,
 } from '@mui/material';
-import { getUserLolAccountData } from '../../db-requests';
+import { getPlayersPool, getUserLolAccountData } from '../../db-requests';
 import { champsImages } from '../../riot-data-management/img-urls';
 import poroAvatar from '../../assets/imgs/fat-poro.webp';
 
@@ -75,19 +74,9 @@ export default function PlayersPool() {
     return `https://ddragon.leagueoflegends.com/cdn/12.6.1/img/profileicon/${iconId}.png`;
   };
   useEffect(async () => {
-    const response = await fetch('http://localhost:4000/players-pool', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `bearer ${localStorage.getItem('login-token')}`,
-      },
-    });
-
-    const data = await response.json();
-    console.log(data);
-    setOffers(data);
+    const playersPool = await getPlayersPool();
+    setOffers(playersPool);
   }, []);
-
   const style = {
     position: 'absolute',
     padding: '2rem',
