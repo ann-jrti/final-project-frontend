@@ -29,3 +29,5 @@ Populate your personal gallery all the artworks and fanart you have created it.
 Want to play with some other players? You can publish an offer in the players pool billboard with your request. Just select the role you play, your gamestyle and some brief description!
 
 
+[Link to my backend repo](https://github.com/ann-jrti/final-project-backend)
+
