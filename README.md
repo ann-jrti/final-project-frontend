@@ -1,7 +1,8 @@
 # OH LOL
 ## Get key stats of rankeds of any active League Of Legends player in the EUW region!
 
-https://user-images.githubusercontent.com/84371647/162221198-bc30f102-41a9-4b0c-8017-0b13097856ea.mp4
+
+https://user-images.githubusercontent.com/84371647/162678888-46398c69-7e40-4304-a231-a438cd7c51ee.mp4
 
 
 Main dependencies used in the project:
